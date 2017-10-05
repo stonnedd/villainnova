@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, Nav, NavController } from 'ionic-angular';
 
+
 @IonicPage()
 @Component({
   selector: 'page-menu',
@@ -10,7 +11,8 @@ export class MenuPage {
   // A reference to the ion-nav in our component
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = 'ContentPage';
+  rootPage: any = 'HomePage';
+  
 
   pages: Array<{ title: string, component: any }>;
 
@@ -20,6 +22,9 @@ export class MenuPage {
       { title: 'Sign in', component: 'LoginPage' },
       { title: 'Signup', component: 'SignupPage' }
     ];
+
+    
+
   }
 
   ionViewDidLoad() {

@@ -1,3 +1,27 @@
 page-settings {
+    
+    
+    .settings{
+        background-color: white !important;
 
+    }
+
+    h1.settings{
+        color: black;
+    }
+    
+    h1{
+        text-align: center;
+        color: #373434;
+        text-transform: uppercase;
+        font-size: medium;
+        font-weight: bold;
+    }
+
+
+    $colors: (
+        primary:    #394CAC,
+        
+
+    );
 }

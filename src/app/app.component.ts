@@ -3,28 +3,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Config, Nav, Platform } from 'ionic-angular';
-
 import { FirstRunPage } from '../pages/pages';
 import { Settings } from '../providers/providers';
+import {ParallaxLayout1} from '../components/parallax/layout-1/parallax-layout-1';
+import {ElasticHeader} from '../components/parallax/elastic-header';
 
 @Component({
-  template: `<ion-menu [content]="content">
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Pages</ion-title>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content>
-      <ion-list>
-        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-          {{p.title}}
-        </button>
-      </ion-list>
-    </ion-content>
-
-  </ion-menu>
-  <ion-nav #content [root]="rootPage"></ion-nav>`
+  selector:'menu',
+  templateUrl:'app.html'
 })
 export class MyApp {
   rootPage = FirstRunPage;
@@ -32,6 +18,13 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   pages: any[] = [
+    { title:'Inicio', component:'AutoservicePage',icon:'icon-home-variant' },
+    { title: 'Perfil', component: 'ProfilePage', icon:'icon-account-box'},
+    //{ title: 'Asistencia', component: 'AutoservicePage', icon:'build'},
+    { title: 'Gasolineras', component: 'ProfilePage', icon:'ios-car'},
+    //{ title: 'Grúas', component: 'ProfilePage', icon:'icon-truck'},
+    { title: 'Productos', component: 'ProfilePage', icon:'md-list-box'},
+    /*
     { title: 'Tutorial', component: 'TutorialPage' },
     { title: 'Welcome', component: 'WelcomePage' },
     { title: 'Tabs', component: 'TabsPage' },
@@ -43,10 +36,14 @@ export class MyApp {
     { title: 'Master Detail', component: 'ListMasterPage' },
     { title: 'Menu', component: 'MenuPage' },
     { title: 'Settings', component: 'SettingsPage' },
-    { title: 'Search', component: 'SearchPage' }
+    { title: 'Search', component: 'SearchPage' }//*/
+    
   ]
 
-  constructor(private translate: TranslateService, private platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen) {
+  constructor(private translate: TranslateService,
+      private platform: Platform, settings: Settings, 
+      private config: Config, private statusBar: StatusBar, 
+      private splashScreen: SplashScreen) {
     this.initTranslate();
   }
 
@@ -66,7 +63,7 @@ export class MyApp {
     if (this.translate.getBrowserLang() !== undefined) {
       this.translate.use(this.translate.getBrowserLang());
     } else {
-      this.translate.use('en'); // Set your language here
+      this.translate.use('es'); // Set your language here
     }
 
     this.translate.get(['BACK_BUTTON_TEXT']).subscribe(values => {
