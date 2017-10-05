@@ -1,0 +1,31 @@
+  <ion-header style="height:0px" >
+  <ion-navbar style="height:5px">
+      <!--<ion-grid>
+        <ion-row > 
+          <ion-col>
+              <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>        
+          </ion-col>
+          <ion-col>
+            <br><ion-title>Asistencia</ion-title>
+          </ion-col>
+          <ion-col >
+              <button ion-button icon-only clear float-right (click)=showSettings($event)><ion-icon name="settings" style="color:white"></ion-icon></button>         
+          </ion-col>
+        </ion-row>
+      </ion-grid>-->
+      <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>        
+      <ion-title>Asistencia<ion-icon name="settings" float-right (click)=showSettings($event) class="icon-size" ></ion-icon></ion-title>
+  </ion-navbar>
+</ion-header>
+<maps-layout-1
+  [data]="params.data"
+  [events]="params.events"
+  [userData]="params.userData"
+  [services]="params.services"
+  [suppliers]="params.suppliers"
+  [mapData]="params.mapData"
+  (onMarkerService)="onMarkerService($event)"
+  (serviceIsSelected)="serviceIsSelected($event)">
+</maps-layout-1>
+
+

@@ -1,0 +1,43 @@
+<!--Theme Full Image Cards-->
+<ion-content has-header>
+  <!--<ion-grid no-padding>
+    <ion-row>
+      <ion-col col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 *ngFor="let item of data.items;let i = index" style="height:120px">
+        <ion-card padding text-center class="card card-md" (click)="onEvent('onItemClick', item, $event)" >
+          <div card-content style="height:100px">
+          <img images-filter src="{{item.image}}" style="height:100px" />
+          <div card-title>{{item.title}}</div>
+          <div card-subtitle>{{item.subtitle}}</div>
+        </div>
+        </ion-card>
+        <button ion-button round color="categories">{{item.title}}</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>-->
+
+  <ion-grid no-padding id="bgGrad">
+      <br><br><br>
+    <ion-row > 
+      <ion-col col-6 col-md-6 col-xl-3 *ngFor="let item of data.items;let i = index" >
+          <ion-card padding text-center (click)="onEvent('onItemClick', item, $event)" no-padding style="background-color:transparent">
+              <img src="{{item.image}}"  style="align-items: center" />
+              <ion-card-content>
+                <p style="color:whitesmoke; font-size:medium">
+                  <Strong>{{item.title}}</Strong>
+                </p>
+              </ion-card-content>
+          </ion-card>
+          <br><br>
+      </ion-col>
+    </ion-row>
+  </ion-grid> 
+
+
+
+</ion-content>
+
+<!--<ion-fab #fab bottom right>
+  <button button-ion-fab ion-fab (click)="onEvent('onFab', data, $event)">
+    <ion-icon name="add"></ion-icon>
+  </button>
+</ion-fab>-->
