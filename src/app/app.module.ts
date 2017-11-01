@@ -18,13 +18,13 @@ import { MyApp } from './app.component';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-// import {ParallaxLayout1} from '../components/parallax/layout-1/parallax-layout-1';
-//import {ElasticHeader} from '../components/parallax/elastic-header';
-// import {HomePage} from '../pages/home/home';
-import {HomePageModule} from '../pages/home/home.module'
-import {AutoservicePageModule} from '../pages/autoservice/autoservice.module'
-import {AutoserviceService} from '../service/autoservice-service'
-import {SettingsPageModule} from '../pages/settings/settings.module'
+import { HomePageModule} from '../pages/home/home.module'
+import { AutoservicePageModule} from '../pages/autoservice/autoservice.module'
+import { AutoserviceService} from '../service/autoservice-service'
+import { SettingsPageModule} from '../pages/settings/settings.module'
+import { SupplierDetailPageModule} from '../pages/supplier-detail/supplier-detail.module'
+import { Ionic2RatingModule } from 'ionic2-rating';
+
 export const firebaseConfig = {
   apiKey: "AIzaSyBdQOPM3re7vBFNTEspKM7G0vzKH7ub6H8",
   authDomain: "villainova-app.firebaseapp.com",
@@ -33,7 +33,6 @@ export const firebaseConfig = {
   storageBucket: "villainova-app.appspot.com",
   messagingSenderId: "1297766976"
 }
-
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -78,7 +77,9 @@ export function provideSettings(storage: Storage) {
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     HomePageModule,
-    SettingsPageModule
+    SettingsPageModule,
+    SupplierDetailPageModule,
+    Ionic2RatingModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -1,112 +1,32 @@
-<!--Content -->
-<ion-content elastic-header has-header>
+
+<ion-content  has-header>
   
   <ion-grid no-padding class="option-service">
-    <ion-item style="height:50px" class="option-service" > 
+    <ion-item style="height:45px" class="option-service" > 
       <ion-label for="services"><ion-icon  item-left name="build"></ion-icon>Servicios</ion-label>
-      <ion-select id="services" requiered  [(ngModel)]="selectedService" (ionChange)="svcSelected()" multiple="true" >
-        <ion-option *ngFor="let service of services | orderBy : '+'" [value]="service" >{{service}} </ion-option>
+      <ion-select id="services" requiered  [(ngModel)]="selectedService" 
+      (ionChange)="svcSelected()" 
+      multiple="true" 
+      cancelText="Atras">
+        <ion-option *ngFor="let mainService of mainServices" [value]="mainService">{{mainService}} </ion-option>
+        <ion-option *ngFor="let service of services | orderBy : '+'" [value]="service">{{service}} </ion-option>
       </ion-select>
     </ion-item>
   </ion-grid>
   
-  <div id="elastic-header">
-    <sebm-google-map [latitude]="mapData.lat" [longitude]="mapData.lng" [zoom]="mapZoom" [mapTypeControl]=true [streetViewControl]=true 
-    [style.height]="markerSelected ? '240px':'500px' ">
-      <sebm-google-map-marker *ngFor="let supplier of suppliers"  
-        [latitude]="supplier.lat" 
-        [longitude]="supplier.lng" 
-        [label]="supplier.markLabel"
-        (markerClick)="onEvent('onMarker', supplier)"
-        [iconUrl]="supplier.iconUrl">
-      </sebm-google-map-marker>
-      <sebm-google-map-marker [iconUrl]="userData.userPos.iconUrl" [latitude]="userData.userPos.lat" [longitude]="userData.userPos.lng"></sebm-google-map-marker>
-    </sebm-google-map>
-  </div>
+  <sebm-google-map [latitude]="mapData.lat" [longitude]="mapData.lng" [zoom]="mapZoom" [mapTypeControl]=true [streetViewControl]=true>
+    <sebm-google-map-marker *ngFor="let supplier of suppliers"  
+      [latitude]="supplier.lat" 
+      [longitude]="supplier.lng" 
+      [label]="supplier.markLabel"
+      (markerClick)="onEvent('onMarker',supplier)"
+      [iconUrl]="'../assets/mapicons/'+supplier.map_icon">
+    </sebm-google-map-marker>
+    <sebm-google-map-marker [iconUrl]="userData.userPos.iconUrl" [latitude]="userData.userPos.lat" [longitude]="userData.userPos.lng"></sebm-google-map-marker>
+  </sebm-google-map>
+  
+  <ion-fab bottom left>
+      <button ion-fab color="locate" mini><ion-icon name="md-locate"></ion-icon></button>
+    </ion-fab>
 
-  <div [hidden]="serviceSelected"> 
-    <ion-grid no-padding>
-      <ion-item style="text-align:center; height:45px; background-color:rgba(112, 183, 250, 0.91)"  >
-        <ion-card-header><h2 style="color:white">Selecciona un servicio <ion-icon name="build"></ion-icon> </h2> </ion-card-header>
-      </ion-item>
-    </ion-grid> 
-  </div>
-  <div [hidden]="!supplierSelected"> 
-      <ion-item style="text-align:center; height:45px; background-color:rgba(112, 183, 250, 0.91)"  >
-        <ion-card-header><h2 style="color:white">Selecciona {{labelService}} <ion-icon name="build"></ion-icon> </h2> </ion-card-header>
-      </ion-item>
-  </div>
-  <div [hidden]="!markerSelected">
-    <ion-grid no-padding>
-      <ion-row>
-        <ion-col col-12 map-header>
-            <ion-item no-lines transparent style="height:160px">
-              <ion-icon name='ios-arrow-dropdown-outline' style="color:azure" (click)="svcSelected()"></ion-icon>
-                <h1 maps-title margin-top>{{data.title}}</h1>
-                <h2 maps-subtitle>{{data.titleDescription}}</h2>
-              <!--Parallax Rateing-->
-              <ion-icon  white *ngFor="let item of data.iconsStars;let i = index" (click)="onStarClass(data.iconsStars, i, $event)">
-                <i icon-medium *ngIf="item.isActive" class="icon {{item.iconActive}}"></i>
-                <i icon-medium *ngIf="!item.isActive" class="icon {{item.iconInactive}}"></i>
-              </ion-icon>
-              <p>{{data.reviews}}</p>
-              
-             <!-- <div white social right>
-                <ion-icon (click)="onEvent('onLike', data)">
-                  <i class="icon icon-thumb-up"></i>
-                </ion-icon>
-                <ion-icon (click)="onEvent('onFavorite', data)">
-                  <i class="icon icon-heart"></i>
-                </ion-icon>
-                <ion-icon (click)="onEvent('onShare', data)">
-                  <i class="icon icon-share-variant"></i>
-                </ion-icon>
-              </div>-->
-            </ion-item>
-          </ion-col>
-          <!---Content-->
-          <ion-col col-12 map-content transparent>
-            <ion-item padding no-lines padding-left>
-              <h2 title>{{data.contentTitle}}</h2>
-              <p maps-description text-wrap>{{data.contentDescription}}</p>
-            </ion-item>
-            </ion-col>
-            <!---Content Info-->
-            <ion-col col-12 map-content>
-              <ion-list info>
-              <ion-item no-lines padding-left>
-                <ion-icon item-left icon-small>
-                  <i class="icon icon-map-marker-radius"></i>
-                </ion-icon>
-                <p no-margin maps-description>{{data.address}}</p>
-              </ion-item>
-              <ion-item no-lines padding-left>
-                <ion-icon item-left icon-small>
-                  <i class="icon icon-alarm"></i>
-                </ion-icon>
-                <p no-margin maps-description>{{data.schedule}}</p>
-              </ion-item>
-              <ion-item no-lines padding-left>
-                <ion-icon item-left icon-small>
-                  <i class="icon icon-phone"></i>
-                </ion-icon>
-                <p no-margin maps-description>{{data.phone}}</p>
-              </ion-item>
-              <ion-item no-lines padding-left>
-                <ion-icon item-left icon-small>
-                  <i class="icon icon-earth"></i>
-                </ion-icon>
-                <p no-margin maps-description>{{data.website}}</p>
-              </ion-item>
-              <ion-item no-lines padding-left>
-                <ion-icon item-left icon-small>
-                    <i class="icon icon-email-outline"></i>
-                </ion-icon>
-                <p no-margin maps-description>{{data.email}}</p>
-              </ion-item>
-            </ion-list>
-            </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
 </ion-content>

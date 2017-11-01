@@ -34,6 +34,12 @@
 //  Default Overview Ionic
 //////////////////////////////////////////////////
 
+.app-root{
+  margin:0% !important;
+
+}
+
+
 [no-margin] {
   margin: 0 !important;
 }
@@ -44,7 +50,6 @@ $item-ios-avatar-size : 60px;
 // Size Avatar
 $item-md-thumbnail-size: 120px;
 $item-ios-thumbnail-size: 120px;
-
 
 // Font Style
 @import "open-sans";
@@ -93,7 +98,6 @@ $palettes: (
         accent:   #eae4da, //Used for icon-search-bar, loaders-spinners, checkbox-item, icon, button, span, input-field-icons
         //accent-first: #00c0e8,
         accent-first: #0059A1,
-        
         //accent-other: #00bee4, // Used for gradient
         accent-other: #d95454, // Used for gradient
         
@@ -624,7 +628,7 @@ $searchbar-md-input-clear-icon-color: theme-colors('textColors', 'secondary');
       margin-bottom: 0 !important;
     }
     [has-header] .scroll-content {
-      top: 55px;
+      top: 48px;
     }
 
     [header-bcg] {

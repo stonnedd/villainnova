@@ -1,6 +1,7 @@
-<ion-menu [content]="content" style="width:230px" style="background-color:#f0ede6" >
+
+<ion-menu [content]="content" style="background-color:#f0ede6" >
   <ion-header >
-    <div menuClose   class="header-background-image" (click)="openPage({ title:'Inicio', component:'HomePage'})"
+    <div menuClose  class="header-background-image" (click)="openPage({ title:'Inicio', component:'AutoservicePage'})"
      style="background-color:#eae4da" >
      <ion-grid>
        <ion-row>
@@ -8,23 +9,23 @@
           <img src="assets/images/logo/main-logo.png" style="width:100px;" >
          </ion-col>
          <ion-col col-8>
-           <br><img src="assets/images/logo/autocar.png" style="width:100px;" >
+           <br><img src="assets/images/logo/autocar.png"  >
           </ion-col>
        </ion-row>
      </ion-grid>
       <!--<h1 item-title text-center> <strong> Aquí va el nombre</strong></h1>-->
     </div>
   </ion-header>
-  <ion-content color="primary" style="background-color:#f0ede6" >
+  <ion-content color="primary" style="background-color:#f0ede6" class="menuBackground" >
     <ion-list no-margin >
       <button menuClose paddinge-left ion-item no-lines item-title main-menu
-        *ngFor="let p of pages" (click)="openPage(p)" style="height: 50px; background-color:#f0ede6">
+        *ngFor="let p of pages" (click)="openPage(p)" style="height: 50pxx; background-color:#f0ede6">
         <ion-icon icon-small item-left name="{{p.icon}}">
           <i class="icon {{p.icon}}"></i>
         </ion-icon>
-        {{p.title}}
+        <strong>{{p.title}}</strong>
       </button>
     </ion-list>
   </ion-content>
 </ion-menu>
-<ion-nav #content [root]="rootPage"></ion-nav>
+<ion-nav #content [root]="rootPage" style="margin:0% !important"></ion-nav>

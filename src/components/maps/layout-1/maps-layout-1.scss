@@ -1,17 +1,27 @@
 maps-layout-1 {
+  
   .sebm-google-map-container {
-    height: 100%;
+    height: 95%;
   }
+
   [map-header] ion-item {
     text-align: center;
     p {
       color: theme-colors('textColors', 'primary') !important;
     }
   }
-
   .option-service{
     background-color: white !important;
-
+  }
+  .m-service{
+    border: 1px solid;
+    border-bottom: 1px;
+    border-bottom-color: red;
+  }
+  .m-service li ul{
+    border: 1px solid;
+    border-bottom: 1px;
+    border-bottom-color: #3A1010;
   }
 
 }

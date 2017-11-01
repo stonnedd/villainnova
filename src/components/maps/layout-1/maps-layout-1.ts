@@ -1,9 +1,12 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-
+import { Component, Input, Output, EventEmitter } from "@angular/core";
+import { PopoverController } from "ionic-angular";
+import { SupplierDetailPage} from "../../../pages/supplier-detail/supplier-detail";
+import { ToastController } from "ionic-angular";
+import { AlertController } from "ionic-angular";
 
 @Component({
-    selector: 'maps-layout-1',
-    templateUrl: 'maps.html'
+    selector: "maps-layout-1",
+    templateUrl: "maps.html",
 })
 
 export class MapsLayout1 {
@@ -11,68 +14,105 @@ export class MapsLayout1 {
     @Input() events: any;
     @Input() userData: any;
     @Input() services: string[];
+    @Input() mainServices: string[];
     @Input() suppliers: any;
     @Input() mapData: any;
     @Output() onMarkerService = new EventEmitter <any> ();
     @Output() serviceIsSelected = new EventEmitter <string>();
-    
+
     selectedService: any;
     labelService: string;
-    markerSelected: boolean = false;
-    serviceSelected: boolean= false;
-    supplierSelected: boolean= false;
     mapZoom: number = 14;
-    value1: any= '#ffffff';
 
-    constructor() { }
-    
-    
+    constructor(public popCtrl: PopoverController, public toastCtrl: ToastController, public alertCtrl: AlertController) { }
+
+    svcToast( note: string, pos: string) {
+        const toast = this.toastCtrl.create({
+            message: note,
+            duration: 3000,
+            position: pos,
+            showCloseButton: true,
+            closeButtonText: "ok",
+        });
+        toast.present();
+    }
+
     onEvent(event: string, e: any) {
         if (this.events[event]) {
             this.events[event]();
         }
-        console.log('evento:',event);
-        if(event!="onRates"){
+        console.log("evento:", event);
+        if (event !== "onRates") {
             this.onMarkerService.emit(e);
-            this.markerSelected=true;
-            this.supplierSelected=false;
-            this.mapZoom=15;
+            this.mapZoom = 15;
+            this.showDetail(e, event);
         }
     }
-    
-    
-        
-        
-    
 
-    svcSelected():void{
-        this.serviceIsSelected.emit(this.selectedService);
-        this.serviceSelected=true;
-        this.supplierSelected=true;
-        this.markerSelected=false;
-        if(this.selectedService.length===1){
+    svcSelected(): void {
+        if (this.selectedService.length === 0) {
+            this.labelService = "un servicio";
+        }else
+        if (this.selectedService.length === 1){
             this.labelService = this.selectedService[0];
-        }else{
-            this.labelService="una opción";
+        }else {
+            this.labelService = "una opción";
         }
-        this.mapZoom=13;
-        console.log('long:',this.selectedService.length);
-        console.log('slc:',this.selectedService);
+        this.selectedService.forEach(element => {
+            if (element === "Taller especializado"){
+                this.showBrands();
+                //console.log("si");
+                //this.svcToast("Seleciona una marca", "top");
+            }
+        });
+        this.svcToast("Seleciona " + this.labelService, "bottom");
+        this.serviceIsSelected.emit(this.selectedService);
+        this.mapZoom = 11;
     }
 
     onStarClass(items: any, index: number, e: any) {
-        for (var i = 0; i < items.length; i++) {
+        for (let i = 0; i < items.length; i++) {
             items[i].isActive = i <= index;
         }
         this.onEvent("onRates",  e);
-    };
-
-    dropDown(){
-        this.markerSelected=false;
-        console.log("click en icono");
     }
 
-    
+    showDetail(supplierData, event){
+        let popover = this.popCtrl.create(SupplierDetailPage, supplierData);
+        popover.present({
+          ev: event,
+        });
+    }
 
+    ngOnInit(){
+        this.svcToast("Selecciona un servicio", "bottom");
+    }
+
+    showBrands() {
+        let alert = this.alertCtrl.create();
+        alert.setTitle("Selecciona una marca");
+        alert.addInput({
+          type: "checkbox",
+          label: "Audi",
+          value: "audi",
+          checked: true,
+        });
+
+        alert.addInput({
+          type: "checkbox",
+          label: "Bmw",
+          value: "bmw",
+        });
+
+        alert.addButton("Cancel");
+        alert.addButton({
+          text: "Ok",
+          handler: data => {
+            console.log("Checkbox data:", data);
+            this.svcToast("Seleciona " + this.labelService, "bottom");
+          },
+        });
+        alert.present();
+      }
 
 }

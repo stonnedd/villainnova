@@ -37,6 +37,7 @@ $colors: (
   favorite:   #69BB7B,
   categories: #5DB3FF,
   km:  #FC8236,
+  locate: #27BF48,
   // Button Twitter
   twitter:(
     base: #64B5F6,
@@ -98,7 +99,6 @@ $colors: (
 // --------------------------------------------------
 @import "main";
 
-
 // Ionicons
 // --------------------------------------------------
 // The premium icon font for Ionic. For more info, please see:
@@ -109,9 +109,6 @@ $colors: (
 @import "fontello";
 
 @import "ionicons";
-
-
-
 
 // Fonts
 // --------------------------------------------------

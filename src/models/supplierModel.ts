@@ -2,45 +2,24 @@
 export class SupplierModel {
 
     constructor(
-        id:number,
-        title: string,
-        titleDescription: string,
-        reviews: string,
-        contentTitle: string,
-        contentDescription: string,
-        address: string,
-        schedule: string,
-        phone: string,
-        website: string,
-        email: string,
-        lat: number,
-        lng: number,
-        zoom: number,
-        mapTypeControl: true,
-        streetViewControl: true,
-        iconsStars : [ 
-            {
-            "iconActive" : "icon-star",
-            "iconInactive" : "icon-star-outline",
-            "isActive" : true
-            }, {
-            "iconActive" : "icon-star",
-            "iconInactive" : "icon-star-outline",
-            "isActive" : true
-            },{
-            "iconActive" : "icon-star",
-            "iconInactive" : "icon-star-outline",
-            "isActive" : true
-            }, {
-            "iconActive" : "icon-star",
-            "iconInactive" : "icon-star-outline",
-            "isActive" : true
-            }, {
-            "iconActive" : "icon-star",
-            "iconInactive" : "icon-star-outline",
-            "isActive" : true
-            }
-        ]
+        public website: string,
+        public updated_at: string,
+        public specialty: string,
+        public service: string,
+        public schedule: string,
+        public ranking: number,
+        public phone_manager: number,
+        public phone: number,
+        public name: string,
+        public map_icon: string,
+        public manager: string,
+        public lng: number,
+        public lat: number,
+        public inserted_at: string,
+        public id: number,
+        public email: string,
+        public brands: string,
+        public address: string
     ){}
 
 }

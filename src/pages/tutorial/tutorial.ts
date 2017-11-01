@@ -32,18 +32,18 @@ export class TutorialPage {
         console.log('Loaded values', values);
         this.slides = [
           {
-            title: values.TUTORIAL_SLIDE1_TITLE,
-            description: values.TUTORIAL_SLIDE1_DESCRIPTION,
+            title: 'Bienvenido a Autocar',
+            description:'',
             image: 'assets/img/ica-slidebox-img-1.png',
           },
           {
-            title: values.TUTORIAL_SLIDE2_TITLE,
-            description: values.TUTORIAL_SLIDE2_DESCRIPTION,
+            title: 'Cómo funciona',
+            description: 'bla bla bla..',
             image: 'assets/img/ica-slidebox-img-2.png',
           },
           {
             title: values.TUTORIAL_SLIDE3_TITLE,
-            description: values.TUTORIAL_SLIDE3_DESCRIPTION,
+            description: '¿Necesitas ayuda?',
             image: 'assets/img/ica-slidebox-img-3.png',
           }
         ];
