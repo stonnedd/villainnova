@@ -110,8 +110,8 @@ export class AutoservicePage {
   }
 
   ngOnInit() {
-    this.params.services = this.AsSvc.getServices();
-    this.params.mainServices = this.AsSvc.getMainServices();
+    this.fetchServices();
+    this.fetchMainServices();
     this.AsSvc.getPosition().then((userPosition) => {
       this.fillUsrData(userPosition);
       console.log("pos:", userPosition.coords);
@@ -152,13 +152,36 @@ export class AutoservicePage {
     toast.present();
   }
 
-
   fetchSuppliers(chosenService) {
     this.autoservice.getSuppliersq(chosenService)
     .subscribe(
       supplier => {
         this.params.suppliers = supplier;
         console.log("fetched", this.params.suppliers);
+      },
+      err => {
+        console.log(err);
+      },
+    );
+  }
+
+  fetchServices() {
+    this.autoservice.getServices().subscribe(
+      services => {
+        this.params.services = services;
+        console.log("fetchedServ", this.params.services);
+      },
+      err => {
+        console.log(err);
+      },
+    );
+  }
+
+  fetchMainServices() {
+    this.autoservice.getMainServices().subscribe(
+      mservices => {
+        this.params.mainServices = mservices;
+        console.log("fetchedMServ", this.params.services);
       },
       err => {
         console.log(err);

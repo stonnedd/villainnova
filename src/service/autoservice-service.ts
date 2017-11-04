@@ -10,129 +10,28 @@ import "rxjs/add/operator/catch";
 @Injectable()
 export class AutoserviceService {
 
-
     public suppliersUrl: string = "http://localhost:4000/api/suppliers";
+    public servicesUrl: string = "http://localhost:4000/api/services";
+    public mainservicesUrl: string = "http://localhost:4000/api/mainservices";
     geolocation = new Geolocation();
     mapdata: any= {};
 
     constructor(private http: Http) {}
 
-
     getMainServices() {
-        return["Autolavado", "Grúas", "Hojalatero", "Mecánico General", "Talachero"]
+        return this.http.get(this.mainservicesUrl)
+        .map((res: Response) => {
+            return res.json();
+        })
+        .catch((error: any) => Observable.throw(error.json().error || "Server error"));
     }
 
-    getServices() { 
-        return [
-            "Cerrajero",
-            "Electrico",
-            "Embrague y Transmisión",
-            "Clima",
-            "Radiadores",
-            "Mofles",
-            "Taller especializado",
-            "Refacciones",
-            "Dirección y Suspensión",
-            "Llantas y Neumáticos",
-            "Mecánico Diesel",
-            "Parabrisas y vidrios"];
-    }
-
-    getSuppliers() {
-        return [
-            {
-              id: 1,
-              service: "Llantas y Neumáticos",
-              title: "talachas 1 ",
-              titleDescription: "descripción...",
-              reviews: "algo aquí",
-              contentTitle: "contenido de titulo",
-              contentDescription: "descripción",
-              address: "dirección ...",
-              schedule: "horario",
-              phone: "telefono",
-              website: "string",
-              email: "string",
-              lat: 20.084935 ,
-              lng: -98.7958465,
-              markLabel: "",
-              zoom: 10,
-              mapTypeControl: true,
-              streetViewControl: true,
-              iconUrl: "./../assets/mapicons/pin1.3.png",
-              rate: 4,
-
-            },
-            {
-                id: 2,
-                service: "Mecánico General",
-                img: "../assets/images/suppliers/mec1.JPG",
-                title: "CANCHOLA",
-                titleDescription: "descripción...",
-                reviews: "algo aquí",
-                contentTitle: "contenido de titulo",
-                contentDescription: "descripción",
-                address: "Esquina Av 14 Poniente, Calle Diagonal 19 Nte 1401, Jesús García, 72090 Puebla, Pue.",
-                schedule: "8 a 19 hrs.",
-                phone: "222 637 6990",
-                website: "string",
-                email: "string",
-                lat: 19.2038899 ,
-                lng: -99.290892,
-                markLabel: "",
-                zoom: 10,
-                mapTypeControl: true,
-                streetViewControl: true,
-                iconUrl: "../assets/mapicons/pin1.3.png",
-                rate: 3,
-
-            },
-            {
-                id: 4,
-                service: "Mecánico General",
-                title: "mec XX",
-                titleDescription: "descripción...",
-                reviews: "algo aquí",
-                contentTitle: "contenido de titulo",
-                contentDescription: "descripción",
-                address: "dirección ...",
-                schedule: "horario",
-                phone: "telefono",
-                website: "string",
-                email: "string",
-                lat: 20.0730022 ,
-                lng: -98.790022,
-                markLabel: "",
-                zoom: 10,
-                mapTypeControl: true,
-                streetViewControl: true,
-                iconUrl: "../assets/mapicons/pin1.3.png",
-                rate: 2,
-
-            },
-            {
-                id: 3,
-                service: "Cerrajero",
-                title: "Cerra",
-                titleDescription: "llaves y mas...",
-                reviews: "algo aquí",
-                contentTitle: "contenido de titulo",
-                contentDescription: "descripción",
-                address: "dirección ...",
-                schedule: "horario",
-                phone: "telefono",
-                website: "string",
-                email: "string",
-                lat: 20.06624 ,
-                lng: -98.7908,
-                markLabel: "",
-                zoom: 10,
-                mapTypeControl: true,
-                streetViewControl: true,
-                iconUrl: "../assets/mapicons/pin1.3.png",
-                rate: 1.5,
-            },
-        ];
+    getServices(): Observable<any[]> {
+        return this.http.get(this.servicesUrl)
+            .map((res: Response) => {
+                return res.json();
+            })
+            .catch((error: any) => Observable.throw(error.json().error || "Server error"));
     }
 
     getPosition() {
@@ -145,12 +44,12 @@ export class AutoserviceService {
         });
     }
 
-     getSuppliersq(chosenService): Observable<SupplierModel[]> {
+    getSuppliersq(chosenService): Observable<SupplierModel[]> {
         return this.http.get(this.suppliersUrl + "/" + chosenService )
             .map((res: Response) => {
                 return res.json();
             })
             .catch((error: any) => Observable.throw(error.json().error || "Server error"));
-     }
+    }
 
 }

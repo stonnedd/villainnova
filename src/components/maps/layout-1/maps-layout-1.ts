@@ -77,14 +77,14 @@ export class MapsLayout1 {
         this.onEvent("onRates",  e);
     }
 
-    showDetail(supplierData, event){
+    showDetail(supplierData, event) {
         let popover = this.popCtrl.create(SupplierDetailPage, supplierData);
         popover.present({
           ev: event,
         });
     }
 
-    ngOnInit(){
+    ngOnInit() {
         this.svcToast("Selecciona un servicio", "bottom");
     }
 

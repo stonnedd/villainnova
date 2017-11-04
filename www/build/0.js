@@ -3596,8 +3596,8 @@ var AutoservicePage = (function () {
     };
     AutoservicePage.prototype.ngOnInit = function () {
         var _this = this;
-        this.params.services = this.AsSvc.getServices();
-        this.params.mainServices = this.AsSvc.getMainServices();
+        this.fetchServices();
+        this.fetchMainServices();
         this.AsSvc.getPosition().then(function (userPosition) {
             _this.fillUsrData(userPosition);
             console.log("pos:", userPosition.coords);
@@ -3643,6 +3643,24 @@ var AutoservicePage = (function () {
             console.log(err);
         });
     };
+    AutoservicePage.prototype.fetchServices = function () {
+        var _this = this;
+        this.autoservice.getServices().subscribe(function (services) {
+            _this.params.services = services;
+            console.log("fetchedServ", _this.params.services);
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    AutoservicePage.prototype.fetchMainServices = function () {
+        var _this = this;
+        this.autoservice.getMainServices().subscribe(function (mservices) {
+            _this.params.mainServices = mservices;
+            console.log("fetchedMServ", _this.params.services);
+        }, function (err) {
+            console.log(err);
+        });
+    };
     return AutoservicePage;
 }());
 AutoservicePage = __decorate([
@@ -3651,14 +3669,10 @@ AutoservicePage = __decorate([
         selector: "page-autoservice",template:/*ion-inline-start:"C:\WorkSpace\appMovile2017\villaInova\src\pages\autoservice\autoservice.html"*/'  <ion-header style="height:0px" >\n  <ion-navbar style="height:5px" >\n      <!--<ion-grid>\n        <ion-row > \n          <ion-col>\n              <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>        \n          </ion-col>\n          <ion-col>\n            <br><ion-title>Asistencia</ion-title>\n          </ion-col>\n          <ion-col >\n              <button ion-button icon-only clear float-right (click)=showSettings($event)><ion-icon name="settings" style="color:white"></ion-icon></button>         \n          </ion-col>\n        </ion-row>\n      </ion-grid>-->\n      <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>        \n      <ion-title>Asistencia<ion-icon name="settings" float-right (click)=showSettings($event) class="icon-size" ></ion-icon></ion-title>\n  </ion-navbar>\n</ion-header>\n<maps-layout-1\n  [data]="params.data"\n  [events]="params.events"\n  [userData]="params.userData"\n  [services]="params.services"\n  [mainServices]="params.mainServices"\n  [suppliers]="params.suppliers"\n  [mapData]="params.mapData"\n  (onMarkerService)="onMarkerService($event)"\n  (serviceIsSelected)="serviceIsSelected($event)">\n</maps-layout-1>\n\n\n'/*ion-inline-end:"C:\WorkSpace\appMovile2017\villaInova\src\pages\autoservice\autoservice.html"*/,
         providers: [__WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__["a" /* AutoserviceService */]],
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__["a" /* AutoserviceService */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* PopoverController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */],
-        __WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__["a" /* AutoserviceService */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__["a" /* AutoserviceService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__["a" /* AutoserviceService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* PopoverController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* PopoverController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__["a" /* AutoserviceService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__["a" /* AutoserviceService */]) === "function" && _f || Object])
 ], AutoservicePage);
 
+var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=autoservice.js.map
 
 /***/ }),
@@ -3695,120 +3709,24 @@ var AutoserviceService = (function () {
     function AutoserviceService(http) {
         this.http = http;
         this.suppliersUrl = "http://localhost:4000/api/suppliers";
+        this.servicesUrl = "http://localhost:4000/api/services";
+        this.mainservicesUrl = "http://localhost:4000/api/mainservices";
         this.geolocation = new __WEBPACK_IMPORTED_MODULE_0__ionic_native_geolocation__["a" /* Geolocation */]();
         this.mapdata = {};
     }
     AutoserviceService.prototype.getMainServices = function () {
-        return ["Autolavado", "Grúas", "Hojalatero", "Mecánico General", "Talachero"];
+        return this.http.get(this.mainservicesUrl)
+            .map(function (res) {
+            return res.json();
+        })
+            .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || "Server error"); });
     };
     AutoserviceService.prototype.getServices = function () {
-        return [
-            "Cerrajero",
-            "Electrico",
-            "Embrague y Transmisión",
-            "Clima",
-            "Radiadores",
-            "Mofles",
-            "Taller especializado",
-            "Refacciones",
-            "Dirección y Suspensión",
-            "Llantas y Neumáticos",
-            "Mecánico Diesel",
-            "Parabrisas y vidrios"
-        ];
-    };
-    AutoserviceService.prototype.getSuppliers = function () {
-        return [
-            {
-                id: 1,
-                service: "Llantas y Neumáticos",
-                title: "talachas 1 ",
-                titleDescription: "descripción...",
-                reviews: "algo aquí",
-                contentTitle: "contenido de titulo",
-                contentDescription: "descripción",
-                address: "dirección ...",
-                schedule: "horario",
-                phone: "telefono",
-                website: "string",
-                email: "string",
-                lat: 20.084935,
-                lng: -98.7958465,
-                markLabel: "",
-                zoom: 10,
-                mapTypeControl: true,
-                streetViewControl: true,
-                iconUrl: "./../assets/mapicons/pin1.3.png",
-                rate: 4,
-            },
-            {
-                id: 2,
-                service: "Mecánico General",
-                img: "../assets/images/suppliers/mec1.JPG",
-                title: "CANCHOLA",
-                titleDescription: "descripción...",
-                reviews: "algo aquí",
-                contentTitle: "contenido de titulo",
-                contentDescription: "descripción",
-                address: "Esquina Av 14 Poniente, Calle Diagonal 19 Nte 1401, Jesús García, 72090 Puebla, Pue.",
-                schedule: "8 a 19 hrs.",
-                phone: "222 637 6990",
-                website: "string",
-                email: "string",
-                lat: 19.2038899,
-                lng: -99.290892,
-                markLabel: "",
-                zoom: 10,
-                mapTypeControl: true,
-                streetViewControl: true,
-                iconUrl: "../assets/mapicons/pin1.3.png",
-                rate: 3,
-            },
-            {
-                id: 4,
-                service: "Mecánico General",
-                title: "mec XX",
-                titleDescription: "descripción...",
-                reviews: "algo aquí",
-                contentTitle: "contenido de titulo",
-                contentDescription: "descripción",
-                address: "dirección ...",
-                schedule: "horario",
-                phone: "telefono",
-                website: "string",
-                email: "string",
-                lat: 20.0730022,
-                lng: -98.790022,
-                markLabel: "",
-                zoom: 10,
-                mapTypeControl: true,
-                streetViewControl: true,
-                iconUrl: "../assets/mapicons/pin1.3.png",
-                rate: 2,
-            },
-            {
-                id: 3,
-                service: "Cerrajero",
-                title: "Cerra",
-                titleDescription: "llaves y mas...",
-                reviews: "algo aquí",
-                contentTitle: "contenido de titulo",
-                contentDescription: "descripción",
-                address: "dirección ...",
-                schedule: "horario",
-                phone: "telefono",
-                website: "string",
-                email: "string",
-                lat: 20.06624,
-                lng: -98.7908,
-                markLabel: "",
-                zoom: 10,
-                mapTypeControl: true,
-                streetViewControl: true,
-                iconUrl: "../assets/mapicons/pin1.3.png",
-                rate: 1.5,
-            },
-        ];
+        return this.http.get(this.servicesUrl)
+            .map(function (res) {
+            return res.json();
+        })
+            .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || "Server error"); });
     };
     AutoserviceService.prototype.getPosition = function () {
         return this.geolocation.getCurrentPosition();
@@ -3829,9 +3747,10 @@ var AutoserviceService = (function () {
 }());
 AutoserviceService = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["Injectable"])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]) === "function" && _a || Object])
 ], AutoserviceService);
 
+var _a;
 //# sourceMappingURL=autoservice-service.js.map
 
 /***/ }),
@@ -17225,7 +17144,7 @@ __decorate([
 ], MapsLayout1.prototype, "serviceIsSelected", void 0);
 MapsLayout1 = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: "maps-layout-1",template:/*ion-inline-start:"C:\WorkSpace\appMovile2017\villaInova\src\components\maps\layout-1\maps.html"*/'\n\n<ion-content  has-header>\n\n  \n\n  <ion-grid no-padding class="option-service">\n\n    <ion-item style="height:45px" class="option-service" > \n\n      <ion-label for="services"><ion-icon  item-left name="build"></ion-icon>Servicios</ion-label>\n\n      <ion-select id="services" requiered  [(ngModel)]="selectedService" \n\n      (ionChange)="svcSelected()" \n\n      multiple="true" \n\n      cancelText="Atras">\n\n        <ion-option *ngFor="let mainService of mainServices" [value]="mainService">{{mainService}} </ion-option>\n\n        <ion-option *ngFor="let service of services | orderBy : \'+\'" [value]="service">{{service}} </ion-option>\n\n      </ion-select>\n\n    </ion-item>\n\n  </ion-grid>\n\n  \n\n  <sebm-google-map [latitude]="mapData.lat" [longitude]="mapData.lng" [zoom]="mapZoom" [mapTypeControl]=true [streetViewControl]=true>\n\n    <sebm-google-map-marker *ngFor="let supplier of suppliers"  \n\n      [latitude]="supplier.lat" \n\n      [longitude]="supplier.lng" \n\n      [label]="supplier.markLabel"\n\n      (markerClick)="onEvent(\'onMarker\',supplier)"\n\n      [iconUrl]="\'../assets/mapicons/\'+supplier.map_icon">\n\n    </sebm-google-map-marker>\n\n    <sebm-google-map-marker [iconUrl]="userData.userPos.iconUrl" [latitude]="userData.userPos.lat" [longitude]="userData.userPos.lng"></sebm-google-map-marker>\n\n  </sebm-google-map>\n\n  \n\n  <ion-fab bottom left>\n\n      <button ion-fab color="locate" mini><ion-icon name="md-locate"></ion-icon></button>\n\n    </ion-fab>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\WorkSpace\appMovile2017\villaInova\src\components\maps\layout-1\maps.html"*/,
+        selector: "maps-layout-1",template:/*ion-inline-start:"C:\WorkSpace\appMovile2017\villaInova\src\components\maps\layout-1\maps.html"*/'\n\n<ion-content  has-header>\n\n  \n\n  <ion-grid no-padding class="option-service">\n\n    <ion-item style="height:45px" class="option-service" > \n\n      <ion-label for="services"><ion-icon  item-left name="build"></ion-icon>Servicios</ion-label>\n\n      <ion-select id="services" requiered  [(ngModel)]="selectedService" \n\n      (ionChange)="svcSelected()" \n\n      multiple="true" \n\n      cancelText="Atras">\n\n        <ion-option *ngFor="let mainService of mainServices" [value]="mainService">{{mainService.name}} </ion-option>\n\n        <ion-option *ngFor="let service of services | orderBy : \'+\'" [value]="service">{{service.name}} </ion-option>\n\n      </ion-select>\n\n    </ion-item>\n\n  </ion-grid>\n\n  \n\n  <sebm-google-map [latitude]="mapData.lat" [longitude]="mapData.lng" [zoom]="mapZoom" [mapTypeControl]=true [streetViewControl]=true>\n\n    <sebm-google-map-marker *ngFor="let supplier of suppliers"  \n\n      [latitude]="supplier.lat" \n\n      [longitude]="supplier.lng" \n\n      [label]="supplier.markLabel"\n\n      (markerClick)="onEvent(\'onMarker\',supplier)"\n\n      [iconUrl]="\'../assets/mapicons/\'+supplier.map_icon">\n\n    </sebm-google-map-marker>\n\n    <sebm-google-map-marker [iconUrl]="userData.userPos.iconUrl" [latitude]="userData.userPos.lat" [longitude]="userData.userPos.lng"></sebm-google-map-marker>\n\n  </sebm-google-map>\n\n  \n\n  <ion-fab bottom left>\n\n      <button ion-fab color="locate" mini><ion-icon name="md-locate"></ion-icon></button>\n\n    </ion-fab>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\WorkSpace\appMovile2017\villaInova\src\components\maps\layout-1\maps.html"*/,
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* PopoverController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* PopoverController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _c || Object])
 ], MapsLayout1);

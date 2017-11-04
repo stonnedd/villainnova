@@ -1,0 +1,91 @@
+<ion-content no-padding>
+
+  <div card-image class="title-style">
+    <img images-filter src={{data.img}}/>
+    <ion-card-header >
+        <h1 card-title >{{data.name}}</h1>  
+        <rating style= "text-align:center" [(ngModel)]="data.ranking"
+          readOnly="false"
+          max="5"
+          emptyStarIconName="star-outline"
+          halfStarIconName="star-half"
+          starIconName="star"
+          nullable="false" 
+          (ngModelChange)="onRatingChange($event)"></rating>
+      <h2 card-title>{{data.specialty}}</h2>
+    </ion-card-header>
+  </div>
+
+<div class="supplier-data">
+  <ion-grid>
+    <ion-row>
+      <ion-col col-2>
+        <ion-icon item-left>
+          <i class="icon icon-map-marker-radius"></i>
+        </ion-icon>
+      </ion-col>
+      <ion-col>
+        <p no-margin maps-description>{{data.address}} bla bla bla bla bla bla bla bla bal
+        </p>
+      </ion-col>
+    </ion-row>
+
+    <button ion-button clear icon-only small (click)=navigate([data.lat,data.lng])>
+        <ion-icon name="ios-navigate" class= "custom-icon"></ion-icon>
+    </button>
+
+    <ion-row>
+      <ion-col col-2>
+        <ion-icon item-left>
+            <i class="icon icon-alarm"></i>
+        </ion-icon>
+      </ion-col>
+      <ion-col>
+        <p no-margin maps-description>{{data.schedule}}<p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-2>
+        <ion-icon item-left>
+            <i class="icon icon-phone"></i>
+        </ion-icon>
+      </ion-col>
+      <ion-col>
+        <p no-margin maps-description (click)=makeACall(data.phone)>{{data.phone}}<p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-2>
+        <ion-icon item-left>
+          <i class="icon icon-earth"></i>
+        </ion-icon>
+      </ion-col>
+      <ion-col>
+        <p no-margin maps-description>{{data.website}}<p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-2>
+        <ion-icon item-left>
+          <i class="icon icon-email-outline"></i>
+        </ion-icon>
+      </ion-col>
+      <ion-col>
+        <p no-margin maps-description>{{data.email}}<p>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+  <div style="text-align:center" >
+      <button ion-button clear icon-only small (click)=close()>
+        <ion-icon > <i class="icon icon-close-circle"></i> </ion-icon>
+      </button>
+  </div>
+
+</div>
+
+</ion-content>
+
