@@ -103,7 +103,6 @@ export class AutoservicePage {
     this.params.data = params;
     this.params.mapData.lat = params.lat;
     this.params.mapData.lng = params.lng;
-
   }
 
   ionViewDidLoad() {
@@ -118,7 +117,6 @@ export class AutoservicePage {
     }).catch((error) => {
       this.presentToast(JSON.stringify(error));
     });
-
   }
 
   fillUsrData(usrPosition: any) {

@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { IonicPage, NavController, ToastController } from 'ionic-angular';
-
-import { User } from '../../providers/providers';
+import { Component } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
+import { IonicPage, NavController, ToastController } from "ionic-angular";
+import { User } from "../../providers/providers";
 import { MainPage } from "../pages";
+import { LoginUserPage } from "../login-user/login-user";
+import { LoginSupplierPage } from "../login-supplier/login-supplier"
 
 @IonicPage()
 @Component({
@@ -12,6 +13,8 @@ import { MainPage } from "../pages";
 })
 export class SignupPage {
 
+  userLogin: any;
+  supplierLogin: any;
   account: { name: string, email: string, password: string } = {
     name: "Test Human",
     email: "test@example.com",
@@ -25,8 +28,9 @@ export class SignupPage {
     public user: User,
     public toastCtrl: ToastController,
     public translateService: TranslateService) {
-
-    this.translateService.get("SIGNUP_ERROR").subscribe((value) => {
+      this.userLogin = LoginUserPage;
+      this.supplierLogin =  LoginSupplierPage;
+      this.translateService.get("SIGNUP_ERROR").subscribe((value) => {
       this.signupErrorString = value;
     });
   }

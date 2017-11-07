@@ -1,29 +1,31 @@
-import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { Http, HttpModule } from '@angular/http';
-import { BrowserModule } from '@angular/platform-browser';
-import { Camera } from '@ionic-native/camera';
-import { GoogleMaps } from '@ionic-native/google-maps';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
-import { IonicStorageModule, Storage } from '@ionic/storage';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { AgmCoreModule } from 'angular2-google-maps/core';
-import { Items } from '../mocks/providers/items';
-import { Settings } from '../providers/providers';
-import { User } from '../providers/providers';
-import { Api } from '../providers/providers';
-import { MyApp } from './app.component';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { HomePageModule} from '../pages/home/home.module'
-import { AutoservicePageModule} from '../pages/autoservice/autoservice.module'
-import { AutoserviceService} from '../service/autoservice-service'
-import { SettingsPageModule} from '../pages/settings/settings.module'
-import { SupplierDetailPageModule} from '../pages/supplier-detail/supplier-detail.module'
-import { Ionic2RatingModule } from 'ionic2-rating';
+import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { Http, HttpModule } from "@angular/http";
+import { BrowserModule } from "@angular/platform-browser";
+import { Camera } from "@ionic-native/camera";
+import { GoogleMaps } from "@ionic-native/google-maps";
+import { SplashScreen } from "@ionic-native/splash-screen";
+import { StatusBar } from "@ionic-native/status-bar";
+import { IonicStorageModule, Storage } from "@ionic/storage";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
+import { AgmCoreModule } from "angular2-google-maps/core";
+import { Items } from "../mocks/providers/items";
+import { Settings } from "../providers/providers";
+import { User } from "../providers/providers";
+import { Api } from "../providers/providers";
+import { MyApp } from "./app.component";
+import { AngularFireModule } from "angularfire2";
+import { AngularFireDatabaseModule } from "angularfire2/database";
+import { AngularFireAuthModule } from "angularfire2/auth";
+import { HomePageModule} from "../pages/home/home.module";
+import { AutoservicePageModule} from "../pages/autoservice/autoservice.module";
+import { AutoserviceService} from "../service/autoservice-service";
+import { SettingsPageModule} from "../pages/settings/settings.module";
+import { SupplierDetailPageModule} from "../pages/supplier-detail/supplier-detail.module";
+import { LoginUserPageModule } from "../pages/login-user/login-user.module";
+import { LoginSupplierPageModule} from "../pages/login-supplier/login-supplier.module";
+import { Ionic2RatingModule } from "ionic2-rating";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBdQOPM3re7vBFNTEspKM7G0vzKH7ub6H8",
@@ -31,13 +33,13 @@ export const firebaseConfig = {
   databaseURL: "https://villainova-app.firebaseio.com",
   projectId: "villainova-app",
   storageBucket: "villainova-app.appspot.com",
-  messagingSenderId: "1297766976"
-}
+  messagingSenderId: "1297766976",
+};
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
 export function HttpLoaderFactory(http: Http) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
 
 export function provideSettings(storage: Storage) {
@@ -49,19 +51,19 @@ export function provideSettings(storage: Storage) {
    */
   return new Settings(storage, {
     option1: true,
-    option2: 'Ionitron J. Framework',
-    option3: '3',
-    option4: 'Hello'
+    option2: "Ionitron J. Framework",
+    option3: "3",
+    option4: "Hello",
   });
 }
 
 @NgModule({
   declarations: [
-    //ElasticHeader,
+    // ElasticHeader,
     MyApp,
   ],
   imports: [AgmCoreModule.forRoot({
-    apiKey: 'AIzaSyABWUtTglN8YGqcYI1zyjeRdOJx5r3TrZU'
+    apiKey: "AIzaSyABWUtTglN8YGqcYI1zyjeRdOJx5r3TrZU",
   }),
     BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig),
@@ -70,23 +72,25 @@ export function provideSettings(storage: Storage) {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [Http]
-      }
+        deps: [Http],
+      },
     }),
-    
+
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     HomePageModule,
     SettingsPageModule,
     SupplierDetailPageModule,
-    Ionic2RatingModule
+    Ionic2RatingModule,
+    LoginUserPageModule,
+    LoginSupplierPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
   ],
-  schemas:[
-    CUSTOM_ELEMENTS_SCHEMA
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
   ],
   exports: [
   ],
@@ -100,7 +104,7 @@ export function provideSettings(storage: Storage) {
     StatusBar,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
-  ]
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+  ],
 })
 export class AppModule { }
