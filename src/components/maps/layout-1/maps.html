@@ -8,8 +8,8 @@
       (ionChange)="svcSelected()" 
       multiple="true" 
       cancelText="Atras">
-        <ion-option *ngFor="let mainService of mainServices" [value]="mainService">{{mainService.name}} </ion-option>
-        <ion-option *ngFor="let service of services | orderBy : '+'" [value]="service">{{service.name}} </ion-option>
+        <ion-option *ngFor="let mainService of mainServices" [value]="mainService">{{mainService}} </ion-option>
+        <ion-option *ngFor="let service of services | orderBy : '+'" [value]="service">{{service}} </ion-option>
       </ion-select>
     </ion-item>
   </ion-grid>

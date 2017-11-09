@@ -3,7 +3,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { IonicPage, NavController, ToastController } from "ionic-angular";
 import { User } from "../../providers/providers";
 import { MainPage } from "../pages";
-import { LoginUserPage } from "../login-user/login-user";
+import { LoginCustomerPage } from "../login-customer/login-customer";
 import { LoginSupplierPage } from "../login-supplier/login-supplier"
 
 @IonicPage()
@@ -28,7 +28,7 @@ export class SignupPage {
     public user: User,
     public toastCtrl: ToastController,
     public translateService: TranslateService) {
-      this.userLogin = LoginUserPage;
+      this.userLogin = LoginCustomerPage;
       this.supplierLogin =  LoginSupplierPage;
       this.translateService.get("SIGNUP_ERROR").subscribe((value) => {
       this.signupErrorString = value;

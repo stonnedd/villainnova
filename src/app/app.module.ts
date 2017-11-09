@@ -23,7 +23,7 @@ import { AutoservicePageModule} from "../pages/autoservice/autoservice.module";
 import { AutoserviceService} from "../service/autoservice-service";
 import { SettingsPageModule} from "../pages/settings/settings.module";
 import { SupplierDetailPageModule} from "../pages/supplier-detail/supplier-detail.module";
-import { LoginUserPageModule } from "../pages/login-user/login-user.module";
+import { LoginCustomerPageModule } from "../pages/login-customer/login-customer.module";
 import { LoginSupplierPageModule} from "../pages/login-supplier/login-supplier.module";
 import { Ionic2RatingModule } from "ionic2-rating";
 
@@ -82,7 +82,7 @@ export function provideSettings(storage: Storage) {
     SettingsPageModule,
     SupplierDetailPageModule,
     Ionic2RatingModule,
-    LoginUserPageModule,
+    LoginCustomerPageModule,
     LoginSupplierPageModule,
   ],
   bootstrap: [IonicApp],

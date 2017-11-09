@@ -11,10 +11,10 @@ import "rxjs/add/operator/catch";
 export class AutoserviceService {
 
     public suppliersUrl: string = "http://localhost:4000/api/suppliers";
-    public createSupplierUrl: string = "http://localhost:4000/api/suppliers/create"
+    public createSupplierUrl: string = "http://localhost:4000/api/suppliers/create";
+    public createCustomerUrl: string = "http://localhost:4000/api/customers/create";
     public servicesUrl: string = "http://localhost:4000/api/services";
     public mainservicesUrl: string = "http://localhost:4000/api/mainservices";
-
     geolocation = new Geolocation();
     mapdata: any= {};
 
@@ -47,6 +47,7 @@ export class AutoserviceService {
     }
 
     getSuppliersq(chosenService): Observable<SupplierModel[]> {
+        console.log(chosenService);
         return this.http.get(this.suppliersUrl + "/" + chosenService )
             .map((res: Response) => {
                 return res.json();
@@ -57,11 +58,22 @@ export class AutoserviceService {
     createSupplier(supplier: any= {}): Observable<any> {
         let body = JSON.stringify({supplier}) ;
         console.log(body);
-
         let headers = new Headers({ "Content-Type": "application/json" });
         let options = new RequestOptions({ headers: headers });
-
         return this.http.post(this.createSupplierUrl, body, options ).map(
+            (res: Response) => {
+                console.log("response:", res);
+                return res.json();
+            })
+            .catch((error: any) => Observable.throw(error.json().error || "Server error"));
+    }
+
+    createCustomer(customer: any= {}): Observable<any> {
+        let body = JSON.stringify({customer}) ;
+        console.log(body);
+        let headers = new Headers({ "Content-Type": "application/json" });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.createCustomerUrl, body, options ).map(
             (res: Response) => {
                 console.log("response:", res);
                 return res.json();
