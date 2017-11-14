@@ -1,0 +1,60 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Login Customer</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list class="login-List"> 
+      <form id="supplierForm" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">
+        <h3>Usuario</h3>
+
+        <ion-item class="login-Class">
+          <ion-label  floating for="name"></ion-label>
+          <ion-input type="text"  placeholder="Nombre y apellido"
+            id="name" [formControl]= "myForm.controls['name']"></ion-input>
+            <p *ngIf="!myForm.controls['name'].valid && myForm.controls['name'].touched"   
+              class="alert alert-danger"></p>
+        </ion-item> 	
+          
+        <ion-item class="login-Class">
+          <ion-label floating for="email"></ion-label>
+            <ion-input type="email"  placeholder="Email" 
+              id="email" [formControl]= "myForm.controls['email']"></ion-input>
+            <div *ngIf="!myForm.controls['email'].valid && myForm.controls['email'].touched"   
+              class="alert alert-danger"></div>
+        </ion-item> 	
+
+        <ion-item class="login-Class">
+          <ion-label floating for="password"></ion-label>
+            <ion-input type="password"  placeholder="Contraseña (mínimo 6 caracteres)" 
+              id="password" [formControl]= "myForm.controls['password']"></ion-input>
+            <div *ngIf="!myForm.controls['password'].valid && myForm.controls['password'].touched"   
+              class="alert alert-danger"></div>
+        </ion-item>
+
+        <ion-item class="login-Class">
+          <ion-label floating for="password"></ion-label>
+            <ion-input type="password"  placeholder="Confirma tu contraseña" 
+              id="cPassword" [formControl]= "myForm.controls['cPassword']"></ion-input>
+            <div *ngIf="!myForm.controls['cPassword'].valid && myForm.controls['cPassword'].touched"   
+              class="alert alert-danger"></div>
+        </ion-item>
+
+        <ion-item class="login-Class">
+          <ion-label floating for="phone"></ion-label>
+            <ion-input type="tel"  placeholder="Número telefónico (10 dígitos)" 
+              id="phone" [formControl]= "myForm.controls['phone']"></ion-input>
+            <div *ngIf="!myForm.controls['phone'].valid && myForm.controls['phone'].touched"   
+              class="alert alert-danger"></div>
+        </ion-item>
+        <br/><br/>
+        <div text-center> 
+            <button ion-button block round type="submit" color="submit" [disabled]="!myForm.valid">Registrar</button>
+        </div>   
+        <br/>
+
+      </form>     
+  </ion-list>
+</ion-content>

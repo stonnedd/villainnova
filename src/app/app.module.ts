@@ -26,6 +26,7 @@ import { SupplierDetailPageModule} from "../pages/supplier-detail/supplier-detai
 import { LoginCustomerPageModule } from "../pages/login-customer/login-customer.module";
 import { LoginSupplierPageModule} from "../pages/login-supplier/login-supplier.module";
 import { Ionic2RatingModule } from "ionic2-rating";
+import { LoginPageModule} from "../pages/login/login.module"
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBdQOPM3re7vBFNTEspKM7G0vzKH7ub6H8",
@@ -84,6 +85,7 @@ export function provideSettings(storage: Storage) {
     Ionic2RatingModule,
     LoginCustomerPageModule,
     LoginSupplierPageModule,
+    LoginPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [

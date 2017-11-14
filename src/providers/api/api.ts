@@ -1,14 +1,12 @@
-import 'rxjs/add/operator/map';
+import "rxjs/add/operator/map";
+import { Injectable } from "@angular/core";
+import { Http, RequestOptions, URLSearchParams } from "@angular/http";
 
-import { Injectable } from '@angular/core';
-import { Http, RequestOptions, URLSearchParams } from '@angular/http';
 
-/**
- * Api is a generic REST Api handler. Set your API url first.
- */
 @Injectable()
 export class Api {
-  url: string = 'https://example.com/api/v1';
+  url: string = "https://example.com/api/v1";
+  loginUrl: string;
 
   constructor(public http: Http) {
   }
@@ -29,22 +27,22 @@ export class Api {
       options.search = !options.search && p || options.search;
     }
 
-    return this.http.get(this.url + '/' + endpoint, options);
+    return this.http.get(this.url + "/" + endpoint, options);
   }
 
   post(endpoint: string, body: any, options?: RequestOptions) {
-    return this.http.post(this.url + '/' + endpoint, body, options);
+    return this.http.post(this.loginUrl + "/" + endpoint, body, options);
   }
 
   put(endpoint: string, body: any, options?: RequestOptions) {
-    return this.http.put(this.url + '/' + endpoint, body, options);
+    return this.http.put(this.url + "/" + endpoint, body, options);
   }
 
   delete(endpoint: string, options?: RequestOptions) {
-    return this.http.delete(this.url + '/' + endpoint, options);
+    return this.http.delete(this.url + "/" + endpoint, options);
   }
 
   patch(endpoint: string, body: any, options?: RequestOptions) {
-    return this.http.put(this.url + '/' + endpoint, body, options);
+    return this.http.put(this.url + "/" + endpoint, body, options);
   }
 }

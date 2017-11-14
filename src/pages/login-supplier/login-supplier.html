@@ -102,12 +102,10 @@
 
         <ion-item class="login-Class">
           <ion-label  floating for="website"></ion-label>
-            <ion-input type="text"  placeholder="Sitio web"
+            <ion-input type="text"  placeholder="Sitio web" [formControl]= "myForm.controls['website']"
               id="website"></ion-input>
         </ion-item> 	
-
-        
-
+        <br/>
         <ion-item class="coords-Class">
           <ion-label for="lat" item-start></ion-label >
           <ion-input type="text"  placeholder="latitud" [(ngModel)]="fetchedLat"
@@ -125,7 +123,7 @@
 
         <br/>
         <div text-center> 
-            <button ion-button round type="submit" color="submit" [disabled]="!myForm.valid">Registrar</button>
+            <button ion-button block round type="submit" color="submit" [disabled]="!myForm.valid">Registrar</button>
         </div>   
         <br/>
 

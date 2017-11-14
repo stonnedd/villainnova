@@ -69577,6 +69577,46 @@ page-item-detail .item-detail {
   position: absolute;
 }
 
+page-login .login-Class {
+  color: black;
+  background-color: transparent;
+  margin: 0px 0px 0px 0px;
+  padding-top: 0px;
+}
+
+page-login .login-List {
+  color: black;
+  background-color: transparent;
+  margin: 0px 0px 0px 0px;
+  padding-top: 0px;
+}
+
+page-login .coords-Class {
+  color: black !important;
+  background-color: transparent;
+  margin: 0px 0px 0px 0px;
+  padding-top: 0px;
+  height: 50px;
+}
+
+page-login .button-inner {
+  padding: 0px 0px 0px 0px !important;
+  margin: 0px 0px 0px 0px;
+  border-top: 0px !important;
+}
+
+page-login my-Label {
+  color: #929191 !important;
+  height: 255px;
+}
+
+page-login my-Label .md-tabs {
+  padding: 0px 0px 0px 0px !important;
+  margin: 0px 0px 0px 0px;
+  border-top: 0px !important;
+  background-color: black;
+}
+
 page-login-customer .login-Class {
   color: black;
   background-color: transparent;

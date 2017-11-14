@@ -15,6 +15,7 @@ export class AutoserviceService {
     public createCustomerUrl: string = "http://localhost:4000/api/customers/create";
     public servicesUrl: string = "http://localhost:4000/api/services";
     public mainservicesUrl: string = "http://localhost:4000/api/mainservices";
+    public emailUrl: string = "http://localhost:4000/api/email";
     geolocation = new Geolocation();
     mapdata: any= {};
 
@@ -55,6 +56,15 @@ export class AutoserviceService {
             .catch((error: any) => Observable.throw(error.json().error || "Server error"));
     }
 
+    doesExistEmail(selectedEmail, profile) {
+        console.log(selectedEmail);
+        return this.http.get(this.emailUrl + "/" + profile + "/" + selectedEmail)
+            .map((res: Response) => {
+                return res.json();
+            })
+            .catch((error: any) => Observable.throw(error.json().error || "Server error"));
+    }
+
     createSupplier(supplier: any= {}): Observable<any> {
         let body = JSON.stringify({supplier}) ;
         console.log(body);
@@ -63,7 +73,7 @@ export class AutoserviceService {
         return this.http.post(this.createSupplierUrl, body, options ).map(
             (res: Response) => {
                 console.log("response:", res);
-                return res.json();
+                return res.ok.valueOf;
             })
             .catch((error: any) => Observable.throw(error.json().error || "Server error"));
     }
@@ -75,8 +85,7 @@ export class AutoserviceService {
         let options = new RequestOptions({ headers: headers });
         return this.http.post(this.createCustomerUrl, body, options ).map(
             (res: Response) => {
-                console.log("response:", res);
-                return res.json();
+                return res.ok.valueOf;
             })
             .catch((error: any) => Observable.throw(error.json().error || "Server error"));
     }

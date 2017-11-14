@@ -1,48 +1,57 @@
-import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { IonicPage, NavController, ToastController } from 'ionic-angular';
-
-import { User } from '../../providers/providers';
-import { MainPage } from '../pages';
+import { Component } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
+import { IonicPage, NavController, ToastController } from "ionic-angular";
+import { User } from "../../providers/providers";
+import { MainPage } from "../pages";
+import { FormGroup, ReactiveFormsModule, FormControl,
+  FormBuilder, Validators} from "@angular/forms";
 
 @IonicPage()
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html'
+  selector: "page-login",
+  templateUrl: "login.html",
 })
 export class LoginPage {
-  // The account fields for the login form.
-  // If you're using the username field with or without email, make
-  // sure to add it to the type
-  account: { email: string, password: string } = {
-    email: 'test@example.com',
-    password: 'test'
-  };
-
-  // Our translated text strings
+  account: { email: string, password: string };
   private loginErrorString: string;
+  loginForm: FormGroup;
 
   constructor(public navCtrl: NavController,
     public user: User,
     public toastCtrl: ToastController,
-    public translateService: TranslateService) {
+    public translateService: TranslateService,
+    fBuilder: FormBuilder) {
+    this.loginForm = fBuilder.group({
+      "email": ["", Validators.compose([Validators.required, Validators.email])],
+      "password": ["", Validators.compose([Validators.required, Validators.minLength(6)])],
+    });
 
-    this.translateService.get('LOGIN_ERROR').subscribe((value) => {
+    this.translateService.get("LOGIN_ERROR").subscribe((value) => {
       this.loginErrorString = value;
-    })
+    });
+  }
+
+  onSubmit(form: any) {
+    console.log(form);
+    this.account.email = form.email;
+    this.account.password = form.password;
+    this.doLogin();
   }
 
   // Attempt to login in through our User service
   doLogin() {
     this.user.login(this.account).subscribe((resp) => {
-      this.navCtrl.push(MainPage);
+      //this.navCtrl.push(MainPage);
+      console.log("Login Success");
+      console.log(resp);
     }, (err) => {
-      this.navCtrl.push(MainPage);
-      // Unable to log in
+      //this.navCtrl.push(MainPage);
+      console.log("Login Success");
+      console.log(err);
       let toast = this.toastCtrl.create({
         message: this.loginErrorString,
         duration: 3000,
-        position: 'top'
+        position: "top",
       });
       toast.present();
     });

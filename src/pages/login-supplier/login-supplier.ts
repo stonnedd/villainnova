@@ -2,6 +2,8 @@ import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { AutoserviceService } from "../../service/autoservice-service";
 import { SupplierMapping} from "../../utils/supplier-mapping"
+import { ToastController } from "ionic-angular";
+import { LoginPage } from "../login/login";
 import { FormGroup, ReactiveFormsModule, FormControl,
         FormBuilder, Validators, AbstractControl} from "@angular/forms";
 
@@ -25,7 +27,8 @@ export class LoginSupplierPage {
               public navCtrl: NavController,
               public navParams: NavParams,
               public autoservice: AutoserviceService,
-              public supplierMapping: SupplierMapping) {
+              public supplierMapping: SupplierMapping,
+              public toastCtrl: ToastController) {
 
     this.myForm = fBuilder.group({
       "name": ["", Validators.compose([Validators.required])],
@@ -41,6 +44,7 @@ export class LoginSupplierPage {
       "brands": ["", Validators.compose([Validators.required])],
       "lat": ["", Validators.compose([Validators.required])],
       "lng": ["", Validators.compose([Validators.required])],
+      "website": ["" ],
     }, {validator: areEqual});
 
     function areEqual(group: FormControl) {
@@ -63,10 +67,7 @@ export class LoginSupplierPage {
   }
 
   onSubmit(form: any): void {
-    this.autoservice.createSupplier(this.supplierMapping.arrangeData(form))
-    .subscribe( (data: any) => {
-        console.log(data);
-    });
+    this.isEmailAvailable(this.supplierMapping.arrangeData(form));
   }
 
   ngOnInit() {
@@ -108,4 +109,48 @@ export class LoginSupplierPage {
     );
   }
 
+  doNewRegister(form) {
+    this.autoservice.createCustomer(form)
+    .subscribe((data: any) => {
+        if (data) {
+          this.navCtrl.push(LoginPage);
+        }
+        else {
+          this.svcToast("Error de conexión", "bottom");
+        }
+     });
+  }
+  emailNotValid() {
+    this.svcToast("Correo No válido", "bottom");
+    this.myForm.controls["email"].setValue("");
+  }
+
+  isEmailAvailable(form) {
+    this.autoservice.doesExistEmail(form.email, "customers")
+    .subscribe((customersEmail: any) => {
+      if (customersEmail[0] === form.email) {
+        this.emailNotValid();
+      }else {
+        this.autoservice.doesExistEmail(form.email, "suppliers")
+        .subscribe((supplierEmail: any) => {
+          if (supplierEmail[0] === form.email ) {
+            this.emailNotValid();
+          }else {
+            this.doNewRegister(form);
+          }
+        });
+      }
+    });
+  }
+
+  svcToast( note: string, pos: string) {
+    const toast = this.toastCtrl.create({
+        message: note,
+        duration: 3000,
+        position: pos,
+        showCloseButton: true,
+        closeButtonText: "ok",
+    });
+    toast.present();
+  }
 }

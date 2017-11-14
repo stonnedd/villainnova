@@ -1,16 +1,16 @@
-import { Component, ViewChild } from '@angular/core';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
-import { TranslateService } from '@ngx-translate/core';
-import { Config, Nav, Platform } from 'ionic-angular';
-import { FirstRunPage } from '../pages/pages';
-import { Settings } from '../providers/providers';
+import { Component, ViewChild } from "@angular/core";
+import { SplashScreen } from "@ionic-native/splash-screen";
+import { StatusBar } from "@ionic-native/status-bar";
+import { TranslateService } from "@ngx-translate/core";
+import { Config, Nav, Platform } from "ionic-angular";
+import { FirstRunPage } from "../pages/pages";
+import { Settings } from "../providers/providers";
 //import { ParallaxLayout1} from '../components/parallax/layout-1/parallax-layout-1';//
 //import { ElasticHeader} from '../components/parallax/elastic-header';
 
 @Component({
-  selector:'menu',
-  templateUrl:'app.html'
+  selector: "menu",
+  templateUrl: "app.html"
 })
 export class MyApp {
   rootPage = FirstRunPage;
@@ -18,12 +18,12 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   pages: any[] = [
-    { title:'Inicio', component:'AutoservicePage',icon:'icon-home-variant' },
-    { title: 'Perfil', component: 'ProfilePage', icon:'icon-account-box'},
+    { title: "Inicio", component: "AutoservicePage", icon: "icon-home-variant" },
+    { title: "Perfil", component: "ProfilePage", icon: "icon-account-box"},
     //{ title: 'Asistencia', component: 'AutoservicePage', icon:'build'},
-    { title: 'Gasolineras', component: 'ProfilePage', icon:'ios-car'},
+    { title: "Gasolineras", component: "ProfilePage", icon: "ios-car"},
     //{ title: 'Grúas', component: 'ProfilePage', icon:'icon-truck'},
-    { title: 'Productos', component: 'ProfilePage', icon:'md-list-box'},
+    { title: "Productos", component: "ProfilePage", icon: "md-list-box"},
     /*
     { title: 'Tutorial', component: 'TutorialPage' },
     { title: 'Welcome', component: 'WelcomePage' },
@@ -58,16 +58,16 @@ export class MyApp {
 
   initTranslate() {
     // Set the default language for translation strings, and the current language.
-    this.translate.setDefaultLang('en');
+    this.translate.setDefaultLang("en");
 
     if (this.translate.getBrowserLang() !== undefined) {
       this.translate.use(this.translate.getBrowserLang());
     } else {
-      this.translate.use('es'); // Set your language here
+      this.translate.use("es"); // Set your language here
     }
 
-    this.translate.get(['BACK_BUTTON_TEXT']).subscribe(values => {
-      this.config.set('ios', 'backButtonText', values.BACK_BUTTON_TEXT);
+    this.translate.get(["BACK_BUTTON_TEXT"]).subscribe(values => {
+      this.config.set("ios", "backButtonText", values.BACK_BUTTON_TEXT);
     });
   }
 

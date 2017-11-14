@@ -62,12 +62,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-/**
- * The Welcome Page is a splash page that quickly describes the app,
- * and then directs the user to create an account or log in.
- * If you'd like to immediately put the user onto a login/signup page,
- * we recommend not using the Welcome page.
-*/
 var WelcomePage = (function () {
     function WelcomePage(navCtrl) {
         this.navCtrl = navCtrl;
@@ -80,14 +74,23 @@ var WelcomePage = (function () {
     };
     return WelcomePage;
 }());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], WelcomePage.prototype, "data", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], WelcomePage.prototype, "events", void 0);
 WelcomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'page-welcome',template:/*ion-inline-start:"C:\WorkSpace\appMovile2017\villaInova\src\pages\welcome\welcome.html"*/'<ion-content scroll="false">\n  <div class="splash-bg"></div>\n  <div class="splash-info">\n    <div class="splash-logo"></div>\n    <div class="splash-intro">\n      \n      <!--{{ \'WELCOME_INTRO\' | translate }}-->\n    </div>\n  </div>\n  <div padding>\n    <button ion-button block (click)="signup()">{{ \'SIGNUP\' | translate }}</button>\n    <button ion-button block (click)="login()" class="login">{{ \'LOGIN\' | translate }}</button>\n  </div>\n</ion-content>\n'/*ion-inline-end:"C:\WorkSpace\appMovile2017\villaInova\src\pages\welcome\welcome.html"*/
+        selector: 'page-welcome',template:/*ion-inline-start:"C:\WorkSpace\appMovile2017\villaInova\src\pages\welcome\welcome.html"*/'<ion-content scroll="false">\n  <div class="splash-bg"></div>\n  <div class="splash-info">\n    <div class="splash-logo"></div>\n    <div class="splash-intro">\n      Autocar\n    </div>\n  </div>\n  <div padding>\n    <button ion-button block round (click)="signup()">{{ \'SIGNUP\' | translate }}</button>\n    <button ion-button block round (click)="login()" class="login">{{ \'LOGIN\' | translate }}</button>\n  </div>\n</ion-content> \n\n\n\n'/*ion-inline-end:"C:\WorkSpace\appMovile2017\villaInova\src\pages\welcome\welcome.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */]) === "function" && _a || Object])
 ], WelcomePage);
 
+var _a;
 //# sourceMappingURL=welcome.js.map
 
 /***/ })

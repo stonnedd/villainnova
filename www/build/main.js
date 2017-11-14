@@ -37,6 +37,7 @@ var AutoserviceService = (function () {
         this.createCustomerUrl = "http://localhost:4000/api/customers/create";
         this.servicesUrl = "http://localhost:4000/api/services";
         this.mainservicesUrl = "http://localhost:4000/api/mainservices";
+        this.emailUrl = "http://localhost:4000/api/email";
         this.geolocation = new __WEBPACK_IMPORTED_MODULE_0__ionic_native_geolocation__["a" /* Geolocation */]();
         this.mapdata = {};
     }
@@ -70,6 +71,14 @@ var AutoserviceService = (function () {
         })
             .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || "Server error"); });
     };
+    AutoserviceService.prototype.doesExistEmail = function (selectedEmail, profile) {
+        console.log(selectedEmail);
+        return this.http.get(this.emailUrl + "/" + profile + "/" + selectedEmail)
+            .map(function (res) {
+            return res.json();
+        })
+            .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || "Server error"); });
+    };
     AutoserviceService.prototype.createSupplier = function (supplier) {
         if (supplier === void 0) { supplier = {}; }
         var body = JSON.stringify({ supplier: supplier });
@@ -78,7 +87,7 @@ var AutoserviceService = (function () {
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         return this.http.post(this.createSupplierUrl, body, options).map(function (res) {
             console.log("response:", res);
-            return res.json();
+            return res.ok.valueOf;
         })
             .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || "Server error"); });
     };
@@ -89,8 +98,7 @@ var AutoserviceService = (function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ "Content-Type": "application/json" });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         return this.http.post(this.createCustomerUrl, body, options).map(function (res) {
-            console.log("response:", res);
-            return res.json();
+            return res.ok.valueOf;
         })
             .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || "Server error"); });
     };
@@ -98,9 +106,10 @@ var AutoserviceService = (function () {
 }());
 AutoserviceService = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["Injectable"])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
 ], AutoserviceService);
 
+var _a;
 //# sourceMappingURL=autoservice-service.js.map
 
 /***/ }),
@@ -160,8 +169,7 @@ var map = {
 		256
 	],
 	"../pages/login/login.module": [
-		648,
-		9
+		648
 	],
 	"../pages/map/map.module": [
 		649,
@@ -378,6 +386,9 @@ LoginCustomerPageModule = __decorate([
         imports: [
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__login_customer__["a" /* LoginCustomerPage */]),
         ],
+        exports: [
+            __WEBPACK_IMPORTED_MODULE_2__login_customer__["a" /* LoginCustomerPage */],
+        ],
     })
 ], LoginCustomerPageModule);
 
@@ -444,13 +455,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-/**
- * Api is a generic REST Api handler. Set your API url first.
- */
 var Api = (function () {
     function Api(http) {
         this.http = http;
-        this.url = 'https://example.com/api/v1';
+        this.url = "https://example.com/api/v1";
     }
     Api.prototype.get = function (endpoint, params, options) {
         if (!options) {
@@ -466,27 +474,28 @@ var Api = (function () {
             // a search field set in options.
             options.search = !options.search && p || options.search;
         }
-        return this.http.get(this.url + '/' + endpoint, options);
+        return this.http.get(this.url + "/" + endpoint, options);
     };
     Api.prototype.post = function (endpoint, body, options) {
-        return this.http.post(this.url + '/' + endpoint, body, options);
+        return this.http.post(this.loginUrl + "/" + endpoint, body, options);
     };
     Api.prototype.put = function (endpoint, body, options) {
-        return this.http.put(this.url + '/' + endpoint, body, options);
+        return this.http.put(this.url + "/" + endpoint, body, options);
     };
     Api.prototype.delete = function (endpoint, options) {
-        return this.http.delete(this.url + '/' + endpoint, options);
+        return this.http.delete(this.url + "/" + endpoint, options);
     };
     Api.prototype.patch = function (endpoint, body, options) {
-        return this.http.put(this.url + '/' + endpoint, body, options);
+        return this.http.put(this.url + "/" + endpoint, body, options);
     };
     return Api;
 }());
 Api = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Injectable"])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _a || Object])
 ], Api);
 
+var _a;
 //# sourceMappingURL=api.js.map
 
 /***/ }),
@@ -601,10 +610,10 @@ Items = __decorate([
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FirstRunPage; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return MainPage; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return Tab1Root; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return Tab2Root; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return Tab3Root; });
+/* unused harmony export MainPage */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return Tab1Root; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return Tab2Root; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return Tab3Root; });
 // The page the user lands on after opening the app and without a session
 // The page the user lands on after opening the app and without a session
 var FirstRunPage = 'TutorialPage';
@@ -752,82 +761,7 @@ SupplierDetailPage = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__ = __webpack_require__(150);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(22);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-var LoginCustomerPage = (function () {
-    function LoginCustomerPage(navCtrl, navParams, fBuilder, autoservice) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.autoservice = autoservice;
-        this.myForm = fBuilder.group({
-            "name": ["", __WEBPACK_IMPORTED_MODULE_3__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_3__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["f" /* Validators */].minLength(8)])],
-            "phone": ["", __WEBPACK_IMPORTED_MODULE_3__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_3__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["f" /* Validators */].minLength(10), isNumber])],
-            "email": ["", __WEBPACK_IMPORTED_MODULE_3__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_3__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["f" /* Validators */].email])],
-            "password": ["", __WEBPACK_IMPORTED_MODULE_3__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_3__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["f" /* Validators */].minLength(6)])],
-            "cPassword": ["", __WEBPACK_IMPORTED_MODULE_3__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_3__angular_forms__["f" /* Validators */].required])],
-        }, { validator: areEqual });
-        function areEqual(group) {
-            var password = group.get("password").value; // to get value in input tag
-            var confirmPassword = group.get("cPassword").value; // to get value in input tag
-            if (password !== confirmPassword) {
-                group.get("cPassword").setErrors({ MatchPassword: true });
-                return true;
-            }
-            else {
-                return null;
-            }
-        }
-        function isNumber(c) {
-            return c.value > 0 ? null : { valid: false };
-        }
-    }
-    LoginCustomerPage.prototype.onSubmit = function (form) {
-        delete form.cPassword;
-        this.autoservice.createCustomer(form)
-            .subscribe(function (data) {
-            console.log(data);
-        });
-    };
-    LoginCustomerPage.prototype.ionViewDidLoad = function () {
-        console.log("ionViewDidLoad LoginUserPage");
-    };
-    return LoginCustomerPage;
-}());
-LoginCustomerPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPage */])(),
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: "page-login-customer",template:/*ion-inline-start:"C:\WorkSpace\appMovile2017\villaInova\src\pages\login-customer\login-customer.html"*/'\n<ion-header>\n  <ion-navbar>\n    <ion-title>Login Customer</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-list class="login-List"> \n      <form id="supplierForm" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">\n        <h3>Usuario</h3>\n\n        <ion-item class="login-Class">\n          <ion-label  floating for="name"></ion-label>\n          <ion-input type="text"  placeholder="Nombre y apellido"\n            id="name" [formControl]= "myForm.controls[\'name\']"></ion-input>\n            <p *ngIf="!myForm.controls[\'name\'].valid && myForm.controls[\'name\'].touched"   \n              class="alert alert-danger"></p>\n        </ion-item> 	\n          \n        <ion-item class="login-Class">\n          <ion-label floating for="email"></ion-label>\n            <ion-input type="email"  placeholder="Email" \n              id="email" [formControl]= "myForm.controls[\'email\']"></ion-input>\n            <div *ngIf="!myForm.controls[\'email\'].valid && myForm.controls[\'email\'].touched"   \n              class="alert alert-danger"></div>\n        </ion-item> 	\n\n        <ion-item class="login-Class">\n          <ion-label floating for="password"></ion-label>\n            <ion-input type="password"  placeholder="Contraseña (mínimo 6 caracteres)" \n              id="password" [formControl]= "myForm.controls[\'password\']"></ion-input>\n            <div *ngIf="!myForm.controls[\'password\'].valid && myForm.controls[\'password\'].touched"   \n              class="alert alert-danger"></div>\n        </ion-item>\n\n        <ion-item class="login-Class">\n          <ion-label floating for="password"></ion-label>\n            <ion-input type="password"  placeholder="Confirma tu contraseña" \n              id="cPassword" [formControl]= "myForm.controls[\'cPassword\']"></ion-input>\n            <div *ngIf="!myForm.controls[\'cPassword\'].valid && myForm.controls[\'cPassword\'].touched"   \n              class="alert alert-danger"></div>\n        </ion-item>\n\n        <ion-item class="login-Class">\n          <ion-label floating for="phone"></ion-label>\n            <ion-input type="tel"  placeholder="Número telefónico (10 dígitos)" \n              id="phone" [formControl]= "myForm.controls[\'phone\']"></ion-input>\n            <div *ngIf="!myForm.controls[\'phone\'].valid && myForm.controls[\'phone\'].touched"   \n              class="alert alert-danger"></div>\n        </ion-item>\n        <br/><br/>\n        <div text-center> \n            <button ion-button round type="submit" color="submit" [disabled]="!myForm.valid">Registrar</button>\n        </div>   \n        <br/>\n\n      </form>     \n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\WorkSpace\appMovile2017\villaInova\src\pages\login-customer\login-customer.html"*/,
-        providers: [__WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__["a" /* AutoserviceService */]],
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__["a" /* AutoserviceService */]])
-], LoginCustomerPage);
-
-//# sourceMappingURL=login-customer.js.map
-
-/***/ }),
-
-/***/ 307:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginSupplierPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__ = __webpack_require__(150);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_supplier_mapping__ = __webpack_require__(610);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(666);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms__ = __webpack_require__(22);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -843,28 +777,158 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var LoginSupplierPage = (function () {
-    function LoginSupplierPage(fBuilder, navCtrl, navParams, autoservice, supplierMapping) {
+
+var LoginCustomerPage = (function () {
+    function LoginCustomerPage(navCtrl, navParams, toastCtrl, fBuilder, autoservice) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.toastCtrl = toastCtrl;
         this.autoservice = autoservice;
-        this.supplierMapping = supplierMapping;
-        this.services = [];
-        this.mainServices = [];
         this.myForm = fBuilder.group({
-            "name": ["", __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required])],
-            "manager": ["", __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].minLength(8)])],
+            "name": ["", __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].minLength(8)])],
             "phone": ["", __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].minLength(10), isNumber])],
             "email": ["", __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].email])],
             "password": ["", __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].minLength(6)])],
             "cPassword": ["", __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required])],
-            "service": ["", __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required])],
-            "schedule": ["", __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required])],
-            "specialty": ["", __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required])],
-            "address": ["", __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required])],
-            "brands": ["", __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required])],
-            "lat": ["", __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required])],
-            "lng": ["", __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required])],
+        }, { validator: areEqual });
+        function areEqual(group) {
+            var password = group.get("password").value;
+            var confirmPassword = group.get("cPassword").value;
+            if (password !== confirmPassword) {
+                group.get("cPassword").setErrors({ MatchPassword: true });
+                return true;
+            }
+            else {
+                return null;
+            }
+        }
+        function isNumber(c) {
+            return c.value > 0 ? null : { valid: false };
+        }
+        function isUsed() {
+            return this.validEmail ? null : { valid: false };
+        }
+    }
+    LoginCustomerPage.prototype.onSubmit = function (form) {
+        delete form.cPassword;
+        this.isEmailAvailable(form);
+    };
+    LoginCustomerPage.prototype.ionViewDidLoad = function () {
+        console.log("ionViewDidLoad LoginUserPage");
+    };
+    LoginCustomerPage.prototype.doNewRegister = function (form) {
+        var _this = this;
+        this.autoservice.createCustomer(form)
+            .subscribe(function (data) {
+            if (data) {
+                _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__login_login__["a" /* LoginPage */]);
+            }
+            else {
+                _this.svcToast("Error de conexión", "bottom");
+            }
+        });
+    };
+    LoginCustomerPage.prototype.emailNotValid = function () {
+        this.svcToast("Correo No válido", "bottom");
+        this.myForm.controls["email"].setValue("");
+    };
+    LoginCustomerPage.prototype.svcToast = function (note, pos) {
+        var toast = this.toastCtrl.create({
+            message: note,
+            duration: 3000,
+            position: pos,
+            showCloseButton: true,
+            closeButtonText: "ok",
+        });
+        toast.present();
+    };
+    LoginCustomerPage.prototype.isEmailAvailable = function (form) {
+        var _this = this;
+        this.autoservice.doesExistEmail(form.email, "customers")
+            .subscribe(function (customersEmail) {
+            if (customersEmail[0] === form.email) {
+                _this.emailNotValid();
+            }
+            else {
+                _this.autoservice.doesExistEmail(form.email, "suppliers")
+                    .subscribe(function (supplierEmail) {
+                    if (supplierEmail[0] === form.email) {
+                        _this.emailNotValid();
+                    }
+                    else {
+                        _this.doNewRegister(form);
+                    }
+                });
+            }
+        });
+    };
+    return LoginCustomerPage;
+}());
+LoginCustomerPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPage */])(),
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: "page-login-customer",template:/*ion-inline-start:"C:\WorkSpace\appMovile2017\villaInova\src\pages\login-customer\login-customer.html"*/'\n<ion-header>\n  <ion-navbar>\n    <ion-title>Login Customer</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-list class="login-List"> \n      <form id="supplierForm" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">\n        <h3>Usuario</h3>\n\n        <ion-item class="login-Class">\n          <ion-label  floating for="name"></ion-label>\n          <ion-input type="text"  placeholder="Nombre y apellido"\n            id="name" [formControl]= "myForm.controls[\'name\']"></ion-input>\n            <p *ngIf="!myForm.controls[\'name\'].valid && myForm.controls[\'name\'].touched"   \n              class="alert alert-danger"></p>\n        </ion-item> 	\n          \n        <ion-item class="login-Class">\n          <ion-label floating for="email"></ion-label>\n            <ion-input type="email"  placeholder="Email" \n              id="email" [formControl]= "myForm.controls[\'email\']"></ion-input>\n            <div *ngIf="!myForm.controls[\'email\'].valid && myForm.controls[\'email\'].touched"   \n              class="alert alert-danger"></div>\n        </ion-item> 	\n\n        <ion-item class="login-Class">\n          <ion-label floating for="password"></ion-label>\n            <ion-input type="password"  placeholder="Contraseña (mínimo 6 caracteres)" \n              id="password" [formControl]= "myForm.controls[\'password\']"></ion-input>\n            <div *ngIf="!myForm.controls[\'password\'].valid && myForm.controls[\'password\'].touched"   \n              class="alert alert-danger"></div>\n        </ion-item>\n\n        <ion-item class="login-Class">\n          <ion-label floating for="password"></ion-label>\n            <ion-input type="password"  placeholder="Confirma tu contraseña" \n              id="cPassword" [formControl]= "myForm.controls[\'cPassword\']"></ion-input>\n            <div *ngIf="!myForm.controls[\'cPassword\'].valid && myForm.controls[\'cPassword\'].touched"   \n              class="alert alert-danger"></div>\n        </ion-item>\n\n        <ion-item class="login-Class">\n          <ion-label floating for="phone"></ion-label>\n            <ion-input type="tel"  placeholder="Número telefónico (10 dígitos)" \n              id="phone" [formControl]= "myForm.controls[\'phone\']"></ion-input>\n            <div *ngIf="!myForm.controls[\'phone\'].valid && myForm.controls[\'phone\'].touched"   \n              class="alert alert-danger"></div>\n        </ion-item>\n        <br/><br/>\n        <div text-center> \n            <button ion-button block round type="submit" color="submit" [disabled]="!myForm.valid">Registrar</button>\n        </div>   \n        <br/>\n\n      </form>     \n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\WorkSpace\appMovile2017\villaInova\src\pages\login-customer\login-customer.html"*/,
+        providers: [__WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__["a" /* AutoserviceService */]],
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormBuilder */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__["a" /* AutoserviceService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__["a" /* AutoserviceService */]) === "function" && _e || Object])
+], LoginCustomerPage);
+
+var _a, _b, _c, _d, _e;
+//# sourceMappingURL=login-customer.js.map
+
+/***/ }),
+
+/***/ 307:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginSupplierPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_supplier_mapping__ = __webpack_require__(610);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_login__ = __webpack_require__(666);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_forms__ = __webpack_require__(22);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var LoginSupplierPage = (function () {
+    function LoginSupplierPage(fBuilder, navCtrl, navParams, autoservice, supplierMapping, toastCtrl) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.autoservice = autoservice;
+        this.supplierMapping = supplierMapping;
+        this.toastCtrl = toastCtrl;
+        this.services = [];
+        this.mainServices = [];
+        this.myForm = fBuilder.group({
+            "name": ["", __WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].required])],
+            "manager": ["", __WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].minLength(8)])],
+            "phone": ["", __WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].minLength(10), isNumber])],
+            "email": ["", __WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].email])],
+            "password": ["", __WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].minLength(6)])],
+            "cPassword": ["", __WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].required])],
+            "service": ["", __WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].required])],
+            "schedule": ["", __WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].required])],
+            "specialty": ["", __WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].required])],
+            "address": ["", __WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].required])],
+            "brands": ["", __WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].required])],
+            "lat": ["", __WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].required])],
+            "lng": ["", __WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].required])],
+            "website": [""],
         }, { validator: areEqual });
         function areEqual(group) {
             var password = group.get("password").value; // to get value in input tag
@@ -885,10 +949,7 @@ var LoginSupplierPage = (function () {
         console.log("ionViewDidLoad LoginSupplierPage");
     };
     LoginSupplierPage.prototype.onSubmit = function (form) {
-        this.autoservice.createSupplier(this.supplierMapping.arrangeData(form))
-            .subscribe(function (data) {
-            console.log(data);
-        });
+        this.isEmailAvailable(this.supplierMapping.arrangeData(form));
     };
     LoginSupplierPage.prototype.ngOnInit = function () {
         this.fetchMainServices();
@@ -920,21 +981,64 @@ var LoginSupplierPage = (function () {
             console.log("coords:", _this.fetchedLat, _this.fetchedLng);
         });
     };
+    LoginSupplierPage.prototype.doNewRegister = function (form) {
+        var _this = this;
+        this.autoservice.createCustomer(form)
+            .subscribe(function (data) {
+            if (data) {
+                _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__login_login__["a" /* LoginPage */]);
+            }
+            else {
+                _this.svcToast("Error de conexión", "bottom");
+            }
+        });
+    };
+    LoginSupplierPage.prototype.emailNotValid = function () {
+        this.svcToast("Correo No válido", "bottom");
+        this.myForm.controls["email"].setValue("");
+    };
+    LoginSupplierPage.prototype.isEmailAvailable = function (form) {
+        var _this = this;
+        this.autoservice.doesExistEmail(form.email, "customers")
+            .subscribe(function (customersEmail) {
+            if (customersEmail[0] === form.email) {
+                _this.emailNotValid();
+            }
+            else {
+                _this.autoservice.doesExistEmail(form.email, "suppliers")
+                    .subscribe(function (supplierEmail) {
+                    if (supplierEmail[0] === form.email) {
+                        _this.emailNotValid();
+                    }
+                    else {
+                        _this.doNewRegister(form);
+                    }
+                });
+            }
+        });
+    };
+    LoginSupplierPage.prototype.svcToast = function (note, pos) {
+        var toast = this.toastCtrl.create({
+            message: note,
+            duration: 3000,
+            position: pos,
+            showCloseButton: true,
+            closeButtonText: "ok",
+        });
+        toast.present();
+    };
     return LoginSupplierPage;
 }());
 LoginSupplierPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: "page-login-supplier",template:/*ion-inline-start:"C:\WorkSpace\appMovile2017\villaInova\src\pages\login-supplier\login-supplier.html"*/'\n<ion-header>\n  <ion-navbar>\n    <ion-title>Login Ssupplier</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-list class="login-List"> \n      <form id="supplierForm" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">\n        <h3>Proveedor</h3>\n\n        <ion-item class="login-Class">\n          <ion-label  floating for="manager"></ion-label>\n          <ion-input type="text"  placeholder="Nombre y apellido"\n            id="manager" [formControl]= "myForm.controls[\'manager\']"></ion-input>\n            <p *ngIf="!myForm.controls[\'manager\'].valid && myForm.controls[\'manager\'].touched"   \n              class="alert alert-danger"></p>\n        </ion-item> 	\n          \n        <ion-item class="login-Class">\n          <ion-label floating for="email"></ion-label>\n            <ion-input type="email"  placeholder="Email" \n              id="email" [formControl]= "myForm.controls[\'email\']"></ion-input>\n            <div *ngIf="!myForm.controls[\'email\'].valid && myForm.controls[\'email\'].touched"   \n              class="alert alert-danger"></div>\n        </ion-item> 	\n\n        <ion-item class="login-Class">\n          <ion-label floating for="password"></ion-label>\n            <ion-input type="password"  placeholder="Contraseña (mínimo 6 caracteres)" \n              id="password" [formControl]= "myForm.controls[\'password\']"></ion-input>\n            <div *ngIf="!myForm.controls[\'password\'].valid && myForm.controls[\'password\'].touched"   \n              class="alert alert-danger"></div>\n        </ion-item>\n\n        <ion-item class="login-Class">\n          <ion-label floating for="password"></ion-label>\n            <ion-input type="password"  placeholder="Confirma tu contraseña" \n              id="cPassword" [formControl]= "myForm.controls[\'cPassword\']"></ion-input>\n            <div *ngIf="!myForm.controls[\'cPassword\'].valid && myForm.controls[\'cPassword\'].touched"   \n              class="alert alert-danger"></div>\n        </ion-item>\n\n        <ion-item class="login-Class">\n          <ion-label floating for="phone"></ion-label>\n            <ion-input type="tel"  placeholder="Número telefónico (10 dígitos)" \n              id="phone" [formControl]= "myForm.controls[\'phone\']"></ion-input>\n            <div *ngIf="!myForm.controls[\'phone\'].valid && myForm.controls[\'phone\'].touched"   \n              class="alert alert-danger"></div>\n        </ion-item>\n\n        <ion-item  class="login-Class" > \n          <ion-label for="service" style="color:rgb(146, 145, 145) !important" no-padding>Servicio</ion-label>\n              <ion-select id="service" [formControl]="myForm.controls[\'service\']" \n              placeholder="Selecciona un servicio" \n              cancelText="Atras" >\n                <ion-option *ngFor="let mainService of mainServices" [value]="mainService" no-padding>{{mainService}} </ion-option>\n                <ion-option *ngFor="let service of services" [value]="service" no-padding>{{service}} </ion-option>\n              </ion-select>\n        </ion-item> \n\n        <ion-item class="login-Class">\n            <ion-label  floating for="specialty"></ion-label>\n              <ion-input type="text"  placeholder="Especialización o cualidades"\n                id="specialty" [formControl]= "myForm.controls[\'specialty\']"></ion-input>\n              <p *ngIf="!myForm.controls[\'specialty\'].valid && myForm.controls[\'specialty\'].touched"   \n                  class="alert alert-danger"></p>\n        </ion-item> 	\n\n        <ion-item class="login-Class">\n          <ion-label  floating for="name"></ion-label>\n            <ion-input type="text"  placeholder="Nombre del establecimiento"\n              id="name" [formControl]= "myForm.controls[\'name\']"></ion-input>\n            <p *ngIf="!myForm.controls[\'name\'].valid && myForm.controls[\'name\'].touched"   \n                class="alert alert-danger"></p>\n        </ion-item> 	\n\n        <ion-item class="login-Class">\n          <ion-label  floating for="address"></ion-label>\n            <ion-input type="text"  placeholder="Dirección "\n              id="address" [formControl]= "myForm.controls[\'address\']"></ion-input>\n            <p *ngIf="!myForm.controls[\'address\'].valid && myForm.controls[\'address\'].touched"   \n                class="alert alert-danger"></p>\n        </ion-item> 	\n\n        <ion-item class="login-Class">\n            <ion-label  floating for="brands"></ion-label>\n              <ion-input type="text"  placeholder="Marcas"\n                id="brands" [formControl]= "myForm.controls[\'brands\']"></ion-input>\n              <p *ngIf="!myForm.controls[\'brands\'].valid && myForm.controls[\'brands\'].touched"   \n                  class="alert alert-danger"></p>\n          </ion-item> 	\n\n        <ion-item class="login-Class">\n          <ion-label  floating for="schedule"></ion-label>\n            <ion-input type="text"  placeholder="Horario"\n              id="schedule" [formControl]= "myForm.controls[\'schedule\']"></ion-input>\n            <p *ngIf="!myForm.controls[\'schedule\'].valid && myForm.controls[\'schedule\'].touched"   \n                class="alert alert-danger"></p>\n        </ion-item> 	\n\n        <ion-item class="login-Class">\n          <ion-label  floating for="website"></ion-label>\n            <ion-input type="text"  placeholder="Sitio web"\n              id="website"></ion-input>\n        </ion-item> 	\n\n        \n\n        <ion-item class="coords-Class">\n          <ion-label for="lat" item-start></ion-label >\n          <ion-input type="text"  placeholder="latitud" [(ngModel)]="fetchedLat"\n            id="lat" [formControl]= "myForm.controls[\'lat\']"  ></ion-input>\n          <p *ngIf="!myForm.controls[\'lat\'].valid && myForm.controls[\'lat\'].touched"   \n              class="alert alert-danger"></p>\n\n            <ion-label for="lng"></ion-label>\n          <ion-input type="text"  placeholder="longitud"  [(ngModel)]="fetchedLng"\n            id="lng" [formControl]= "myForm.controls[\'lng\']" ></ion-input>\n          <p *ngIf="!myForm.controls[\'lng\'].valid && myForm.controls[\'lng\'].touched"   \n              class="alert alert-danger"></p>\n            <button ion-button round type="button" (click)=getMyPos() color="submit" item-end>Mi ubicacion</button>\n        </ion-item>\n\n        <br/>\n        <div text-center> \n            <button ion-button round type="submit" color="submit" [disabled]="!myForm.valid">Registrar</button>\n        </div>   \n        <br/>\n\n      </form>     \n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\WorkSpace\appMovile2017\villaInova\src\pages\login-supplier\login-supplier.html"*/,
+        selector: "page-login-supplier",template:/*ion-inline-start:"C:\WorkSpace\appMovile2017\villaInova\src\pages\login-supplier\login-supplier.html"*/'\n<ion-header>\n  <ion-navbar>\n    <ion-title>Login Ssupplier</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-list class="login-List"> \n      <form id="supplierForm" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">\n        <h3>Proveedor</h3>\n\n        <ion-item class="login-Class">\n          <ion-label  floating for="manager"></ion-label>\n          <ion-input type="text"  placeholder="Nombre y apellido"\n            id="manager" [formControl]= "myForm.controls[\'manager\']"></ion-input>\n            <p *ngIf="!myForm.controls[\'manager\'].valid && myForm.controls[\'manager\'].touched"   \n              class="alert alert-danger"></p>\n        </ion-item> 	\n          \n        <ion-item class="login-Class">\n          <ion-label floating for="email"></ion-label>\n            <ion-input type="email"  placeholder="Email" \n              id="email" [formControl]= "myForm.controls[\'email\']"></ion-input>\n            <div *ngIf="!myForm.controls[\'email\'].valid && myForm.controls[\'email\'].touched"   \n              class="alert alert-danger"></div>\n        </ion-item> 	\n\n        <ion-item class="login-Class">\n          <ion-label floating for="password"></ion-label>\n            <ion-input type="password"  placeholder="Contraseña (mínimo 6 caracteres)" \n              id="password" [formControl]= "myForm.controls[\'password\']"></ion-input>\n            <div *ngIf="!myForm.controls[\'password\'].valid && myForm.controls[\'password\'].touched"   \n              class="alert alert-danger"></div>\n        </ion-item>\n\n        <ion-item class="login-Class">\n          <ion-label floating for="password"></ion-label>\n            <ion-input type="password"  placeholder="Confirma tu contraseña" \n              id="cPassword" [formControl]= "myForm.controls[\'cPassword\']"></ion-input>\n            <div *ngIf="!myForm.controls[\'cPassword\'].valid && myForm.controls[\'cPassword\'].touched"   \n              class="alert alert-danger"></div>\n        </ion-item>\n\n        <ion-item class="login-Class">\n          <ion-label floating for="phone"></ion-label>\n            <ion-input type="tel"  placeholder="Número telefónico (10 dígitos)" \n              id="phone" [formControl]= "myForm.controls[\'phone\']"></ion-input>\n            <div *ngIf="!myForm.controls[\'phone\'].valid && myForm.controls[\'phone\'].touched"   \n              class="alert alert-danger"></div>\n        </ion-item>\n\n        <ion-item  class="login-Class" > \n          <ion-label for="service" style="color:rgb(146, 145, 145) !important" no-padding>Servicio</ion-label>\n              <ion-select id="service" [formControl]="myForm.controls[\'service\']" \n              placeholder="Selecciona un servicio" \n              cancelText="Atras" >\n                <ion-option *ngFor="let mainService of mainServices" [value]="mainService" no-padding>{{mainService}} </ion-option>\n                <ion-option *ngFor="let service of services" [value]="service" no-padding>{{service}} </ion-option>\n              </ion-select>\n        </ion-item> \n\n        <ion-item class="login-Class">\n            <ion-label  floating for="specialty"></ion-label>\n              <ion-input type="text"  placeholder="Especialización o cualidades"\n                id="specialty" [formControl]= "myForm.controls[\'specialty\']"></ion-input>\n              <p *ngIf="!myForm.controls[\'specialty\'].valid && myForm.controls[\'specialty\'].touched"   \n                  class="alert alert-danger"></p>\n        </ion-item> 	\n\n        <ion-item class="login-Class">\n          <ion-label  floating for="name"></ion-label>\n            <ion-input type="text"  placeholder="Nombre del establecimiento"\n              id="name" [formControl]= "myForm.controls[\'name\']"></ion-input>\n            <p *ngIf="!myForm.controls[\'name\'].valid && myForm.controls[\'name\'].touched"   \n                class="alert alert-danger"></p>\n        </ion-item> 	\n\n        <ion-item class="login-Class">\n          <ion-label  floating for="address"></ion-label>\n            <ion-input type="text"  placeholder="Dirección "\n              id="address" [formControl]= "myForm.controls[\'address\']"></ion-input>\n            <p *ngIf="!myForm.controls[\'address\'].valid && myForm.controls[\'address\'].touched"   \n                class="alert alert-danger"></p>\n        </ion-item> 	\n\n        <ion-item class="login-Class">\n            <ion-label  floating for="brands"></ion-label>\n              <ion-input type="text"  placeholder="Marcas"\n                id="brands" [formControl]= "myForm.controls[\'brands\']"></ion-input>\n              <p *ngIf="!myForm.controls[\'brands\'].valid && myForm.controls[\'brands\'].touched"   \n                  class="alert alert-danger"></p>\n          </ion-item> 	\n\n        <ion-item class="login-Class">\n          <ion-label  floating for="schedule"></ion-label>\n            <ion-input type="text"  placeholder="Horario"\n              id="schedule" [formControl]= "myForm.controls[\'schedule\']"></ion-input>\n            <p *ngIf="!myForm.controls[\'schedule\'].valid && myForm.controls[\'schedule\'].touched"   \n                class="alert alert-danger"></p>\n        </ion-item> 	\n\n        <ion-item class="login-Class">\n          <ion-label  floating for="website"></ion-label>\n            <ion-input type="text"  placeholder="Sitio web" [formControl]= "myForm.controls[\'website\']"\n              id="website"></ion-input>\n        </ion-item> 	\n        <br/>\n        <ion-item class="coords-Class">\n          <ion-label for="lat" item-start></ion-label >\n          <ion-input type="text"  placeholder="latitud" [(ngModel)]="fetchedLat"\n            id="lat" [formControl]= "myForm.controls[\'lat\']"  ></ion-input>\n          <p *ngIf="!myForm.controls[\'lat\'].valid && myForm.controls[\'lat\'].touched"   \n              class="alert alert-danger"></p>\n\n            <ion-label for="lng"></ion-label>\n          <ion-input type="text"  placeholder="longitud"  [(ngModel)]="fetchedLng"\n            id="lng" [formControl]= "myForm.controls[\'lng\']" ></ion-input>\n          <p *ngIf="!myForm.controls[\'lng\'].valid && myForm.controls[\'lng\'].touched"   \n              class="alert alert-danger"></p>\n            <button ion-button round type="button" (click)=getMyPos() color="submit" item-end>Mi ubicacion</button>\n        </ion-item>\n\n        <br/>\n        <div text-center> \n            <button ion-button block round type="submit" color="submit" [disabled]="!myForm.valid">Registrar</button>\n        </div>   \n        <br/>\n\n      </form>     \n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\WorkSpace\appMovile2017\villaInova\src\pages\login-supplier\login-supplier.html"*/,
         providers: [__WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__["a" /* AutoserviceService */], __WEBPACK_IMPORTED_MODULE_3__utils_supplier_mapping__["a" /* SupplierMapping */]],
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormBuilder */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__["a" /* AutoserviceService */],
-        __WEBPACK_IMPORTED_MODULE_3__utils_supplier_mapping__["a" /* SupplierMapping */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_5__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_forms__["a" /* FormBuilder */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__["a" /* AutoserviceService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__["a" /* AutoserviceService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__utils_supplier_mapping__["a" /* SupplierMapping */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__utils_supplier_mapping__["a" /* SupplierMapping */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */]) === "function" && _f || Object])
 ], LoginSupplierPage);
 
+var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=login-supplier.js.map
 
 /***/ }),
@@ -984,12 +1088,14 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_login_customer_login_customer_module__ = __webpack_require__(255);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_login_supplier_login_supplier_module__ = __webpack_require__(256);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_ionic2_rating__ = __webpack_require__(252);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_login_login_module__ = __webpack_require__(648);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -1096,6 +1202,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_21_ionic2_rating__["a" /* Ionic2RatingModule */],
             __WEBPACK_IMPORTED_MODULE_19__pages_login_customer_login_customer_module__["LoginCustomerPageModule"],
             __WEBPACK_IMPORTED_MODULE_20__pages_login_supplier_login_supplier_module__["LoginSupplierPageModule"],
+            __WEBPACK_IMPORTED_MODULE_22__pages_login_login_module__["LoginPageModule"],
         ],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_10_ionic_angular__["e" /* IonicApp */]],
         entryComponents: [
@@ -1508,48 +1615,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-/**
- * Most apps have the concept of a User. This is a simple provider
- * with stubs for login/signup/etc.
- *
- * This User provider makes calls to our API at the `login` and `signup` endpoints.
- *
- * By default, it expects `login` and `signup` to return a JSON object of the shape:
- *
- * ```json
- * {
- *   status: 'success',
- *   user: {
- *     // User fields your app needs, like "id", "name", "email", etc.
- *   }
- * }
- * ```
- *
- * If the `status` field is not `success`, then an error is detected and returned.
- */
 var User = (function () {
     function User(http, api) {
         this.http = http;
         this.api = api;
     }
-    /**
-     * Send a POST request to our login endpoint with the data
-     * the user entered on the form.
-     */
     User.prototype.login = function (accountInfo) {
         var _this = this;
-        var seq = this.api.post('login', accountInfo).share();
+        var seq = this.api.post("login", accountInfo).share();
         seq
             .map(function (res) { return res.json(); })
             .subscribe(function (res) {
             // If the API returned a successful response, mark the user as logged in
-            if (res.status == 'success') {
+            if (res.status == "success") {
                 _this._loggedIn(res);
             }
             else {
             }
         }, function (err) {
-            console.error('ERROR', err);
+            console.error("ERROR", err);
         });
         return seq;
     };
@@ -1557,21 +1641,20 @@ var User = (function () {
      * Send a POST request to our signup endpoint with the data
      * the user entered on the form.
      */
-    User.prototype.signup = function (accountInfo) {
-        var _this = this;
-        var seq = this.api.post('signup', accountInfo).share();
-        seq
-            .map(function (res) { return res.json(); })
-            .subscribe(function (res) {
-            // If the API returned a successful response, mark the user as logged in
-            if (res.status == 'success') {
-                _this._loggedIn(res);
-            }
-        }, function (err) {
-            console.error('ERROR', err);
-        });
-        return seq;
-    };
+    // signup(accountInfo: any) {
+    //   let seq = this.api.post("signup", accountInfo).share();
+    //   seq
+    //     .map(res => res.json())
+    //     .subscribe(res => {
+    //       // If the API returned a successful response, mark the user as logged in
+    //       if (res.status == "success") {
+    //         this._loggedIn(res);
+    //       }
+    //     }, err => {
+    //       console.error("ERROR", err);
+    //     });
+    //   return seq;
+    // }
     /**
      * Log the user out, which forgets the session
      */
@@ -1588,9 +1671,10 @@ var User = (function () {
 }());
 User = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["Injectable"])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_4__api_api__["a" /* Api */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__api_api__["a" /* Api */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__api_api__["a" /* Api */]) === "function" && _b || Object])
 ], User);
 
+var _a, _b;
 //# sourceMappingURL=user.js.map
 
 /***/ }),
@@ -1634,12 +1718,12 @@ var MyApp = (function () {
         this.splashScreen = splashScreen;
         this.rootPage = __WEBPACK_IMPORTED_MODULE_5__pages_pages__["a" /* FirstRunPage */];
         this.pages = [
-            { title: 'Inicio', component: 'AutoservicePage', icon: 'icon-home-variant' },
-            { title: 'Perfil', component: 'ProfilePage', icon: 'icon-account-box' },
+            { title: "Inicio", component: "AutoservicePage", icon: "icon-home-variant" },
+            { title: "Perfil", component: "ProfilePage", icon: "icon-account-box" },
             //{ title: 'Asistencia', component: 'AutoservicePage', icon:'build'},
-            { title: 'Gasolineras', component: 'ProfilePage', icon: 'ios-car' },
+            { title: "Gasolineras", component: "ProfilePage", icon: "ios-car" },
             //{ title: 'Grúas', component: 'ProfilePage', icon:'icon-truck'},
-            { title: 'Productos', component: 'ProfilePage', icon: 'md-list-box' },
+            { title: "Productos", component: "ProfilePage", icon: "md-list-box" },
         ];
         this.initTranslate();
     }
@@ -1655,15 +1739,15 @@ var MyApp = (function () {
     MyApp.prototype.initTranslate = function () {
         var _this = this;
         // Set the default language for translation strings, and the current language.
-        this.translate.setDefaultLang('en');
+        this.translate.setDefaultLang("en");
         if (this.translate.getBrowserLang() !== undefined) {
             this.translate.use(this.translate.getBrowserLang());
         }
         else {
-            this.translate.use('es'); // Set your language here
+            this.translate.use("es"); // Set your language here
         }
-        this.translate.get(['BACK_BUTTON_TEXT']).subscribe(function (values) {
-            _this.config.set('ios', 'backButtonText', values.BACK_BUTTON_TEXT);
+        this.translate.get(["BACK_BUTTON_TEXT"]).subscribe(function (values) {
+            _this.config.set("ios", "backButtonText", values.BACK_BUTTON_TEXT);
         });
     };
     MyApp.prototype.openPage = function (page) {
@@ -1679,7 +1763,7 @@ __decorate([
 ], MyApp.prototype, "nav", void 0);
 MyApp = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'menu',template:/*ion-inline-start:"C:\WorkSpace\appMovile2017\villaInova\src\app\app.html"*/'\n\n<ion-menu [content]="content" style="background-color:#f0ede6" >\n\n  <ion-header >\n\n    <div menuClose  class="header-background-image" (click)="openPage({ title:\'Inicio\', component:\'AutoservicePage\'})"\n\n     style="background-color:#eae4da" >\n\n     <ion-grid>\n\n       <ion-row>\n\n         <ion-col col-4> \n\n          <img src="assets/images/logo/main-logo.png" style="width:100px;" >\n\n         </ion-col>\n\n         <ion-col col-8>\n\n           <br><img src="assets/images/logo/autocar.png"  >\n\n          </ion-col>\n\n       </ion-row>\n\n     </ion-grid>\n\n      <!--<h1 item-title text-center> <strong> Aquí va el nombre</strong></h1>-->\n\n    </div>\n\n  </ion-header>\n\n  <ion-content color="primary" style="background-color:#f0ede6" class="menuBackground" >\n\n    <ion-list no-margin >\n\n      <button menuClose paddinge-left ion-item no-lines item-title main-menu\n\n        *ngFor="let p of pages" (click)="openPage(p)" style="height: 50pxx; background-color:#f0ede6">\n\n        <ion-icon icon-small item-left name="{{p.icon}}">\n\n          <i class="icon {{p.icon}}"></i>\n\n        </ion-icon>\n\n        <strong>{{p.title}}</strong>\n\n      </button>\n\n    </ion-list>\n\n  </ion-content>\n\n</ion-menu>\n\n<ion-nav #content [root]="rootPage" style="margin:0% !important"></ion-nav>'/*ion-inline-end:"C:\WorkSpace\appMovile2017\villaInova\src\app\app.html"*/
+        selector: "menu",template:/*ion-inline-start:"C:\WorkSpace\appMovile2017\villaInova\src\app\app.html"*/'\n\n<ion-menu [content]="content" style="background-color:#f0ede6" >\n\n  <ion-header >\n\n    <div menuClose  class="header-background-image" (click)="openPage({ title:\'Inicio\', component:\'AutoservicePage\'})"\n\n     style="background-color:#eae4da" >\n\n     <ion-grid>\n\n       <ion-row>\n\n         <ion-col col-4> \n\n          <img src="assets/images/logo/main-logo.png" style="width:100px;" >\n\n         </ion-col>\n\n         <ion-col col-8>\n\n           <br><img src="assets/images/logo/autocar.png"  >\n\n          </ion-col>\n\n       </ion-row>\n\n     </ion-grid>\n\n      <!--<h1 item-title text-center> <strong> Aquí va el nombre</strong></h1>-->\n\n    </div>\n\n  </ion-header>\n\n  <ion-content color="primary" style="background-color:#f0ede6" class="menuBackground" >\n\n    <ion-list no-margin >\n\n      <button menuClose paddinge-left ion-item no-lines item-title main-menu\n\n        *ngFor="let p of pages" (click)="openPage(p)" style="height: 50pxx; background-color:#f0ede6">\n\n        <ion-icon icon-small item-left name="{{p.icon}}">\n\n          <i class="icon {{p.icon}}"></i>\n\n        </ion-icon>\n\n        <strong>{{p.title}}</strong>\n\n      </button>\n\n    </ion-list>\n\n  </ion-content>\n\n</ion-menu>\n\n<ion-nav #content [root]="rootPage" style="margin:0% !important"></ion-nav>'/*ion-inline-end:"C:\WorkSpace\appMovile2017\villaInova\src\app\app.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */],
         __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["o" /* Platform */], __WEBPACK_IMPORTED_MODULE_6__providers_providers__["c" /* Settings */],
@@ -1688,6 +1772,129 @@ MyApp = __decorate([
 ], MyApp);
 
 //# sourceMappingURL=app.component.js.map
+
+/***/ }),
+
+/***/ 648:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginPageModule", function() { return LoginPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login__ = __webpack_require__(666);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+var LoginPageModule = (function () {
+    function LoginPageModule() {
+    }
+    return LoginPageModule;
+}());
+LoginPageModule = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
+        declarations: [
+            __WEBPACK_IMPORTED_MODULE_3__login__["a" /* LoginPage */],
+        ],
+        imports: [
+            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_3__login__["a" /* LoginPage */]),
+            __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["b" /* TranslateModule */].forChild()
+        ],
+        exports: [
+            __WEBPACK_IMPORTED_MODULE_3__login__["a" /* LoginPage */]
+        ]
+    })
+], LoginPageModule);
+
+//# sourceMappingURL=login.module.js.map
+
+/***/ }),
+
+/***/ 666:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_providers__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms__ = __webpack_require__(22);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var LoginPage = (function () {
+    function LoginPage(navCtrl, user, toastCtrl, translateService, fBuilder) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.user = user;
+        this.toastCtrl = toastCtrl;
+        this.translateService = translateService;
+        this.loginForm = fBuilder.group({
+            "email": ["", __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].email])],
+            "password": ["", __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].minLength(6)])],
+        });
+        this.translateService.get("LOGIN_ERROR").subscribe(function (value) {
+            _this.loginErrorString = value;
+        });
+    }
+    LoginPage.prototype.onSubmit = function (form) {
+        console.log(form);
+        this.account.email = form.email;
+        this.account.password = form.password;
+        this.doLogin();
+    };
+    // Attempt to login in through our User service
+    LoginPage.prototype.doLogin = function () {
+        var _this = this;
+        this.user.login(this.account).subscribe(function (resp) {
+            //this.navCtrl.push(MainPage);
+            console.log("Login Success");
+            console.log(resp);
+        }, function (err) {
+            //this.navCtrl.push(MainPage);
+            console.log("Login Success");
+            console.log(err);
+            var toast = _this.toastCtrl.create({
+                message: _this.loginErrorString,
+                duration: 3000,
+                position: "top",
+            });
+            toast.present();
+        });
+    };
+    return LoginPage;
+}());
+LoginPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* IonicPage */])(),
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: "page-login",template:/*ion-inline-start:"C:\WorkSpace\appMovile2017\villaInova\src\pages\login\login.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>{{ \'LOGIN_TITLE\' | translate }}</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-list class="login-List"> \n    <form id="loginForm" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">\n      <h3>Iniciar sesión</h3>\n\n      <ion-item class="login-Class">\n        <ion-label  floating for="email"></ion-label>\n        <ion-input type="email"  placeholder="ejemplo@email.com"\n          id="email" [formControl]= "loginForm.controls[\'email\']"></ion-input>\n          <p *ngIf="!loginForm.controls[\'email\'].valid && loginForm.controls[\'email\'].touched"   \n            class="alert alert-danger"></p>\n      </ion-item> 	\n        \n      <ion-item class="login-Class">\n        <ion-label floating for="password"></ion-label>\n          <ion-input type="password"  placeholder="Contraseña" \n            id="password" [formControl]= "loginForm.controls[\'password\']"></ion-input>\n          <div *ngIf="!loginForm.controls[\'password\'].valid && loginForm.controls[\'password\'].touched"   \n            class="alert alert-danger"></div>\n      </ion-item> 	\n      <br/>\n      <div text-center> \n        <button ion-button block round type="submit" color="submit" [disabled]="!loginForm.valid">Iniciar</button>\n      </div>\n    </form>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\WorkSpace\appMovile2017\villaInova\src\pages\login\login.html"*/,
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__providers_providers__["d" /* User */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_providers__["d" /* User */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["q" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["q" /* ToastController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["c" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["c" /* TranslateService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormBuilder */]) === "function" && _e || Object])
+], LoginPage);
+
+var _a, _b, _c, _d, _e;
+//# sourceMappingURL=login.js.map
 
 /***/ })
 
