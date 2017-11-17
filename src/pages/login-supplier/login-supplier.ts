@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { AutoserviceService } from "../../service/autoservice-service";
 import { SupplierMapping} from "../../utils/supplier-mapping"
-import { ToastController } from "ionic-angular";
+import { ShowToaster } from "../../utils/toaster";
 import { LoginPage } from "../login/login";
 import { FormGroup, ReactiveFormsModule, FormControl,
         FormBuilder, Validators, AbstractControl} from "@angular/forms";
@@ -12,7 +12,7 @@ import { FormGroup, ReactiveFormsModule, FormControl,
 @Component({
   selector: "page-login-supplier",
   templateUrl: "login-supplier.html",
-  providers: [AutoserviceService, SupplierMapping],
+  providers: [AutoserviceService, SupplierMapping, ShowToaster],
 
 })
 export class LoginSupplierPage {
@@ -28,7 +28,7 @@ export class LoginSupplierPage {
               public navParams: NavParams,
               public autoservice: AutoserviceService,
               public supplierMapping: SupplierMapping,
-              public toastCtrl: ToastController) {
+              public tstCtrl: ShowToaster) {
 
     this.myForm = fBuilder.group({
       "name": ["", Validators.compose([Validators.required])],
@@ -110,18 +110,19 @@ export class LoginSupplierPage {
   }
 
   doNewRegister(form) {
-    this.autoservice.createCustomer(form)
+    this.autoservice.createSupplier(form)
     .subscribe((data: any) => {
         if (data) {
+          this.tstCtrl.reveal("Registrado con éxito", "middle", 3000);
           this.navCtrl.push(LoginPage);
         }
         else {
-          this.svcToast("Error de conexión", "bottom");
+          this.tstCtrl.reveal("Error de conexión", "bottom", 3000);
         }
      });
   }
   emailNotValid() {
-    this.svcToast("Correo No válido", "bottom");
+    this.tstCtrl.reveal("Correo No válido", "bottom", 3000);
     this.myForm.controls["email"].setValue("");
   }
 
@@ -143,14 +144,5 @@ export class LoginSupplierPage {
     });
   }
 
-  svcToast( note: string, pos: string) {
-    const toast = this.toastCtrl.create({
-        message: note,
-        duration: 3000,
-        position: pos,
-        showCloseButton: true,
-        closeButtonText: "ok",
-    });
-    toast.present();
-  }
+  
 }

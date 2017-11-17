@@ -73,7 +73,7 @@ export class AutoserviceService {
         return this.http.post(this.createSupplierUrl, body, options ).map(
             (res: Response) => {
                 console.log("response:", res);
-                return res.ok.valueOf;
+                return res.ok;
             })
             .catch((error: any) => Observable.throw(error.json().error || "Server error"));
     }
@@ -85,7 +85,7 @@ export class AutoserviceService {
         let options = new RequestOptions({ headers: headers });
         return this.http.post(this.createCustomerUrl, body, options ).map(
             (res: Response) => {
-                return res.ok.valueOf;
+                return res.ok;
             })
             .catch((error: any) => Observable.throw(error.json().error || "Server error"));
     }

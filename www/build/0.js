@@ -7,10 +7,10 @@ webpackJsonp([0],{
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutoservicePageModule", function() { return AutoservicePageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__autoservice__ = __webpack_require__(660);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_maps_layout_1_maps_layout_1__ = __webpack_require__(661);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular2_google_maps_core__ = __webpack_require__(308);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular2_google_maps_core__ = __webpack_require__(309);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular2_google_maps_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_angular2_google_maps_core__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_parallax_elastic_header__ = __webpack_require__(662);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_orderBy__ = __webpack_require__(663);
@@ -59,206 +59,14 @@ AutoservicePageModule = __decorate([
 
 /***/ }),
 
-/***/ 660:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AutoservicePage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__settings_settings__ = __webpack_require__(306);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-var AutoservicePage = (function () {
-    function AutoservicePage(navCtrl, navParams, AsSvc, popCtrl, toastCtrl, autoservice) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.AsSvc = AsSvc;
-        this.popCtrl = popCtrl;
-        this.toastCtrl = toastCtrl;
-        this.autoservice = autoservice;
-        this.params = {};
-        this.usrPos = {};
-        this.params.data = {};
-        this.params.suppliers = [];
-        this.params.fetchSupp = [];
-        this.params.mapData = {};
-        this.params.events = {
-            "onLike": function (item) {
-                console.log("Like");
-            },
-            "onFavorite": function (item) {
-                if (item) {
-                    item.favorite = !item.favorite;
-                }
-            },
-            "onShare": function (item) {
-                console.log("Share");
-            },
-            "onSkipPrevious": function (item) {
-                console.log("Skip Previous");
-            },
-            "onPlay": function (item) {
-                console.log("Play");
-            },
-            "onSkipNext": function (item) {
-                console.log("Skip Next");
-            },
-            "onFab": function (item) {
-                console.log("Fab");
-            },
-            "onRates": function (index) {
-                console.log("Rates " + (index + 1));
-            },
-            "onItemClick": function (item) {
-                console.log(item.title);
-            },
-            "onMarker": function (item) {
-                if (item === void 0) { item = {}; }
-                console.log(item);
-            },
-        };
-        this.params.userData = {
-            userPos: {
-                lat: 0,
-                lng: 0,
-                zoom: 15,
-                mapTypeControl: true,
-                streetViewControl: true,
-            },
-        };
-    }
-    AutoservicePage.prototype.serviceIsSelected = function (chosenService) {
-        console.log("ocpión::", chosenService);
-        // this.params.suppliers = this.AsSvc.getSuppliers().filter(
-        //   data => {
-        //     for (let i = 0; i < chosenService.length; i++) {
-        //       if (data.service === chosenService[i]) {
-        //         return true;
-        //       }
-        //     }
-        //   },
-        // );
-        // console.log("proveedores:", this.params.suppliers);
-        this.fetchSuppliers(chosenService);
-    };
-    AutoservicePage.prototype.onMarkerService = function (params) {
-        console.log("params:", params);
-        this.params.data = params;
-        this.params.mapData.lat = params.lat;
-        this.params.mapData.lng = params.lng;
-    };
-    AutoservicePage.prototype.ionViewDidLoad = function () {
-    };
-    AutoservicePage.prototype.ngOnInit = function () {
-        var _this = this;
-        this.fetchServices();
-        this.fetchMainServices();
-        this.AsSvc.getPosition().then(function (userPosition) {
-            _this.fillUsrData(userPosition);
-            console.log("pos:", userPosition.coords);
-        }).catch(function (error) {
-            _this.presentToast(JSON.stringify(error));
-        });
-    };
-    AutoservicePage.prototype.fillUsrData = function (usrPosition) {
-        this.params.userData = {
-            userPos: {
-                lat: usrPosition.coords.latitude,
-                lng: usrPosition.coords.longitude,
-                zoom: 15,
-                mapTypeControl: true,
-                streetViewControl: true,
-                iconUrl: "../assets/mapicons/you.png",
-            },
-        };
-        this.params.mapData.lat = usrPosition.coords.latitude;
-        this.params.mapData.lng = usrPosition.coords.longitude;
-    };
-    AutoservicePage.prototype.showSettings = function (event) {
-        var popover = this.popCtrl.create(__WEBPACK_IMPORTED_MODULE_3__settings_settings__["a" /* SettingsPage */]);
-        popover.present({
-            ev: event,
-        });
-    };
-    AutoservicePage.prototype.presentToast = function (msgTxt) {
-        var toast = this.toastCtrl.create({
-            message: msgTxt,
-            duration: 3000,
-            position: "middle",
-        });
-        toast.present();
-    };
-    AutoservicePage.prototype.fetchSuppliers = function (chosenService) {
-        var _this = this;
-        this.autoservice.getSuppliersq(chosenService)
-            .subscribe(function (supplier) {
-            _this.params.suppliers = supplier;
-            console.log("fetched", _this.params.suppliers);
-        }, function (err) {
-            console.log(err);
-        });
-    };
-    AutoservicePage.prototype.fetchServices = function () {
-        var _this = this;
-        this.autoservice.getServices().subscribe(function (services) {
-            _this.params.services = services;
-            console.log("fetchedServ", _this.params.services);
-        }, function (err) {
-            console.log(err);
-        });
-    };
-    AutoservicePage.prototype.fetchMainServices = function () {
-        var _this = this;
-        this.autoservice.getMainServices().subscribe(function (mservices) {
-            _this.params.mainServices = mservices;
-            console.log("fetchedMServ", _this.params.services);
-        }, function (err) {
-            console.log(err);
-        });
-    };
-    return AutoservicePage;
-}());
-AutoservicePage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPage */])(),
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: "page-autoservice",template:/*ion-inline-start:"C:\WorkSpace\appMovile2017\villaInova\src\pages\autoservice\autoservice.html"*/'  <ion-header style="height:0px" >\n  <ion-navbar style="height:5px" >\n      <!--<ion-grid>\n        <ion-row > \n          <ion-col>\n              <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>        \n          </ion-col>\n          <ion-col>\n            <br><ion-title>Asistencia</ion-title>\n          </ion-col>\n          <ion-col >\n              <button ion-button icon-only clear float-right (click)=showSettings($event)><ion-icon name="settings" style="color:white"></ion-icon></button>         \n          </ion-col>\n        </ion-row>\n      </ion-grid>-->\n      <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>        \n      <ion-title>Asistencia<ion-icon name="settings" float-right (click)=showSettings($event) class="icon-size" ></ion-icon></ion-title>\n  </ion-navbar>\n</ion-header>\n<maps-layout-1\n  [data]="params.data"\n  [events]="params.events"\n  [userData]="params.userData"\n  [services]="params.services"\n  [mainServices]="params.mainServices"\n  [suppliers]="params.suppliers"\n  [mapData]="params.mapData"\n  (onMarkerService)="onMarkerService($event)"\n  (serviceIsSelected)="serviceIsSelected($event)">\n</maps-layout-1>\n\n\n'/*ion-inline-end:"C:\WorkSpace\appMovile2017\villaInova\src\pages\autoservice\autoservice.html"*/,
-        providers: [__WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__["a" /* AutoserviceService */]],
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__["a" /* AutoserviceService */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* PopoverController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */],
-        __WEBPACK_IMPORTED_MODULE_2__service_autoservice_service__["a" /* AutoserviceService */]])
-], AutoservicePage);
-
-//# sourceMappingURL=autoservice.js.map
-
-/***/ }),
-
 /***/ 661:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MapsLayout1; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_supplier_detail_supplier_detail__ = __webpack_require__(307);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_supplier_detail_supplier_detail__ = __webpack_require__(308);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);

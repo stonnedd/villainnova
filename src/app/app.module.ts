@@ -20,6 +20,7 @@ import { AngularFireDatabaseModule } from "angularfire2/database";
 import { AngularFireAuthModule } from "angularfire2/auth";
 import { HomePageModule} from "../pages/home/home.module";
 import { AutoservicePageModule} from "../pages/autoservice/autoservice.module";
+//import { AutoservicePage} from "../pages/autoservice/autoservice";
 import { AutoserviceService} from "../service/autoservice-service";
 import { SettingsPageModule} from "../pages/settings/settings.module";
 import { SupplierDetailPageModule} from "../pages/supplier-detail/supplier-detail.module";
@@ -86,6 +87,7 @@ export function provideSettings(storage: Storage) {
     LoginCustomerPageModule,
     LoginSupplierPageModule,
     LoginPageModule,
+    AutoservicePageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [

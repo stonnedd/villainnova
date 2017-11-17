@@ -6,7 +6,7 @@ import { Http, RequestOptions, URLSearchParams } from "@angular/http";
 @Injectable()
 export class Api {
   url: string = "https://example.com/api/v1";
-  loginUrl: string;
+  loginUrl: string = "http://localhost:4000/api/auth";
 
   constructor(public http: Http) {
   }
@@ -31,7 +31,8 @@ export class Api {
   }
 
   post(endpoint: string, body: any, options?: RequestOptions) {
-    return this.http.post(this.loginUrl + "/" + endpoint, body, options);
+    console.log("en post");
+    return this.http.post(this.loginUrl + "/", body, options);
   }
 
   put(endpoint: string, body: any, options?: RequestOptions) {

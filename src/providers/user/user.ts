@@ -11,15 +11,16 @@ export class User {
   constructor(public http: Http, public api: Api) {
   }
 
-  login(accountInfo: any) {
-    let seq = this.api.post("login", accountInfo).share();
-
+  login(session: any) {
+    console.log("en login");
+    let seq = this.api.post("login", JSON.stringify({session})).share();
     seq
       .map(res => res.json())
       .subscribe(res => {
-        // If the API returned a successful response, mark the user as logged in
+        console.log(res.JSON);
         if (res.status == "success") {
           this._loggedIn(res);
+          console.log(res.JSON);
         } else {
         }
       }, err => {

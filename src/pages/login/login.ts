@@ -4,6 +4,7 @@ import { IonicPage, NavController} from "ionic-angular";
 import { User } from "../../providers/providers";
 import { LoginService } from "../../service/login-service";
 import { ShowToaster } from "../../utils/toaster";
+import { AutoservicePage } from "../../pages/autoservice/autoservice";
 import { FormGroup, ReactiveFormsModule, FormControl,
   FormBuilder, Validators} from "@angular/forms";
 
@@ -45,15 +46,13 @@ export class LoginPage {
     .subscribe((customersEmail: any) => {
         if (customersEmail[0] === form.email) {
           this.account.profile = "customer";
-          console.log(this.account);
-        //this.doLogin(this.account);
+          this.doLogin(this.account);
         }else {
         this.loginService.doesExistEmail(form.email, "suppliers")
         .subscribe((supplierEmail: any) => {
           if (supplierEmail[0] === form.email ) {
               this.account.profile = "supplier";
-              console.log(this.account);
-            //this.doLogin(this.account);
+              this.doLogin(this.account);
           }else {
             this.showToaster.reveal("Correo NO válido", "bottom", 3000);
           }
@@ -62,15 +61,22 @@ export class LoginPage {
     });
   }
 
-  doLogin() {
-    this.user.login(this.account).subscribe((resp) => {
-      //this.navCtrl.push(MainPage);
-      console.log("Login Success");
-      console.log(resp);
+  loginSucces() {
+    this.showToaster.reveal("Bienvenido", "top", 3000);
+    this.navCtrl.push(AutoservicePage);
+  }
+
+  loginFail() {
+    this.showToaster.reveal("Contraseña incorrecta", "top", 3000);
+    this.loginForm.controls["password"].setValue("");
+  }
+
+  doLogin(account) {
+    this.loginService.doLogin(account).subscribe((resp) => {
+      console.log("the resp", resp);
+      resp._body === "null" ? this.loginFail() : this.loginSucces();
     }, (err) => {
-      //this.navCtrl.push(MainPage);
-      console.log("Login Success");
-      console.log(err);
+      console.log("Error", err);
       this.showToaster.reveal(this.loginErrorString, "top", 3000);
     });
   }
