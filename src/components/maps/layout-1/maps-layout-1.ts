@@ -53,13 +53,13 @@ export class MapsLayout1 {
         if (this.selectedService.length === 0) {
             this.labelService = "un servicio";
         }else
-        if (this.selectedService.length === 1){
+        if (this.selectedService.length === 1) {
             this.labelService = this.selectedService[0];
         }else {
             this.labelService = "una opción";
         }
         this.selectedService.forEach(element => {
-            if (element === "Taller especializado"){
+            if (element === "Taller especializado") {
                 this.showBrands();
                 //console.log("si");
                 //this.svcToast("Seleciona una marca", "top");

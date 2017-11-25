@@ -59,6 +59,14 @@
                 <ion-option *ngFor="let service of services" [value]="service" no-padding>{{service}} </ion-option>
               </ion-select>
         </ion-item> 
+        
+        <ion-item class="login-Class">
+          <ion-label  floating for="name"></ion-label>
+            <ion-input type="text"  placeholder="Nombre del establecimiento"
+              id="name" [formControl]= "myForm.controls['name']"></ion-input>
+            <p *ngIf="!myForm.controls['name'].valid && myForm.controls['name'].touched"   
+                class="alert alert-danger"></p>
+        </ion-item> 	
 
         <ion-item class="login-Class">
             <ion-label  floating for="specialty"></ion-label>
@@ -67,14 +75,7 @@
               <p *ngIf="!myForm.controls['specialty'].valid && myForm.controls['specialty'].touched"   
                   class="alert alert-danger"></p>
         </ion-item> 	
-
-        <ion-item class="login-Class">
-          <ion-label  floating for="name"></ion-label>
-            <ion-input type="text"  placeholder="Nombre del establecimiento"
-              id="name" [formControl]= "myForm.controls['name']"></ion-input>
-            <p *ngIf="!myForm.controls['name'].valid && myForm.controls['name'].touched"   
-                class="alert alert-danger"></p>
-        </ion-item> 	
+    
 
         <ion-item class="login-Class">
           <ion-label  floating for="address"></ion-label>

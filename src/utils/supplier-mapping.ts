@@ -1,11 +1,31 @@
-import {SupplierModel} from "../models/supplierModel";
-
 export class SupplierMapping {
-    newSupplier: SupplierModel;
+    userForm: any = {};
+    supplierForm: any = {};
+    splitForm(form) {
+        this.userForm.name = form.manager;
+        this.userForm.password = form.password;
+        this.userForm.phone = form.phone;
+        this.userForm.profile = "supplier";
+        this.userForm.email = form.email;
+        this.supplierForm.brands = form.brands;
+        this.supplierForm.email = form.email;
+        this.supplierForm.lat = form.lat;
+        this.supplierForm.lng = form.lng;
+        this.supplierForm.manager = form.name;
+        this.supplierForm.address = form.address;
+        this.supplierForm.map_icon = form.map_icon;
+        this.supplierForm.phone_manager = form.phone_manager;
+        this.supplierForm.ranking = form.ranking;
+        this.supplierForm.schedule = form.schedule;
+        this.supplierForm.service = form.service;
+        this.supplierForm.specialty = form.specialty;
+        this.supplierForm.website = form.website;
+        this.supplierForm.is_active = form.is_active;
+        return [this.userForm, this.supplierForm];
+ }
 
     arrangeData(formData: any= {}) {
         delete formData.cPassword;
-        //formData.service = formData.service.name;
         formData.map_icon = this.getIcon(formData.service);
         return formData;
     }

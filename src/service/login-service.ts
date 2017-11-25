@@ -6,13 +6,13 @@ import "rxjs/add/operator/catch";
 
 @Injectable()
 export class LoginService {
-    public emailUrl: string = "http://localhost:4000/api/email";
+    public emailUrl: string = "http://localhost:4000/api/email/users";
     private loginUrl: string = "http://localhost:4000/api/auth";
 
     constructor(private http: Http) {}
 
-    doesExistEmail(selectedEmail, profile) {
-        return this.http.get(this.emailUrl + "/" + profile + "/" + selectedEmail)
+    doesExistEmail(selectedEmail) {
+        return this.http.get(this.emailUrl + "/" + selectedEmail)
             .map((res: Response) => {
                 return res.json();
             })

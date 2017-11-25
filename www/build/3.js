@@ -1,15 +1,15 @@
 webpackJsonp([3],{
 
-/***/ 657:
+/***/ 661:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabsPageModule", function() { return TabsPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignupPageModule", function() { return SignupPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs__ = __webpack_require__(674);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__signup__ = __webpack_require__(674);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -20,27 +20,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var TabsPageModule = (function () {
-    function TabsPageModule() {
+var SignupPageModule = (function () {
+    function SignupPageModule() {
     }
-    return TabsPageModule;
+    return SignupPageModule;
 }());
-TabsPageModule = __decorate([
+SignupPageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_3__tabs__["a" /* TabsPage */],
+            __WEBPACK_IMPORTED_MODULE_3__signup__["a" /* SignupPage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_3__tabs__["a" /* TabsPage */]),
+            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_3__signup__["a" /* SignupPage */]),
             __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["b" /* TranslateModule */].forChild()
         ],
         exports: [
-            __WEBPACK_IMPORTED_MODULE_3__tabs__["a" /* TabsPage */]
+            __WEBPACK_IMPORTED_MODULE_3__signup__["a" /* SignupPage */]
         ]
     })
-], TabsPageModule);
+], SignupPageModule);
 
-//# sourceMappingURL=tabs.module.js.map
+//# sourceMappingURL=signup.module.js.map
 
 /***/ }),
 
@@ -48,11 +48,14 @@ TabsPageModule = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SignupPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages__ = __webpack_require__(304);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_providers__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_login__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__login_customer_login_customer__ = __webpack_require__(621);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__login_supplier_login_supplier__ = __webpack_require__(312);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -68,34 +71,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var TabsPage = (function () {
-    function TabsPage(navCtrl, translateService) {
+
+var SignupPage = (function () {
+    function SignupPage(navCtrl, user, toastCtrl, translateService) {
         var _this = this;
         this.navCtrl = navCtrl;
+        this.user = user;
+        this.toastCtrl = toastCtrl;
         this.translateService = translateService;
-        this.tab1Root = __WEBPACK_IMPORTED_MODULE_3__pages__["b" /* Tab1Root */];
-        this.tab2Root = __WEBPACK_IMPORTED_MODULE_3__pages__["c" /* Tab2Root */];
-        this.tab3Root = __WEBPACK_IMPORTED_MODULE_3__pages__["d" /* Tab3Root */];
-        this.tab1Title = " ";
-        this.tab2Title = " ";
-        this.tab3Title = " ";
-        translateService.get(['TAB1_TITLE', 'TAB2_TITLE', 'TAB3_TITLE']).subscribe(function (values) {
-            _this.tab1Title = values['TAB1_TITLE'];
-            _this.tab2Title = values['TAB2_TITLE'];
-            _this.tab3Title = values['TAB3_TITLE'];
+        function pushSignin() {
+            console.log("eNTRO AL LOGIN");
+            navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__login_login__["a" /* LoginPage */]);
+        }
+        this.userLogin = __WEBPACK_IMPORTED_MODULE_5__login_customer_login_customer__["a" /* LoginCustomerPage */];
+        this.supplierLogin = __WEBPACK_IMPORTED_MODULE_6__login_supplier_login_supplier__["a" /* LoginSupplierPage */];
+        this.translateService.get("SIGNUP_ERROR").subscribe(function (value) {
+            _this.signupErrorString = value;
         });
     }
-    return TabsPage;
+    return SignupPage;
 }());
-TabsPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* IonicPage */])(),
+SignupPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'page-tabs',template:/*ion-inline-start:"C:\WorkSpace\appMovile2017\villaInova\src\pages\tabs\tabs.html"*/'<ion-tabs>\n  <ion-tab [root]="tab1Root" [tabTitle]="tab1Title" tabIcon="home"></ion-tab>\n  <ion-tab [root]="tab2Root" [tabTitle]="tab2Title" tabIcon="search"></ion-tab>\n  <ion-tab [root]="tab3Root" [tabTitle]="tab3Title" tabIcon="cog"></ion-tab>\n</ion-tabs>'/*ion-inline-end:"C:\WorkSpace\appMovile2017\villaInova\src\pages\tabs\tabs.html"*/
+        selector: "page-signup",template:/*ion-inline-start:"C:\WorkSpace\appMovile2017\villaInova\src\pages\signup\signup.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>{{ \'SIGNUP_TITLE\' | translate }}</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n \n<ion-tabs class="tabs-icon-text">\n    <ion-tab tabIcon="people" tabTitle="Cliente" [root]="userLogin"></ion-tab>\n    <ion-tab tabIcon="person" tabTitle="Proveedor"[root]="supplierLogin"></ion-tab>\n</ion-tabs>\n\n'/*ion-inline-end:"C:\WorkSpace\appMovile2017\villaInova\src\pages\signup\signup.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* NavController */], __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["c" /* TranslateService */]])
-], TabsPage);
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["n" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["n" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__providers_providers__["d" /* User */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_providers__["d" /* User */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["r" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["r" /* ToastController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["c" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["c" /* TranslateService */]) === "function" && _d || Object])
+], SignupPage);
 
-//# sourceMappingURL=tabs.js.map
+var _a, _b, _c, _d;
+//# sourceMappingURL=signup.js.map
 
 /***/ })
 

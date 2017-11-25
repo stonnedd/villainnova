@@ -83,7 +83,7 @@ export class AutoservicePage {
     };
   }
 
-  serviceIsSelected(chosenService){
+  serviceIsSelected(chosenService) {
     console.log("ocpión::", chosenService);
     // this.params.suppliers = this.AsSvc.getSuppliers().filter(
     //   data => {

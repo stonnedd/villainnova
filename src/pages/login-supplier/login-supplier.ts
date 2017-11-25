@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { IonicPage, NavController, NavParams, App } from "ionic-angular";
 import { AutoserviceService } from "../../service/autoservice-service";
-import { SupplierMapping} from "../../utils/supplier-mapping"
+import { SupplierMapping} from "../../utils/supplier-mapping";
 import { ShowToaster } from "../../utils/toaster";
 import { LoginPage } from "../login/login";
 import { FormGroup, ReactiveFormsModule, FormControl,
@@ -22,13 +22,15 @@ export class LoginSupplierPage {
   mainServices: any = [];
   fetchedLng: number;
   fetchedLat: number;
+  suppForms: any = [];
 
   constructor(fBuilder: FormBuilder,
               public navCtrl: NavController,
               public navParams: NavParams,
               public autoservice: AutoserviceService,
               public supplierMapping: SupplierMapping,
-              public tstCtrl: ShowToaster) {
+              public tstCtrl: ShowToaster,
+              public appCtrl: App) {
 
     this.myForm = fBuilder.group({
       "name": ["", Validators.compose([Validators.required])],
@@ -110,16 +112,27 @@ export class LoginSupplierPage {
   }
 
   doNewRegister(form) {
-    this.autoservice.createSupplier(form)
-    .subscribe((data: any) => {
-        if (data) {
-          this.tstCtrl.reveal("Registrado con éxito", "middle", 3000);
-          this.navCtrl.push(LoginPage);
-        }
-        else {
+    console.log("USER:::", this.suppForms[0]);
+    console.log("SUPP:::", this.suppForms[1]);
+    this.suppForms = this.supplierMapping.splitForm(form);
+    this.autoservice.createUser(this.suppForms[0]).subscribe(
+      (user: any) => {
+        if (user) {
+          this.autoservice.createSupplier(this.suppForms[1])
+          .subscribe((data: any) => {
+              if (data) {
+                this.tstCtrl.reveal("Registrado con éxito", "middle", 3000);
+                this.appCtrl.getRootNav().setRoot(LoginPage);
+                
+              }
+              else {
+                this.tstCtrl.reveal("Error de conexión", "bottom", 3000);
+              }
+           });
+        }else {
           this.tstCtrl.reveal("Error de conexión", "bottom", 3000);
         }
-     });
+      });
   }
   emailNotValid() {
     this.tstCtrl.reveal("Correo No válido", "bottom", 3000);
@@ -127,22 +140,14 @@ export class LoginSupplierPage {
   }
 
   isEmailAvailable(form) {
-    this.autoservice.doesExistEmail(form.email, "customers")
+    this.autoservice.doesExistEmail(form.email)
     .subscribe((customersEmail: any) => {
       if (customersEmail[0] === form.email) {
         this.emailNotValid();
       }else {
-        this.autoservice.doesExistEmail(form.email, "suppliers")
-        .subscribe((supplierEmail: any) => {
-          if (supplierEmail[0] === form.email ) {
-            this.emailNotValid();
-          }else {
-            this.doNewRegister(form);
-          }
-        });
+        this.doNewRegister(form);
       }
     });
   }
-
   
 }

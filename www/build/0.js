@@ -1,19 +1,15 @@
 webpackJsonp([0],{
 
-/***/ 646:
+/***/ 664:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutoservicePageModule", function() { return AutoservicePageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WelcomePageModule", function() { return WelcomePageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__autoservice__ = __webpack_require__(660);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_maps_layout_1_maps_layout_1__ = __webpack_require__(661);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular2_google_maps_core__ = __webpack_require__(309);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular2_google_maps_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_angular2_google_maps_core__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_parallax_elastic_header__ = __webpack_require__(662);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_orderBy__ = __webpack_require__(663);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__welcome__ = __webpack_require__(677);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -24,49 +20,37 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-
-
-
-var AutoservicePageModule = (function () {
-    function AutoservicePageModule() {
+var WelcomePageModule = (function () {
+    function WelcomePageModule() {
     }
-    return AutoservicePageModule;
+    return WelcomePageModule;
 }());
-AutoservicePageModule = __decorate([
+WelcomePageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_2__autoservice__["a" /* AutoservicePage */],
-            __WEBPACK_IMPORTED_MODULE_3__components_maps_layout_1_maps_layout_1__["a" /* MapsLayout1 */],
-            __WEBPACK_IMPORTED_MODULE_5__components_parallax_elastic_header__["a" /* ElasticHeader */],
-            __WEBPACK_IMPORTED_MODULE_6__utils_orderBy__["a" /* OrderByPipe */]
+            __WEBPACK_IMPORTED_MODULE_3__welcome__["a" /* WelcomePage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__autoservice__["a" /* AutoservicePage */]),
-            __WEBPACK_IMPORTED_MODULE_4_angular2_google_maps_core__["AgmCoreModule"].forRoot({
-                apiKey: 'AIzaSyABWUtTglN8YGqcYI1zyjeRdOJx5r3TrZU'
-            })
+            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_3__welcome__["a" /* WelcomePage */]),
+            __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["b" /* TranslateModule */].forChild()
         ],
         exports: [
-            __WEBPACK_IMPORTED_MODULE_5__components_parallax_elastic_header__["a" /* ElasticHeader */]
-        ],
-        schemas: [
-            __WEBPACK_IMPORTED_MODULE_0__angular_core__["CUSTOM_ELEMENTS_SCHEMA"]
-        ],
+            __WEBPACK_IMPORTED_MODULE_3__welcome__["a" /* WelcomePage */]
+        ]
     })
-], AutoservicePageModule);
+], WelcomePageModule);
 
-//# sourceMappingURL=autoservice.module.js.map
+//# sourceMappingURL=welcome.module.js.map
 
 /***/ }),
 
-/***/ 661:
+/***/ 677:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MapsLayout1; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WelcomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_supplier_detail_supplier_detail__ = __webpack_require__(308);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -78,335 +62,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-
-
-
-var MapsLayout1 = (function () {
-    function MapsLayout1(popCtrl, toastCtrl, alertCtrl) {
-        this.popCtrl = popCtrl;
-        this.toastCtrl = toastCtrl;
-        this.alertCtrl = alertCtrl;
-        this.onMarkerService = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
-        this.serviceIsSelected = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
-        this.mapZoom = 14;
+var WelcomePage = (function () {
+    function WelcomePage(navCtrl) {
+        this.navCtrl = navCtrl;
     }
-    MapsLayout1.prototype.svcToast = function (note, pos) {
-        var toast = this.toastCtrl.create({
-            message: note,
-            duration: 3000,
-            position: pos,
-            showCloseButton: true,
-            closeButtonText: "ok",
-        });
-        toast.present();
+    WelcomePage.prototype.login = function () {
+        this.navCtrl.push('LoginPage');
     };
-    MapsLayout1.prototype.onEvent = function (event, e) {
-        if (this.events[event]) {
-            this.events[event]();
-        }
-        console.log("evento:", event);
-        if (event !== "onRates") {
-            this.onMarkerService.emit(e);
-            this.mapZoom = 15;
-            this.showDetail(e, event);
-        }
+    WelcomePage.prototype.signup = function () {
+        this.navCtrl.push('SignupPage');
     };
-    MapsLayout1.prototype.svcSelected = function () {
-        var _this = this;
-        if (this.selectedService.length === 0) {
-            this.labelService = "un servicio";
-        }
-        else if (this.selectedService.length === 1) {
-            this.labelService = this.selectedService[0];
-        }
-        else {
-            this.labelService = "una opción";
-        }
-        this.selectedService.forEach(function (element) {
-            if (element === "Taller especializado") {
-                _this.showBrands();
-                //console.log("si");
-                //this.svcToast("Seleciona una marca", "top");
-            }
-        });
-        this.svcToast("Seleciona " + this.labelService, "bottom");
-        this.serviceIsSelected.emit(this.selectedService);
-        this.mapZoom = 11;
-    };
-    MapsLayout1.prototype.onStarClass = function (items, index, e) {
-        for (var i = 0; i < items.length; i++) {
-            items[i].isActive = i <= index;
-        }
-        this.onEvent("onRates", e);
-    };
-    MapsLayout1.prototype.showDetail = function (supplierData, event) {
-        var popover = this.popCtrl.create(__WEBPACK_IMPORTED_MODULE_2__pages_supplier_detail_supplier_detail__["a" /* SupplierDetailPage */], supplierData);
-        popover.present({
-            ev: event,
-        });
-    };
-    MapsLayout1.prototype.ngOnInit = function () {
-        this.svcToast("Selecciona un servicio", "bottom");
-    };
-    MapsLayout1.prototype.showBrands = function () {
-        var _this = this;
-        var alert = this.alertCtrl.create();
-        alert.setTitle("Selecciona una marca");
-        alert.addInput({
-            type: "checkbox",
-            label: "Audi",
-            value: "audi",
-            checked: true,
-        });
-        alert.addInput({
-            type: "checkbox",
-            label: "Bmw",
-            value: "bmw",
-        });
-        alert.addButton("Cancel");
-        alert.addButton({
-            text: "Ok",
-            handler: function (data) {
-                console.log("Checkbox data:", data);
-                _this.svcToast("Seleciona " + _this.labelService, "bottom");
-            },
-        });
-        alert.present();
-    };
-    return MapsLayout1;
+    return WelcomePage;
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Object)
-], MapsLayout1.prototype, "data", void 0);
+], WelcomePage.prototype, "data", void 0);
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Object)
-], MapsLayout1.prototype, "events", void 0);
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
-    __metadata("design:type", Object)
-], MapsLayout1.prototype, "userData", void 0);
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
-    __metadata("design:type", Array)
-], MapsLayout1.prototype, "services", void 0);
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
-    __metadata("design:type", Array)
-], MapsLayout1.prototype, "mainServices", void 0);
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
-    __metadata("design:type", Object)
-], MapsLayout1.prototype, "suppliers", void 0);
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
-    __metadata("design:type", Object)
-], MapsLayout1.prototype, "mapData", void 0);
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
-    __metadata("design:type", Object)
-], MapsLayout1.prototype, "onMarkerService", void 0);
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
-    __metadata("design:type", Object)
-], MapsLayout1.prototype, "serviceIsSelected", void 0);
-MapsLayout1 = __decorate([
+], WelcomePage.prototype, "events", void 0);
+WelcomePage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: "maps-layout-1",template:/*ion-inline-start:"C:\WorkSpace\appMovile2017\villaInova\src\components\maps\layout-1\maps.html"*/'\n\n<ion-content  has-header>\n\n  \n\n  <ion-grid no-padding class="option-service">\n\n    <ion-item style="height:45px" class="option-service" > \n\n      <ion-label for="services"><ion-icon  item-left name="build"></ion-icon>Servicios</ion-label>\n\n      <ion-select id="services" requiered  [(ngModel)]="selectedService" \n\n      (ionChange)="svcSelected()" \n\n      multiple="true" \n\n      cancelText="Atras">\n\n        <ion-option *ngFor="let mainService of mainServices" [value]="mainService">{{mainService}} </ion-option>\n\n        <ion-option *ngFor="let service of services | orderBy : \'+\'" [value]="service">{{service}} </ion-option>\n\n      </ion-select>\n\n    </ion-item>\n\n  </ion-grid>\n\n  \n\n  <sebm-google-map [latitude]="mapData.lat" [longitude]="mapData.lng" [zoom]="mapZoom" [mapTypeControl]=true [streetViewControl]=true>\n\n    <sebm-google-map-marker *ngFor="let supplier of suppliers"  \n\n      [latitude]="supplier.lat" \n\n      [longitude]="supplier.lng" \n\n      [label]="supplier.markLabel"\n\n      (markerClick)="onEvent(\'onMarker\',supplier)"\n\n      [iconUrl]="\'../assets/mapicons/\'+supplier.map_icon">\n\n    </sebm-google-map-marker>\n\n    <sebm-google-map-marker [iconUrl]="userData.userPos.iconUrl" [latitude]="userData.userPos.lat" [longitude]="userData.userPos.lng"></sebm-google-map-marker>\n\n  </sebm-google-map>\n\n  \n\n  <ion-fab bottom left>\n\n      <button ion-fab color="locate" mini><ion-icon name="md-locate"></ion-icon></button>\n\n    </ion-fab>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\WorkSpace\appMovile2017\villaInova\src\components\maps\layout-1\maps.html"*/,
+        selector: 'page-welcome',template:/*ion-inline-start:"C:\WorkSpace\appMovile2017\villaInova\src\pages\welcome\welcome.html"*/'<ion-content scroll="false">\n  <div class="splash-bg"></div>\n  <div class="splash-info">\n    <div class="splash-logo"></div>\n    <div class="splash-intro">\n      Autocar\n    </div>\n  </div>\n  <div padding>\n    <button ion-button block round (click)="signup()">{{ \'SIGNUP\' | translate }}</button>\n    <button ion-button block round (click)="login()" class="login">{{ \'LOGIN\' | translate }}</button>\n  </div>\n</ion-content> \n\n\n\n'/*ion-inline-end:"C:\WorkSpace\appMovile2017\villaInova\src\pages\welcome\welcome.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* PopoverController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
-], MapsLayout1);
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavController */]])
+], WelcomePage);
 
-//# sourceMappingURL=maps-layout-1.js.map
-
-/***/ }),
-
-/***/ 662:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ElasticHeader; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var ElasticHeader = (function () {
-    function ElasticHeader(element, renderer) {
-        this.element = element;
-        this.renderer = renderer;
-    }
-    ElasticHeader.prototype.ngOnInit = function () {
-        var _this = this;
-        this.scrollerHandle = this.element.nativeElement.getElementsByClassName('scroll-content')[0];
-        this.header = this.scrollerHandle.firstElementChild;
-        this.headerHeight = this.scrollerHandle.clientHeight;
-        this.ticking = false;
-        this.renderer.setElementStyle(this.header, 'webkitTransformOrigin', 'center bottom');
-        window.addEventListener('resize', function () {
-            _this.headerHeight = _this.scrollerHandle.clientHeight;
-        }, false);
-        this.scrollerHandle.addEventListener('scroll', function () {
-            if (!_this.ticking) {
-                window.requestAnimationFrame(function () {
-                    _this.updateElasticHeader();
-                });
-            }
-            _this.ticking = true;
-        });
-    };
-    ElasticHeader.prototype.updateElasticHeader = function () {
-        this.scrollTop = this.scrollerHandle.scrollTop;
-        if (this.scrollTop >= 0) {
-            this.translateAmt = this.scrollTop / 2;
-            this.scaleAmt = 1;
-        }
-        else {
-            this.translateAmt = 0;
-            this.scaleAmt = -this.scrollTop / this.headerHeight + 1;
-        }
-        this.renderer.setElementStyle(this.header, 'webkitTransform', 'translate3d(0,' + this.translateAmt + 'px,0) scale(' + this.scaleAmt + ',' + this.scaleAmt + ')');
-        this.ticking = false;
-    };
-    return ElasticHeader;
-}());
-ElasticHeader = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
-        selector: '[elastic-header]'
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"]])
-], ElasticHeader);
-
-//# sourceMappingURL=elastic-header.js.map
-
-/***/ }),
-
-/***/ 663:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OrderByPipe; });
-/* unused harmony export ORDERBY_PROVIDERS */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-var OrderByPipe = OrderByPipe_1 = (function () {
-    function OrderByPipe() {
-        this.value = [];
-    }
-    OrderByPipe._orderByComparator = function (a, b) {
-        if (a === null || typeof a === 'undefined')
-            a = 0;
-        if (b === null || typeof b === 'undefined')
-            b = 0;
-        if ((isNaN(parseFloat(a)) || !isFinite(a)) || (isNaN(parseFloat(b)) || !isFinite(b))) {
-            //Isn't a number so lowercase the string to properly compare
-            if (a.toLowerCase() < b.toLowerCase())
-                return -1;
-            if (a.toLowerCase() > b.toLowerCase())
-                return 1;
-        }
-        else {
-            //Parse strings as numbers to compare properly
-            if (parseFloat(a) < parseFloat(b))
-                return -1;
-            if (parseFloat(a) > parseFloat(b))
-                return 1;
-        }
-        return 0; //equal each other
-    };
-    OrderByPipe.prototype.transform = function (input, config) {
-        if (config === void 0) { config = '+'; }
-        //invalid input given
-        if (!input)
-            return input;
-        //make a copy of the input's reference
-        this.value = input.slice();
-        var value = this.value;
-        if (!Array.isArray(value))
-            return value;
-        if (!Array.isArray(config) || (Array.isArray(config) && config.length == 1)) {
-            var propertyToCheck = !Array.isArray(config) ? config : config[0];
-            var desc_1 = propertyToCheck.substr(0, 1) == '-';
-            //Basic array
-            if (!propertyToCheck || propertyToCheck == '-' || propertyToCheck == '+') {
-                return !desc_1 ? value.sort() : value.sort().reverse();
-            }
-            else {
-                var property_1 = propertyToCheck.substr(0, 1) == '+' || propertyToCheck.substr(0, 1) == '-'
-                    ? propertyToCheck.substr(1)
-                    : propertyToCheck;
-                return value.sort(function (a, b) {
-                    var aValue = a[property_1];
-                    var bValue = b[property_1];
-                    var propertySplit = property_1.split('.');
-                    if (typeof aValue === 'undefined' && typeof bValue === 'undefined' && propertySplit.length > 1) {
-                        aValue = a;
-                        bValue = b;
-                        for (var j = 0; j < propertySplit.length; j++) {
-                            aValue = aValue[propertySplit[j]];
-                            bValue = bValue[propertySplit[j]];
-                        }
-                    }
-                    return !desc_1
-                        ? OrderByPipe_1._orderByComparator(aValue, bValue)
-                        : -OrderByPipe_1._orderByComparator(aValue, bValue);
-                });
-            }
-        }
-        else {
-            //Loop over property of the array in order and sort
-            return value.sort(function (a, b) {
-                for (var i = 0; i < config.length; i++) {
-                    var desc = config[i].substr(0, 1) == '-';
-                    var property = config[i].substr(0, 1) == '+' || config[i].substr(0, 1) == '-'
-                        ? config[i].substr(1)
-                        : config[i];
-                    var aValue = a[property];
-                    var bValue = b[property];
-                    var propertySplit = property.split('.');
-                    if (typeof aValue === 'undefined' && typeof bValue === 'undefined' && propertySplit.length > 1) {
-                        aValue = a;
-                        bValue = b;
-                        for (var j = 0; j < propertySplit.length; j++) {
-                            aValue = aValue[propertySplit[j]];
-                            bValue = bValue[propertySplit[j]];
-                        }
-                    }
-                    var comparison = !desc
-                        ? OrderByPipe_1._orderByComparator(aValue, bValue)
-                        : -OrderByPipe_1._orderByComparator(aValue, bValue);
-                    //Don't return 0 yet in case of needing to sort by next property
-                    if (comparison != 0)
-                        return comparison;
-                }
-                return 0; //equal each other
-            });
-        }
-    };
-    return OrderByPipe;
-}());
-OrderByPipe = OrderByPipe_1 = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"])({ name: 'orderBy', pure: false })
-], OrderByPipe);
-
-var ORDERBY_PROVIDERS = [
-    OrderByPipe
-];
-var OrderByPipe_1;
-//# sourceMappingURL=orderBy.js.map
+//# sourceMappingURL=welcome.js.map
 
 /***/ })
 

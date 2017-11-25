@@ -1,15 +1,15 @@
 webpackJsonp([12],{
 
-/***/ 648:
+/***/ 652:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContentPageModule", function() { return ContentPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardsPageModule", function() { return CardsPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__content__ = __webpack_require__(665);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__cards__ = __webpack_require__(665);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -20,27 +20,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var ContentPageModule = (function () {
-    function ContentPageModule() {
+var CardsPageModule = (function () {
+    function CardsPageModule() {
     }
-    return ContentPageModule;
+    return CardsPageModule;
 }());
-ContentPageModule = __decorate([
+CardsPageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_3__content__["a" /* ContentPage */],
+            __WEBPACK_IMPORTED_MODULE_3__cards__["a" /* CardsPage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_3__content__["a" /* ContentPage */]),
+            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_3__cards__["a" /* CardsPage */]),
             __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["b" /* TranslateModule */].forChild()
         ],
         exports: [
-            __WEBPACK_IMPORTED_MODULE_3__content__["a" /* ContentPage */]
+            __WEBPACK_IMPORTED_MODULE_3__cards__["a" /* CardsPage */]
         ]
     })
-], ContentPageModule);
+], CardsPageModule);
 
-//# sourceMappingURL=content.module.js.map
+//# sourceMappingURL=cards.module.js.map
 
 /***/ }),
 
@@ -48,9 +48,9 @@ ContentPageModule = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContentPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CardsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -62,21 +62,50 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-var ContentPage = (function () {
-    function ContentPage(navCtrl) {
+var CardsPage = (function () {
+    function CardsPage(navCtrl) {
         this.navCtrl = navCtrl;
+        this.cardItems = [
+            {
+                user: {
+                    avatar: 'assets/img/marty-avatar.png',
+                    name: 'Marty McFly'
+                },
+                date: 'November 5, 1955',
+                image: 'assets/img/advance-card-bttf.png',
+                content: 'Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.',
+            },
+            {
+                user: {
+                    avatar: 'assets/img/sarah-avatar.png.jpeg',
+                    name: 'Sarah Connor'
+                },
+                date: 'May 12, 1984',
+                image: 'assets/img/advance-card-tmntr.jpg',
+                content: 'I face the unknown future, with a sense of hope. Because if a machine, a Terminator, can learn the value of human life, maybe we can too.'
+            },
+            {
+                user: {
+                    avatar: 'assets/img/ian-avatar.png',
+                    name: 'Dr. Ian Malcolm'
+                },
+                date: 'June 28, 1990',
+                image: 'assets/img/advance-card-jp.jpg',
+                content: 'Your scientists were so preoccupied with whether or not they could, that they didn\'t stop to think if they should.'
+            }
+        ];
     }
-    return ContentPage;
+    return CardsPage;
 }());
-ContentPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPage */])(),
+CardsPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'page-content',template:/*ion-inline-start:"C:\WorkSpace\appMovile2017\villaInova\src\pages\content\content.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Content\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <p>\n    This is a perfect starting point for a page with primarily text content. The body is padded nicely and ready for prose.\n  </p>\n</ion-content>'/*ion-inline-end:"C:\WorkSpace\appMovile2017\villaInova\src\pages\content\content.html"*/
+        selector: 'page-cards',template:/*ion-inline-start:"C:\WorkSpace\appMovile2017\villaInova\src\pages\cards\cards.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>{{ \'CARDS_TITLE\' | translate }}</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n\n  <ion-card *ngFor="let item of cardItems">\n\n    <ion-item>\n      <ion-avatar item-start>\n        <img [src]="item.user.avatar">\n      </ion-avatar>\n      <h2>{{item.user.name}}</h2>\n      <p>{{item.date}}</p>\n    </ion-item>\n\n    <img [src]="item.image">\n\n    <ion-card-content>\n      <p>{{item.content}}</p>\n    </ion-card-content>\n\n    <ion-row>\n      <ion-col>\n        <button ion-button color="primary" clear small icon-start>\n            <ion-icon name=\'thumbs-up\'></ion-icon>\n            12 Likes\n          </button>\n      </ion-col>\n      <ion-col>\n        <button ion-button color="primary" clear small icon-start>\n            <ion-icon name=\'text\'></ion-icon>\n            4 Comments\n          </button>\n      </ion-col>\n      <ion-col center text-center>\n        <ion-note>\n          11h ago\n        </ion-note>\n      </ion-col>\n    </ion-row>\n  </ion-card>\n</ion-content>'/*ion-inline-end:"C:\WorkSpace\appMovile2017\villaInova\src\pages\cards\cards.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */]])
-], ContentPage);
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavController */]])
+], CardsPage);
 
-//# sourceMappingURL=content.js.map
+//# sourceMappingURL=cards.js.map
 
 /***/ })
 

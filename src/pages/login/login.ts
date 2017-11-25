@@ -15,11 +15,7 @@ import { FormGroup, ReactiveFormsModule, FormControl,
   providers: [LoginService, ShowToaster],
 })
 export class LoginPage {
-  account: { email: string, password: string, profile: string } = {
-    email: "",
-    password: "",
-    profile: "",
-  };
+  
   private loginErrorString: string;
   loginForm: FormGroup;
 
@@ -40,24 +36,13 @@ export class LoginPage {
   }
 
   onSubmit(form: any) {
-    this.account.email = form.email;
-    this.account.password = form.password;
-    this.loginService.doesExistEmail(form.email, "customers")
-    .subscribe((customersEmail: any) => {
-        if (customersEmail[0] === form.email) {
-          this.account.profile = "customer";
-          this.doLogin(this.account);
+    this.loginService.doesExistEmail(form.email)
+    .subscribe((userEmail: any) => {
+      if (userEmail[0] === form.email) {
+          this.doLogin(form);
         }else {
-        this.loginService.doesExistEmail(form.email, "suppliers")
-        .subscribe((supplierEmail: any) => {
-          if (supplierEmail[0] === form.email ) {
-              this.account.profile = "supplier";
-              this.doLogin(this.account);
-          }else {
-            this.showToaster.reveal("Correo NO válido", "bottom", 3000);
-          }
-        });
-      }
+          this.showToaster.reveal("Correo NO válido", "bottom", 3000);
+        }
     });
   }
 
@@ -73,7 +58,7 @@ export class LoginPage {
 
   doLogin(account) {
     this.loginService.doLogin(account).subscribe((resp) => {
-      console.log("the resp", resp);
+      console.log("The resp:::", resp);
       resp._body === "null" ? this.loginFail() : this.loginSucces();
     }, (err) => {
       console.log("Error", err);
