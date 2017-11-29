@@ -8,6 +8,7 @@ import "rxjs/add/operator/catch";
 export class LoginService {
     public emailUrl: string = "http://localhost:4000/api/email/users";
     private loginUrl: string = "http://localhost:4000/api/auth";
+    private getUserUrl: string = "http://localhost:4000/api/logged/user";
 
     constructor(private http: Http) {}
 
@@ -29,5 +30,13 @@ export class LoginService {
             })
             .catch((error: any) => Observable.throw(error.json().error || "Server error"));
     }
+
+    getUser(token): Observable<any> {
+        return this.http.get(this.getUserUrl + "/" + token)
+            .map((res: Response) => {
+                return res.json();
+            }).catch((error: any) => Observable.throw(error.json().error || "Server error"));
+    }
+
 
 }

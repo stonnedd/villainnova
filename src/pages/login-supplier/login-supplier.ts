@@ -121,12 +121,12 @@ export class LoginSupplierPage {
           this.autoservice.createSupplier(this.suppForms[1])
           .subscribe((data: any) => {
               if (data) {
-                this.tstCtrl.reveal("Registrado con éxito", "middle", 3000);
+                this.tstCtrl.reveal("Registrado con éxito", "bottom", 3000);
                 this.appCtrl.getRootNav().setRoot(LoginPage);
                 
               }
               else {
-                this.tstCtrl.reveal("Error de conexión", "bottom", 3000);
+                this.tstCtrl.reveal("Error de conexión", "middle", 3000);
               }
            });
         }else {
