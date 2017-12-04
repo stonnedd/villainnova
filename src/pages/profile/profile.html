@@ -1,16 +1,22 @@
 <ion-header>
-    <ion-navbar>
-      <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-      <ion-title>{{title}}</ion-title>
-    </ion-navbar>
-  </ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+</ion-header>
     
     
     <ion-content>
-    
-      <ion-card *ngFor="let item of cardItems">
+
+    <ion-card>
+        <img src="img/card-sf.png"/>
+        <div class="card-title">San Francisco</div>
+        <div class="card-subtitle">72 Listings</div>
+    </ion-card>
+
+      <!-- <ion-card *ngFor="let item of cardItems">
     
         <ion-item>
           <ion-avatar item-start>
@@ -24,7 +30,7 @@
     
         <ion-card-content>
           <p>{{item.content}}</p>
-        </ion-card-content>
+        </ion-card-content> -->
     
         <!--<ion-row>
           <ion-col>
@@ -44,6 +50,6 @@
               11h ago
             </ion-note>
           </ion-col>
-        </ion-row>-->
-      </ion-card>
+        </ion-row>
+      </ion-card>-->
     </ion-content>

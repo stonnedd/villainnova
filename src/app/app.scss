@@ -15,6 +15,13 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 .menuBackground{
-    background-image: url('../assets/images/background/blueGear.png');
+    background-color: white;
+    //background-image: url('../assets/images/background/blueGear.png');
     background-size: 100% 100%;
 }
+ .div.scroll-content{
+    width: 200px !important;
+ }
+ .div.fixed-content{
+    width: 200px !important;
+ }

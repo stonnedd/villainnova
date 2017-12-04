@@ -8,7 +8,6 @@
 <ion-content padding>
   <ion-list class="login-List"> 
       <form id="supplierForm" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">
-        <h3>Proveedor</h3>
 
         <ion-item class="login-Class">
           <ion-label  floating for="manager"></ion-label>
@@ -119,12 +118,12 @@
             id="lng" [formControl]= "myForm.controls['lng']" ></ion-input>
           <p *ngIf="!myForm.controls['lng'].valid && myForm.controls['lng'].touched"   
               class="alert alert-danger"></p>
-            <button ion-button round type="button" (click)=getMyPos() color="submit" item-end>Mi ubicacion</button>
+            <button ion-button round type="button" (click)=getMyPos() color="buttons" item-end><ion-icon name="locate"></ion-icon> </button>
         </ion-item>
 
         <br/>
-        <div text-center> 
-            <button ion-button block round type="submit" color="submit" [disabled]="!myForm.valid">Registrar</button>
+        <div text-center padding> 
+            <button ion-button block round type="submit" class="ok" [disabled]="!myForm.valid">Registrar</button>
         </div>   
         <br/>
 

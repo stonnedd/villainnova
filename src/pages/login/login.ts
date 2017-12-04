@@ -57,10 +57,7 @@ export class LoginPage {
   loginSuccess(token: string) {
     this.updateSettings(token);
     this.settings.settingsObservable.subscribe(
-      value => {
-        if (!value.token) {
-          this.loginSuccess(token);
-        }
+      () => {
         this.goForward(token);
       }, (err) => {
         this.showToaster.reveal(this.loginErrorString, "top", 3000);
@@ -70,9 +67,10 @@ export class LoginPage {
   goForward(token) {
     this.loginService.getUser(token).subscribe(
       user => {
-        console.log(user);
+        console.log("autenticacion:::", user);
         this.showToaster.reveal("Bienvenido " + user[0].name, "top", 3000);
-        this.appCtrl.getRootNav().setRoot(MainPage, user[0]);
+        this.settings.update("id", user[0].id);
+        this.appCtrl.getRootNav().setRoot(MainPage);
       },
     );
   }
@@ -82,11 +80,12 @@ export class LoginPage {
     this.settings.update("logged", true);
   }
 
-  ionViewWillEnter() {
+  ngOnInit () {
     this.settings.settingsObservable.subscribe(
       () => {
         this.settings.clear();
         this.settings.update("token", "");
+        this.settings.update("id", null);
         this.settings.update("logged", false);
       },
     );
@@ -117,7 +116,7 @@ export class LoginPage {
 
   fitToken(value: string) {
     let re = /"/gi;
-    return value.replace(re , "");
+    return value.replace(re, "");
   }
 
 }

@@ -90,30 +90,31 @@ $font-size-text:(
 $palettes: (
     mainColors: ( // Also used for backgrounds.
         //primary:   #0090d0, // Used for |bars
-        primary:   #0059A1, // Used for |bars
-        secondary:  #f7f7f7, // Used for various small elements
+        primary:   #2653af, // Used for |bars
+        secondary:  #ffffff, // Used for various small elements
         //secondary-first:  #0091D2, // Used for gradient
-        secondary-first: #e03636,
+        secondary-first: #790314,
         //accent:   #ffffff, //Used for icon-search-bar, loaders-spinners, checkbox-item, icon, button, span, input-field-icons
-        accent:   #eae4da, //Used for icon-search-bar, loaders-spinners, checkbox-item, icon, button, span, input-field-icons
+        accent:   #ffffff, //Used for icon-search-bar, loaders-spinners, checkbox-item, icon, button, span, input-field-icons
         //accent-first: #00c0e8,
-        accent-first: #0059A1,
+        accent-first: #2653af,
         //accent-other: #00bee4, // Used for gradient
         accent-other: #d95454, // Used for gradient
+        tabs-color:  #c7172f,
         
     ),
 
     textColors: ( // Used for text colors in all screens
-        secondary: #00c0e8, // Used for text colors in: item-title, item-subtitle, header-title, header-subtitle
-        //secondary: #0090d0, // Used for text colors in: buttons, header-title, subitem-title, subitem-subtitle
-        primary: #0059A1,
+        //secondary: #00c0e8, // Used for text colors in: item-title, item-subtitle, header-title, header-subtitle
+        secondary: #0d3280, // Used for text colors in: buttons, header-title, subitem-title, subitem-subtitle
+        primary: #2653af,
         accent:   #455B65, // Used for text colors in: header-title, header-subtitle
         accent-first: #ffffff,
     ),
     blendModes: ( // Used for blend modes
         primary:  #ffffff,
         //secondary: #0090d0
-        secondary: #0059A1
+        secondary: #2653af
     )
 );
 
@@ -518,7 +519,7 @@ $text-input-ios-highlight-color: theme-colors('textColors', 'secondary') !import
 $text-input-ios-highlight-color-valid: theme-colors('textColors', 'secondary') !important;
 
 // Tabs Setting
-$tabs-background: theme-colors('mainColors', 'primary') !important;
+$tabs-background: theme-colors('mainColors', 'tabs-color') !important;
 $tabs-border-color: red!default;
 $tabs-color-active: red!default;
 
@@ -660,7 +661,7 @@ $searchbar-md-input-clear-icon-color: theme-colors('textColors', 'secondary');
     .alert-title {
       font-size: 15px !important;
       font-weight: bold;
-      color: #0059A1;
+      color: #2653af;
     }
 
     .alert-head,

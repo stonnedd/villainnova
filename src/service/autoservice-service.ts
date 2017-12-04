@@ -1,28 +1,24 @@
 import { Geolocation} from "@ionic-native/geolocation";
 import { Component } from "@angular/core";
 import { SupplierModel} from "../models/supplierModel";
+import { Constants} from "../utils/constants";
 import { HttpModule, Http, Response, Headers, RequestOptions} from "@angular/http";
 import { Observable} from "rxjs/Rx";
 import { Injectable } from "@angular/core";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
+import { Console } from "@angular/core/src/console";
 
 @Injectable()
 export class AutoserviceService {
-
-    public suppliersUrl: string = "http://localhost:4000/api/suppliers";
-    public createSupplierUrl: string = "http://localhost:4000/api/suppliers/create";
-    public createUserUrl: string = "http://localhost:4000/api/users/create";
-    public servicesUrl: string = "http://localhost:4000/api/services";
-    public mainservicesUrl: string = "http://localhost:4000/api/mainservices";
-    public emailUrl: string = "http://localhost:4000/api/email/users";
+    
     geolocation = new Geolocation();
     mapdata: any= {};
 
     constructor(private http: Http) {}
 
     getMainServices() {
-        return this.http.get(this.mainservicesUrl)
+        return this.http.get(Constants.MAIN_SERVICES_URL)
         .map((res: Response) => {
             return res.json();
         })
@@ -30,7 +26,7 @@ export class AutoserviceService {
     }
 
     getServices(): Observable<any[]> {
-        return this.http.get(this.servicesUrl)
+        return this.http.get(Constants.SERVICES_URL)
             .map((res: Response) => {
                 return res.json();
             })
@@ -49,7 +45,7 @@ export class AutoserviceService {
 
     getSuppliersq(chosenService): Observable<SupplierModel[]> {
         console.log(chosenService);
-        return this.http.get(this.suppliersUrl + "/" + chosenService )
+        return this.http.get(Constants.SUPPLIERS_URL + "/" + chosenService )
             .map((res: Response) => {
                 return res.json();
             })
@@ -58,7 +54,7 @@ export class AutoserviceService {
 
     doesExistEmail(selectedEmail) {
         console.log(selectedEmail);
-        return this.http.get(this.emailUrl + "/" + selectedEmail)
+        return this.http.get(Constants.EMAIL_URL + "/" + selectedEmail)
             .map((res: Response) => {
                 return res.json();
             })
@@ -70,7 +66,7 @@ export class AutoserviceService {
         console.log(body);
         let headers = new Headers({ "Content-Type": "application/json" });
         let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.createSupplierUrl, body, options ).map(
+        return this.http.post(Constants.CREATE_SUPPLIER_URL, body, options ).map(
             (res: Response) => {
                 console.log("response:", res);
                 return res.ok;
@@ -83,7 +79,7 @@ export class AutoserviceService {
         console.log(body);
         let headers = new Headers({ "Content-Type": "application/json" });
         let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.createUserUrl, body, options ).map(
+        return this.http.post(Constants.CREATE_USER_URL, body, options ).map(
             (res: Response) => {
                 return res.ok;
             })

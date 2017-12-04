@@ -8,7 +8,7 @@
 <ion-content padding>
   <ion-list class="login-List"> 
       <form id="supplierForm" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">
-        <h3>Usuario</h3>
+        
 
         <ion-item class="login-Class">
           <ion-label  floating for="name"></ion-label>
@@ -50,8 +50,8 @@
               class="alert alert-danger"></div>
         </ion-item>
         <br/><br/>
-        <div text-center> 
-            <button ion-button block round type="submit" color="submit" [disabled]="!myForm.valid">Registrar</button>
+        <div text-center padding>  
+            <button ion-button block round type="submit" color="submit" class="ok" [disabled]="!myForm.valid">Registrar</button>
         </div>   
         <br/>
 
