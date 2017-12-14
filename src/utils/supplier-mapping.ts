@@ -2,7 +2,7 @@ export class SupplierMapping {
     userForm: any = {};
     supplierForm: any = {};
     splitForm(form) {
-        this.userForm.name = form.manager;
+        this.userForm.name = form.name;
         this.userForm.password = form.password;
         this.userForm.phone = form.phone;
         this.userForm.profile = "supplier";
@@ -11,10 +11,10 @@ export class SupplierMapping {
         this.supplierForm.email = form.email;
         this.supplierForm.lat = form.lat;
         this.supplierForm.lng = form.lng;
-        this.supplierForm.manager = form.name;
+        this.supplierForm.company_name = form.company_name;
         this.supplierForm.address = form.address;
         this.supplierForm.map_icon = form.map_icon;
-        this.supplierForm.phone_manager = form.phone_manager;
+        this.supplierForm.aditional_phone = form.aditional_phone;
         this.supplierForm.ranking = form.ranking;
         this.supplierForm.schedule = form.schedule;
         this.supplierForm.service = form.service;
@@ -24,8 +24,7 @@ export class SupplierMapping {
         return [this.userForm, this.supplierForm];
  }
 
-    arrangeData(formData: any= {}) {
-        delete formData.cPassword;
+    addMapIcon(formData: any= {}) {
         formData.map_icon = this.getIcon(formData.service);
         return formData;
     }
@@ -44,7 +43,7 @@ export class SupplierMapping {
         iconList.set("Hojalatero", "hoj.png");
         iconList.set("Cerrajero", "key.png");
         iconList.set("Mofles", "mof.png");
-        iconList.set("Parabrisa y Vidrios", "par.png");
+        iconList.set("Parabrisas y vidrios", "par.png");
         iconList.set("Radiadores", "rad.png");
         iconList.set("Refacciones", "ref.png");
         iconList.set("Direcccion y suspension", "sus.png");

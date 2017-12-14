@@ -8,48 +8,40 @@
 </ion-header>
     
     
-    <ion-content>
+<ion-content class="card-background-page">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
 
-    <ion-card>
-        <img src="img/card-sf.png"/>
-        <div class="card-title">San Francisco</div>
-        <div class="card-subtitle">72 Listings</div>
-    </ion-card>
+  <ion-card>
+      <img src="../../assets/images/background/profile.jpg"/>
+      <div class="card-title" paddinge-left> <ion-icon item-left icon-small name="contact"></ion-icon>{{user.name}}</div>
+      <div class="card-phone" paddinge-left> <ion-icon item-left icon-small name="phone-portrait"></ion-icon>{{user.phone}}</div>
+      <div class="card-email" paddinge-left> <ion-icon item-left icon-small name="mail"></ion-icon>{{user.email}}</div>
+  </ion-card>
 
-      <!-- <ion-card *ngFor="let item of cardItems">
-    
-        <ion-item>
-          <ion-avatar item-start>
-            <img [src]="item.user.avatar">
-          </ion-avatar>
-          <h2>{{item.user.name}}</h2>
-          <p>{{item.date}}</p>
-        </ion-item>
-    
-        <img [src]="item.image">
-    
-        <ion-card-content>
-          <p>{{item.content}}</p>
-        </ion-card-content> -->
-    
-        <!--<ion-row>
-          <ion-col>
-            <button ion-button color="primary" clear small icon-start>
-                <ion-icon name='thumbs-up'></ion-icon>
-                12 Likes
-              </button>
-          </ion-col>
-          <ion-col>
-            <button ion-button color="primary" clear small icon-start>
-                <ion-icon name='text'></ion-icon>
-                4 Comments
-              </button>
-          </ion-col>
-          <ion-col center text-center>
-            <ion-note>
-              11h ago
-            </ion-note>
-          </ion-col>
-        </ion-row>
-      </ion-card>-->
-    </ion-content>
+  <div class="list-avatar-page">
+    <ion-list >
+    <ion-list-header><strong>Mis Servicios</strong></ion-list-header>
+      <ion-item *ngFor="let provider of userServices">
+        <ion-avatar item-start>
+          <img [src]="'../../assets/mapicons/'+provider.map_icon">
+        </ion-avatar>
+        <h2>{{provider.company_name}}</h2>
+        <p>{{provider.service}}</p>
+        <div text-right>
+          <ion-icon name="eye" (click)="showDetail(provider, $event)"  ></ion-icon>
+          <ion-icon name="create"(click)="editDetail(provider, $event)" ></ion-icon>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ion-fab #fab bottom right>
+    <button button-ion-fab ion-fab (click)="addProvider($event)">
+        <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+
+
+  </ion-content>

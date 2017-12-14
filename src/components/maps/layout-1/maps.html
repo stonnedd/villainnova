@@ -13,8 +13,8 @@
       </ion-select>
     </ion-item>
   </ion-grid>
-  
   <sebm-google-map [latitude]="mapData.lat" [longitude]="mapData.lng" [zoom]="mapZoom" [mapTypeControl]=true [streetViewControl]=true>
+  
     <sebm-google-map-marker *ngFor="let supplier of suppliers"  
       [latitude]="supplier.lat" 
       [longitude]="supplier.lng" 
@@ -24,7 +24,7 @@
     </sebm-google-map-marker>
     <sebm-google-map-marker [iconUrl]="userData.userPos.iconUrl" [latitude]="userData.userPos.lat" [longitude]="userData.userPos.lng"></sebm-google-map-marker>
   </sebm-google-map>
-  
+  <spinner [data]="spinner" *ngIf="spinnerSts" ></spinner>
   <ion-fab bottom left>
       <button ion-fab color="locate" mini><ion-icon name="md-locate"></ion-icon></button>
     </ion-fab>

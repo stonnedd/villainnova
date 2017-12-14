@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { Constants} from "../../utils/constants";
 import { FormsModule }   from "@angular/forms";
 import { AutoserviceService } from "../../service/autoservice-service";
 import { SupplierModel} from "../../models/supplierModel";
@@ -17,6 +18,7 @@ import { Observable} from "rxjs/Rx";
 
 })
 export class AutoservicePage {
+  spinnerSts: any = false;
   params: any= {};
   usrPos: any= {};
   fetchedSuppliers: SupplierModel[];
@@ -30,45 +32,14 @@ export class AutoservicePage {
     public autoservice: AutoserviceService,
 
     ) {
-
+    this.params.spinner = {"icon": Constants.SPINNER};
     this.params.data = {};
     this.params.suppliers = [];
     this.params.fetchSupp = [];
     this.params.mapData = {};
     this.params.events = {
-
-      "onLike": function(item: any) {
-        console.log("Like");
-      },
-      "onFavorite": function(item: any) {
-        if (item) {
-            item.favorite = !item.favorite;
-        }
-      },
-      "onShare": function(item: any) {
-              console.log("Share");
-      },
-      "onSkipPrevious": function(item: any) {
-              console.log("Skip Previous");
-      },
-      "onPlay": function(item: any) {
-              console.log("Play");
-      },
-      "onSkipNext": function(item: any) {
-              console.log("Skip Next");
-      },
-      "onFab": function(item: any) {
-              console.log("Fab");
-      },
-      "onRates" : function(index: number) {
-          console.log("Rates " + (index + 1));
-      },
-      "onItemClick": function(item: any) {
-              console.log(item.title);
-      },
       "onMarker": function(item: any= {}) {
               console.log(item);
-
       },
     };
 
@@ -84,6 +55,7 @@ export class AutoservicePage {
   }
 
   serviceIsSelected(chosenService) {
+    this.spinnerSts = true;
     console.log("ocpión::", chosenService);
     // this.params.suppliers = this.AsSvc.getSuppliers().filter(
     //   data => {
@@ -109,13 +81,14 @@ export class AutoservicePage {
   }
 
   ngOnInit() {
-    this.fetchServices();
+    this.spinnerSts = true;
     this.fetchMainServices();
     this.AsSvc.getPosition().then((userPosition) => {
       this.fillUsrData(userPosition);
       console.log("pos:", userPosition.coords);
     }).catch((error) => {
       this.presentToast(JSON.stringify(error));
+      this.spinnerSts = false;
     });
   }
 
@@ -156,9 +129,11 @@ export class AutoservicePage {
       supplier => {
         this.params.suppliers = supplier;
         console.log("fetched", this.params.suppliers);
+        this.spinnerSts = false;
       },
       err => {
         console.log(err);
+        this.spinnerSts = false;
       },
     );
   }
@@ -168,9 +143,11 @@ export class AutoservicePage {
       services => {
         this.params.services = services;
         console.log("fetchedServ", this.params.services);
+        this.spinnerSts = false;
       },
       err => {
         console.log(err);
+        this.spinnerSts = false;
       },
     );
   }
@@ -180,9 +157,11 @@ export class AutoservicePage {
       mservices => {
         this.params.mainServices = mservices;
         console.log("fetchedMServ", this.params.services);
+        this.fetchServices();
       },
       err => {
         console.log(err);
+        this.spinnerSts = false;
       },
     );
   }

@@ -21,9 +21,9 @@ export class MyApp {
     { title: "Inicio", component: "AutoservicePage", icon: "icon-home-variant" },
     { title: "Perfil", component: "ProfilePage", icon: "icon-account-box"},
     //{ title: 'Asistencia', component: 'AutoservicePage', icon:'build'},
-    { title: "Gasolineras", component: "ProfilePage", icon: "ios-car"},
+   // { title: "Gasolineras", component: "ProfilePage", icon: "ios-car"},
     //{ title: 'Grúas', component: 'ProfilePage', icon:'icon-truck'},
-    { title: "Productos", component: "ProfilePage", icon: "md-list-box"},
+    //{ title: "Productos", component: "ProfilePage", icon: "md-list-box"},
     /*
     { title: 'Tutorial', component: 'TutorialPage' },
     { title: 'Welcome', component: 'WelcomePage' },

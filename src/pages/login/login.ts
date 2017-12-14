@@ -3,6 +3,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { IonicPage, NavController, App} from "ionic-angular";
 import { User } from "../../providers/providers";
 import { Storage } from "@ionic/storage";
+import { Constants} from "../../utils/constants";
 import { LoginService } from "../../service/login-service";
 import { ShowToaster } from "../../utils/toaster";
 import { AutoservicePage } from "../../pages/autoservice/autoservice";
@@ -18,10 +19,10 @@ import { FormGroup, ReactiveFormsModule, FormControl,
   providers: [LoginService, ShowToaster],
 })
 export class LoginPage {
-
+  params: any = {};
+  spinner: boolean = false;
   private loginErrorString: string;
   loginForm: FormGroup;
-
   constructor(public navCtrl: NavController,
     public user: User,
     public translateService: TranslateService,
@@ -34,22 +35,25 @@ export class LoginPage {
       "email": ["", Validators.compose([Validators.required, Validators.email])],
       "password": ["", Validators.compose([Validators.required, Validators.minLength(6)])],
     });
-
     this.translateService.get("LOGIN_ERROR").subscribe((value) => {
       this.loginErrorString = value;
     });
+    this.params.data = {"icon": Constants.SPINNER};
   }
 
   onSubmit(form: any) {
+    this.spinner = true;
     this.loginService.doesExistEmail(form.email)
     .subscribe((userEmail: any) => {
       if (userEmail[0] === form.email) {
           this.doLogin(form);
         }else {
+          this.spinner = false;
           this.showToaster.reveal("Correo NO válido", "bottom", 3000);
           this.loginForm.controls["email"].setValue("");
         }
     }, (err) => {
+      this.spinner = false;
       this.showToaster.reveal(this.loginErrorString, "top", 3000);
     });
   }
@@ -61,6 +65,7 @@ export class LoginPage {
         this.goForward(token);
       }, (err) => {
         this.showToaster.reveal(this.loginErrorString, "top", 3000);
+        this.spinner = false;
     });
   }
 
@@ -70,6 +75,7 @@ export class LoginPage {
         console.log("autenticacion:::", user);
         this.showToaster.reveal("Bienvenido " + user[0].name, "top", 3000);
         this.settings.update("id", user[0].id);
+        this.spinner = false;
         this.appCtrl.getRootNav().setRoot(MainPage);
       },
     );
@@ -81,6 +87,7 @@ export class LoginPage {
   }
 
   ngOnInit () {
+    this.spinner = false;
     this.settings.settingsObservable.subscribe(
       () => {
         this.settings.clear();
@@ -100,6 +107,9 @@ export class LoginPage {
   }
 
   loginFailed() {
+    this.spinner = false;
+    
+    
     this.settings.update("logged", false);
     this.showToaster.reveal("Contraseña incorrecta", "top", 3000);
     this.loginForm.controls["password"].setValue("");
@@ -111,6 +121,7 @@ export class LoginPage {
       resp._body === "null" ? this.loginFailed() : this.loginSuccess(token);
     }, (err) => {
       this.showToaster.reveal(this.loginErrorString, "top", 3000);
+      this.spinner = false;
     });
   }
 

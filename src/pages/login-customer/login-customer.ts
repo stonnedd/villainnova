@@ -1,6 +1,7 @@
 import { Component} from "@angular/core";
 import { IonicPage, NavController, NavParams, App } from "ionic-angular";
 import { AutoserviceService } from "../../service/autoservice-service";
+import { Constants} from "../../utils/constants";
 import { ShowToaster } from "../../utils/toaster";
 import { UserMapping } from "../../utils/user-mapping";
 import { LoginPage } from "../login/login";
@@ -14,8 +15,8 @@ import { FormGroup, ReactiveFormsModule, FormControl,
   providers: [AutoserviceService, ShowToaster, UserMapping],
 })
 export class LoginCustomerPage {
-
-
+  spinner: boolean = false;
+  params:  any= { };
   myForm: FormGroup;
 
   constructor(public navCtrl: NavController,
@@ -25,6 +26,7 @@ export class LoginCustomerPage {
     public tstCtrl: ShowToaster,
     private userMapping: UserMapping,
     public appCtrl: App) {
+      this.params.data = {"icon": Constants.SPINNER};
       this.myForm = fBuilder.group({
       "name": ["", Validators.compose([Validators.required, Validators.minLength(8)])],
       "phone": ["", Validators.compose([Validators.required, Validators.minLength(10), isNumber])],
@@ -34,8 +36,8 @@ export class LoginCustomerPage {
       }, {validator: areEqual});
 
     function areEqual(group: FormControl) {
-      let password = group.get("password").value; 
-      let confirmPassword = group.get("cPassword").value; 
+      let password = group.get("password").value;
+      let confirmPassword = group.get("cPassword").value;
        if (password !== confirmPassword) {
            group.get("cPassword").setErrors( {MatchPassword: true});
            return true;
@@ -52,9 +54,12 @@ export class LoginCustomerPage {
     }
 
   }
+  ngOnInit () {
+    this.spinner = false;
+  }
 
   onSubmit(form: any): void {
-    //delete form.cPassword;
+    this.spinner = true;
     this.isEmailAvailable(this.userMapping.arrangeData(form, "customer"));
   }
 
@@ -66,14 +71,17 @@ export class LoginCustomerPage {
     this.autoservice.createUser(form)
     .subscribe((data: any) => {
          if (data) {
+          this.spinner = false;
           this.tstCtrl.reveal("Registrado con éxito", "bottom", 3000);
           this.appCtrl.getRootNav().setRoot(LoginPage);
          }else {
           this.tstCtrl.reveal("Error de conexión", "middle", 3000);
+          this.spinner = false;
          }
      });
   }
   emailNotValid() {
+    this.spinner = false;
     this.tstCtrl.reveal("Correo No válido", "bottom", 3000);
     this.myForm.controls["email"].setValue("");
   }

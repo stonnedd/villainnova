@@ -6,14 +6,15 @@
 </ion-header>
 
 <ion-content padding>
+  <spinner [data]="params.data" *ngIf="spinner" ></spinner>
   <ion-list class="login-List"> 
       <form id="supplierForm" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">
 
         <ion-item class="login-Class">
-          <ion-label  floating for="manager"></ion-label>
+          <ion-label  floating for="name"></ion-label>
           <ion-input type="text"  placeholder="Nombre y apellido"
-            id="manager" [formControl]= "myForm.controls['manager']"></ion-input>
-            <p *ngIf="!myForm.controls['manager'].valid && myForm.controls['manager'].touched"   
+            id="name" [formControl]= "myForm.controls['name']"></ion-input>
+            <p *ngIf="!myForm.controls['name'].valid && myForm.controls['name'].touched"   
               class="alert alert-danger"></p>
         </ion-item> 	
           
@@ -43,9 +44,17 @@
 
         <ion-item class="login-Class">
           <ion-label floating for="phone"></ion-label>
-            <ion-input type="tel"  placeholder="Número telefónico (10 dígitos)" 
+            <ion-input type="tel"  placeholder="Teléfono particular (10 dígitos)" 
               id="phone" [formControl]= "myForm.controls['phone']"></ion-input>
             <div *ngIf="!myForm.controls['phone'].valid && myForm.controls['phone'].touched"   
+              class="alert alert-danger"></div>
+        </ion-item>
+
+        <ion-item class="login-Class">
+          <ion-label floating for="aditional_phone"></ion-label>
+            <ion-input type="tel"  placeholder="Teléfono del establecimiento (10 dígitos)" 
+              id="aditional_phone" [formControl]= "myForm.controls['aditional_phone']"></ion-input>
+            <div *ngIf="!myForm.controls['aditional_phone'].valid && myForm.controls['aditional_phone'].touched"   
               class="alert alert-danger"></div>
         </ion-item>
 
@@ -60,10 +69,10 @@
         </ion-item> 
         
         <ion-item class="login-Class">
-          <ion-label  floating for="name"></ion-label>
+          <ion-label  floating for="company_name"></ion-label>
             <ion-input type="text"  placeholder="Nombre del establecimiento"
-              id="name" [formControl]= "myForm.controls['name']"></ion-input>
-            <p *ngIf="!myForm.controls['name'].valid && myForm.controls['name'].touched"   
+              id="company_name" [formControl]= "myForm.controls['company_name']"></ion-input>
+            <p *ngIf="!myForm.controls['company_name'].valid && myForm.controls['company_name'].touched"   
                 class="alert alert-danger"></p>
         </ion-item> 	
 
@@ -75,7 +84,6 @@
                   class="alert alert-danger"></p>
         </ion-item> 	
     
-
         <ion-item class="login-Class">
           <ion-label  floating for="address"></ion-label>
             <ion-input type="text"  placeholder="Dirección "

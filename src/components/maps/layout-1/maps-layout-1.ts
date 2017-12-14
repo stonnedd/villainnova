@@ -4,6 +4,7 @@ import { SupplierDetailPage} from "../../../pages/supplier-detail/supplier-detai
 import { ToastController } from "ionic-angular";
 import { AlertController } from "ionic-angular";
 
+
 @Component({
     selector: "maps-layout-1",
     templateUrl: "maps.html",
@@ -17,9 +18,11 @@ export class MapsLayout1 {
     @Input() mainServices: string[];
     @Input() suppliers: any;
     @Input() mapData: any;
+    @Input() spinner: any;
+    @Input() spinnerSts: boolean;
     @Output() onMarkerService = new EventEmitter <any> ();
     @Output() serviceIsSelected = new EventEmitter <string>();
-
+    spinnerStatus: boolean = true;
     selectedService: any;
     labelService: string;
     mapZoom: number = 14;
@@ -50,23 +53,20 @@ export class MapsLayout1 {
     }
 
     svcSelected(): void {
+        console.log("Seleccion:::", this.selectedService);
         if (this.selectedService.length === 0) {
             this.labelService = "un servicio";
+            this.suppliers = [];
+            
         }else
         if (this.selectedService.length === 1) {
             this.labelService = this.selectedService[0];
         }else {
             this.labelService = "una opción";
         }
-        this.selectedService.forEach(element => {
-            if (element === "Taller especializado") {
-                this.showBrands();
-                //console.log("si");
-                //this.svcToast("Seleciona una marca", "top");
-            }
-        });
         this.svcToast("Seleciona " + this.labelService, "bottom");
         this.serviceIsSelected.emit(this.selectedService);
+        this.spinnerSts;
         this.mapZoom = 11;
     }
 
@@ -79,40 +79,13 @@ export class MapsLayout1 {
 
     showDetail(supplierData, event) {
         let popover = this.popCtrl.create(SupplierDetailPage, supplierData);
+        console.log("el EVENTO:", event);
         popover.present({
-          ev: event,
+          ev: "onMarker",
         });
     }
 
     ngOnInit() {
         this.svcToast("Selecciona un servicio", "bottom");
     }
-
-    showBrands() {
-        let alert = this.alertCtrl.create();
-        alert.setTitle("Selecciona una marca");
-        alert.addInput({
-          type: "checkbox",
-          label: "Audi",
-          value: "audi",
-          checked: true,
-        });
-
-        alert.addInput({
-          type: "checkbox",
-          label: "Bmw",
-          value: "bmw",
-        });
-
-        alert.addButton("Cancel");
-        alert.addButton({
-          text: "Ok",
-          handler: data => {
-            console.log("Checkbox data:", data);
-            this.svcToast("Seleciona " + this.labelService, "bottom");
-          },
-        });
-        alert.present();
-      }
-
 }

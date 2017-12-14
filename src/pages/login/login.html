@@ -5,6 +5,7 @@
 </ion-header>
 
 <ion-content padding>
+  <spinner [data]="params.data" *ngIf="spinner" ></spinner>
   <ion-list class="login-List"> 
     <form id="loginForm" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
       <h3>Iniciar sesión</h3>

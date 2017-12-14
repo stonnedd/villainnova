@@ -47,7 +47,7 @@ export class AutoserviceService {
         console.log(chosenService);
         return this.http.get(Constants.SUPPLIERS_URL + "/" + chosenService )
             .map((res: Response) => {
-                return res.json();
+                return res.json().providers;
             })
             .catch((error: any) => Observable.throw(error.json().error || "Server error"));
     }
@@ -61,27 +61,28 @@ export class AutoserviceService {
             .catch((error: any) => Observable.throw(error.json().error || "Server error"));
     }
 
-    createSupplier(supplier: any= {}): Observable<any> {
-        let body = JSON.stringify({supplier}) ;
+    createSupplier(idUser, provider: any= {}): Observable<any> {
+        let postUrl = Constants.CREATE_SUPPLIER_URL + "/" + idUser + "/provider";
+        let body = JSON.stringify({provider}) ;
         console.log(body);
         let headers = new Headers({ "Content-Type": "application/json" });
         let options = new RequestOptions({ headers: headers });
-        return this.http.post(Constants.CREATE_SUPPLIER_URL, body, options ).map(
+        return this.http.post(postUrl, body, options ).map(
             (res: Response) => {
                 console.log("response:", res);
-                return res.ok;
+                return res.json();
             })
             .catch((error: any) => Observable.throw(error.json().error || "Server error"));
     }
 
     createUser(user: any= {}): Observable<any> {
         let body = JSON.stringify({user}) ;
-        console.log(body);
         let headers = new Headers({ "Content-Type": "application/json" });
         let options = new RequestOptions({ headers: headers });
         return this.http.post(Constants.CREATE_USER_URL, body, options ).map(
             (res: Response) => {
-                return res.ok;
+                console.log("Create Response ", res.json());
+                return res.json();
             })
             .catch((error: any) => Observable.throw(error.json().error || "Server error"));
     }

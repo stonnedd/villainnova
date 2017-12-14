@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams, App } from "ionic-angular";
 import { AutoserviceService } from "../../service/autoservice-service";
 import { SupplierMapping} from "../../utils/supplier-mapping";
+import { Constants} from "../../utils/constants";
 import { ShowToaster } from "../../utils/toaster";
 import { LoginPage } from "../login/login";
 import { FormGroup, ReactiveFormsModule, FormControl,
@@ -16,7 +17,8 @@ import { FormGroup, ReactiveFormsModule, FormControl,
 
 })
 export class LoginSupplierPage {
-
+  spinner: boolean = false;
+  params:  any= { };
   myForm: FormGroup;
   services: any = [];
   mainServices: any = [];
@@ -31,10 +33,10 @@ export class LoginSupplierPage {
               public supplierMapping: SupplierMapping,
               public tstCtrl: ShowToaster,
               public appCtrl: App) {
-
+    this.params.data = {"icon": Constants.SPINNER};
     this.myForm = fBuilder.group({
-      "name": ["", Validators.compose([Validators.required])],
-      "manager": ["", Validators.compose([Validators.required, Validators.minLength(8)])],
+      "name": ["", Validators.compose([Validators.required, Validators.minLength(8)])],
+      "company_name": ["", Validators.compose([Validators.required])],
       "phone": ["", Validators.compose([Validators.required, Validators.minLength(10), isNumber])],
       "email": ["", Validators.compose([Validators.required, Validators.email])],
       "password": ["", Validators.compose([Validators.required, Validators.minLength(6)])],
@@ -47,6 +49,7 @@ export class LoginSupplierPage {
       "lat": ["", Validators.compose([Validators.required])],
       "lng": ["", Validators.compose([Validators.required])],
       "website": ["" ],
+      "aditional_phone": ["", Validators.compose([Validators.required, Validators.minLength(10), isNumber])],
     }, {validator: areEqual});
 
     function areEqual(group: FormControl) {
@@ -65,78 +68,93 @@ export class LoginSupplierPage {
   }
 
   ionViewDidLoad() {
+    
     console.log("ionViewDidLoad LoginSupplierPage");
   }
 
   onSubmit(form: any): void {
-    this.isEmailAvailable(this.supplierMapping.arrangeData(form));
+    this.spinner = true;
+    this.isEmailAvailable(this.supplierMapping.addMapIcon(form));
   }
 
   ngOnInit() {
     this.fetchMainServices();
     this.fetchServices();
+    
   }
 
   fetchServices() {
+    this.spinner = true;
     this.autoservice.getServices().subscribe(
       services => {
         this.services = services;
         console.log(this.services);
+        this.spinner = false;
       },
       err => {
         console.log(err);
+        this.spinner = false;
       },
     );
   }
 
   fetchMainServices() {
+    this.spinner = true;
     this.autoservice.getMainServices().subscribe(
       mservices => {
         this.mainServices = mservices;
         console.log(this.mainServices);
+        this.spinner = false;
       },
       err => {
         console.log(err);
+        this.spinner = false;
       },
     );
   }
 
   getMyPos() {
+    this.spinner = true;
     this.autoservice.getPosition().then(
       coords => {
         this.fetchedLat = coords.coords.latitude;
         this.fetchedLng = coords.coords.longitude;
         console.log("coords:", this.fetchedLat, this.fetchedLng);
+        this.spinner = false;
       },
     );
   }
 
   doNewRegister(form) {
+    this.suppForms = this.supplierMapping.splitForm(form);
     console.log("USER:::", this.suppForms[0]);
     console.log("SUPP:::", this.suppForms[1]);
-    this.suppForms = this.supplierMapping.splitForm(form);
     this.autoservice.createUser(this.suppForms[0]).subscribe(
       (user: any) => {
         if (user) {
-          this.autoservice.createSupplier(this.suppForms[1])
+          console.log("USER ID:", user);
+          this.autoservice.createSupplier(user, this.suppForms[1])
           .subscribe((data: any) => {
-              if (data) {
+              if (data && !null) {
+                this.spinner = false;
                 this.tstCtrl.reveal("Registrado con éxito", "bottom", 3000);
                 this.appCtrl.getRootNav().setRoot(LoginPage);
-                
               }
               else {
                 this.tstCtrl.reveal("Error de conexión", "middle", 3000);
+                this.spinner = false;
               }
            });
         }else {
           this.tstCtrl.reveal("Error de conexión", "bottom", 3000);
+          this.spinner = false;
         }
       });
   }
   emailNotValid() {
     this.tstCtrl.reveal("Correo No válido", "bottom", 3000);
     this.myForm.controls["email"].setValue("");
+    this.spinner = false;
   }
 
   isEmailAvailable(form) {
@@ -149,5 +167,4 @@ export class LoginSupplierPage {
       }
     });
   }
-  
 }

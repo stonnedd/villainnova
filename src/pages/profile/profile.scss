@@ -1,3 +1,54 @@
 page-profile {
 
+    .card-background-page {
+        
+          ion-card {
+            position: relative;
+            text-align: left;
+            background-color: #2653af;
+            height: 140px
+          }
+
+          ion-card img{
+            opacity: .7;
+          }
+        
+          .card-title {
+            position: absolute;
+            top: 15%;
+            font-size: 1.5em;
+            width: 100%;
+            font-weight: bold;
+            color: #fff;
+            justify-content: space-between;
+          }
+        
+          .card-phone {
+            font-size: 1.0em;
+            position: absolute;
+            top: 45%;
+            width: 100%;
+            color: #fff;
+            justify-content: space-between;
+          }
+
+          .card-email {
+            font-size: 1.0em;
+            position: absolute;
+            top: 70%;
+            width: 100%;
+            color: #fff;
+            justify-content: space-between;
+          }
+
+          h3 {
+            color: #ffffff !important; 
+            text-transform: uppercase !important;
+
+
+          }
+        
+        }
+
 }
+

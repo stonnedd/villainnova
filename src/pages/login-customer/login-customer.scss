@@ -1,4 +1,12 @@
 page-login-customer {
+
+    spinner * {
+        position: fixed;
+        align-items: center;
+        justify-content: center;
+        top: 45%;
+        width: 30%;
+    }
     
     button.ok {
         margin-top: 25px;

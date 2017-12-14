@@ -1,9 +1,13 @@
-import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { Component, ViewChild } from "@angular/core";
+import { IonicPage, NavController, NavParams, PopoverController } from "ionic-angular";
 import { ProfileService } from "../../service/profile-service";
 import { Settings } from "../../providers/settings/settings";
 import { ShowToaster } from "../../utils/toaster";
 import { TranslateService } from "@ngx-translate/core";
+import { Content, FabButton } from "ionic-angular";
+import { AddSupplierPage } from "../../pages/add-supplier/add-supplier";
+import { SupplierMapping} from "../../utils/supplier-mapping";
+import { SupplierDetailPage} from "../../pages/supplier-detail/supplier-detail";
 
 @IonicPage()
 @Component({
@@ -13,35 +17,40 @@ import { TranslateService } from "@ngx-translate/core";
 })
 
 export class ProfilePage {
+  
+  @ViewChild(Content)
+  content: Content;
+  @ViewChild(FabButton)
+  fabButton: FabButton;
   private loginErrorString: string;
   public userId: string;
+  userServices = [];
   user: any = {};
-  cardItems: any[];
-  title: any;
+  title: string= "Mi perfil";
+
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public profileSvc: ProfileService,
     public settings: Settings,
     public showToaster: ShowToaster,
-    public translateService: TranslateService) {
+    public translateService: TranslateService,
+    public popCtrl: PopoverController,
+    ) {
     this.translateService.get("LOGIN_ERROR").subscribe((value) => {
       this.loginErrorString = value;
     });
-
-    this.title = "Mi perfil";
-    this.cardItems = [
-      {
-        user: {
-          avatar: "assets/img/marty-avatar.png",
-          name: "Marty McFly",
-        },
-        date: "November 5, 1955",
-        image: "assets/img/advance-card-bttf.png",
-        content: "Aquí van los datos del usuario y vehiculo.",
-      },
-    ];
   }
 
+  doRefresh(refresher) {
+    this.profileSvc.getUserServices(this.user.id).subscribe(
+      userServices => {
+         console.log("refreshing");
+         this.userServices = userServices;
+         refresher.complete();
+      });
+  }
+  
   ionViewDidLoad() {
     console.log("ionViewDidLoad ProfilePage");
   }
@@ -49,14 +58,43 @@ export class ProfilePage {
   ngOnInit() {
     this.settings.settingsObservable.subscribe(
       value => {
+          this.user.id = value.id;
+          this.user.token = value.token;
           console.log("storage:", value);
-          this.profileSvc.getUserData(value.id).subscribe(
-            userData => {console.log(userData),
+          this.profileSvc.getUserData(this.user.id).subscribe(
+            userData => {
+              console.log("Datos de usuario", userData),
               this.loadUserData(userData[0]);
+              this.profileSvc.getUserServices(this.user.id).subscribe(
+                userServices => {
+                   console.log(userServices);
+                   this.userServices = userServices;
+                });
             });
       }, (err) => {
         this.showToaster.reveal(this.loginErrorString, "top", 3000);
     });
+  }
+
+  ngAfterViewInit() {
+    this.content.ionScroll.subscribe((d) => {
+        this.fabButton.setElementClass("fab-button-out", d.directionY == "down");
+    });
+  }
+  
+  addProvider(event) {
+    console.log(event);
+    let ev = {
+      target : {
+        getBoundingClientRect : () => {
+          return {
+            top: "50",
+          };
+        },
+      },
+    };
+    let popover = this.popCtrl.create(AddSupplierPage, this.user);
+    popover.present({ev : ev});
   }
 
   loadUserData (userData) {
@@ -65,5 +103,21 @@ export class ProfilePage {
     this.user.email = userData.email;
     this.user.profile = userData.profile;
   }
+
+  showDetail(supplierData, event) {
+    let popover = this.popCtrl.create(SupplierDetailPage, supplierData);
+    popover.present({
+      ev: "onMarker",
+    });
+  }
+
+  editDetail(supplierData, event) {
+    this.user.provider = supplierData;
+    let popover = this.popCtrl.create(AddSupplierPage, this.user);
+    popover.present({ev : ""});
+  }
+
+
+
 
 }

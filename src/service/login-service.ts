@@ -32,6 +32,8 @@ export class LoginService {
     getUser(token): Observable<any> {
         return this.http.get(Constants.LOGGED_USER_URL + "/" + token)
             .map((res: Response) => {
+                console.log("REsPonsE", res);
+                console.log("REsPonsE Json", res.json());
                 return res.json();
             }).catch((error: any) => Observable.throw(error.json().error || "Server error"));
     }

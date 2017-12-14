@@ -1,4 +1,11 @@
 maps-layout-1 {
+  spinner * {
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    top: 35%;
+    width: 30%;
+  }
   
   .sebm-google-map-container {
     height: 95%;
