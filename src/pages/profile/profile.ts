@@ -83,7 +83,6 @@ export class ProfilePage {
   }
   
   addProvider(event) {
-    console.log(event);
     let ev = {
       target : {
         getBoundingClientRect : () => {
@@ -93,6 +92,8 @@ export class ProfilePage {
         },
       },
     };
+    this.user.isNewProvider = true;
+    this.user.provider = 0;
     let popover = this.popCtrl.create(AddSupplierPage, this.user);
     popover.present({ev : ev});
   }
@@ -113,6 +114,7 @@ export class ProfilePage {
 
   editDetail(supplierData, event) {
     this.user.provider = supplierData;
+    this.user.isNewProvider = false;
     let popover = this.popCtrl.create(AddSupplierPage, this.user);
     popover.present({ev : ""});
   }

@@ -1345,6 +1345,7 @@ var AddSupplierPage = (function () {
         this.services = [];
         this.mainServices = [];
         this.suppForms = [];
+        this.isNewService = true;
         this.myForm = fBuilder.group({
             "company_name": ["", __WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].required])],
             "service": ["", __WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_5__angular_forms__["f" /* Validators */].required])],
@@ -1362,38 +1363,51 @@ var AddSupplierPage = (function () {
         }
     }
     AddSupplierPage.prototype.ngOnInit = function () {
-        this.data = this.navParams.data;
-        console.log("Que recibe", this.data);
         this.fetchMainServices();
-        this.fetchServices();
-        this.data.Provider != null ? this.isNewService = false
+        this.data = this.navParams.data;
+        console.log("OriginalData:::", this.data.provider);
+        this.data.isNewProvider !== true ?
+            this.loadParams()
             : this.isNewService = true;
     };
-    AddSupplierPage.prototype.fetchServices = function () {
-        var _this = this;
-        this.autoservice.getServices().subscribe(function (services) {
-            _this.services = services;
-            console.log(_this.services);
-        }, function (err) {
-            console.log(err);
-        });
+    AddSupplierPage.prototype.loadParams = function () {
+        this.isNewService = false;
+        this.myForm.controls["company_name"].setValue(this.data.provider.company_name);
+        this.myForm.controls["service"].setValue(this.data.provider.service);
+        this.myForm.controls["specialty"].setValue(this.data.provider.specialty);
+        this.myForm.controls["address"].setValue(this.data.provider.address);
+        this.myForm.controls["brands"].setValue(this.data.provider.brands);
+        this.myForm.controls["website"].setValue(this.data.provider.website);
+        this.myForm.controls["aditional_phone"].setValue(this.data.provider.aditional_phone);
+        this.myForm.controls["schedule"].setValue(this.data.provider.schedule);
+        this.fetchedLat = this.data.provider.lat;
+        this.fetchedLng = this.data.provider.lng;
     };
     AddSupplierPage.prototype.fetchMainServices = function () {
         var _this = this;
         this.autoservice.getMainServices().subscribe(function (mservices) {
             _this.mainServices = mservices;
             console.log(_this.mainServices);
+            _this.autoservice.getServices().subscribe(function (services) {
+                _this.services = services;
+                console.log(_this.services);
+            }, function (err) {
+                console.log(err);
+            });
         }, function (err) {
             console.log(err);
         });
     };
     AddSupplierPage.prototype.onSubmit = function (form) {
-        this.isNewService ? this.getNew(form) : this.update;
+        this.isNewService ? this.getNew(form) : this.update(form);
     };
     AddSupplierPage.prototype.getNew = function (form) {
         this.doNewRegister(this.supplierMapping.addMapIcon(form));
     };
-    AddSupplierPage.prototype.update = function () {
+    AddSupplierPage.prototype.update = function (form) {
+        form.id = this.data.provider.id;
+        console.log("UPDATE:::", form);
+        this.updateRegister(this.supplierMapping.addMapIcon(form));
     };
     AddSupplierPage.prototype.getMyPos = function () {
         var _this = this;
@@ -1409,7 +1423,19 @@ var AddSupplierPage = (function () {
             .subscribe(function (data) {
             if (data && !null) {
                 _this.tstCtrl.reveal("Registrado con éxito", "bottom", 3000);
-                //this.navCtrl.setRoot(this.navCtrl.getActive().component);
+                _this.close();
+            }
+            else {
+                _this.tstCtrl.reveal("Error de conexión", "middle", 3000);
+            }
+        });
+    };
+    AddSupplierPage.prototype.updateRegister = function (form) {
+        var _this = this;
+        this.autoservice.updateSupplier(form.id, form)
+            .subscribe(function (data) {
+            if (data && !null) {
+                _this.tstCtrl.reveal("Guardado con éxito", "bottom", 3000);
                 _this.close();
             }
             else {
@@ -1428,13 +1454,18 @@ var AddSupplierPage = (function () {
 AddSupplierPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_4_ionic_angular__["i" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
-        selector: "page-add-supplier",template:/*ion-inline-start:"C:\WorkSpace\appMovile2017\villaInova\src\pages\add-supplier\add-supplier.html"*/'\n<!-- <ion-header>\n\n  <ion-navbar>\n    <ion-title>add-supplier</ion-title>\n  </ion-navbar>\n\n</ion-header> -->\n\n\n<ion-content>\n  <ion-list class="login-List"> \n      <form id="supplierForm" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">\n\n        <ion-item  class="login-Class" > \n          <ion-label for="service" style="color:rgb(146, 145, 145) !important" no-padding>Servicio</ion-label>\n            <ion-select id="service" [formControl]="myForm.controls[\'service\']" \n            placeholder="Selecciona un servicio" \n            cancelText="Atras" >\n              <ion-option *ngFor="let mainService of mainServices" [value]="mainService" no-padding>{{mainService}} </ion-option>\n              <ion-option *ngFor="let service of services" [value]="service" no-padding>{{service}} </ion-option>\n            </ion-select>\n        </ion-item> \n         \n        <ion-item class="login-Class">\n          <ion-label  floating for="company_name"></ion-label>\n            <ion-input type="text"  placeholder="Nombre del establecimiento"\n              id="company_name" [formControl]= "myForm.controls[\'company_name\']"></ion-input>\n            <p *ngIf="!myForm.controls[\'company_name\'].valid && myForm.controls[\'company_name\'].touched"   \n                class="alert alert-danger"></p>\n        </ion-item> 	\n\n        <ion-item class="login-Class">\n          <ion-label floating for="aditional_phone"></ion-label>\n            <ion-input type="tel"  placeholder="Teléfono del establecimiento (10 dígitos)" \n              id="aditional_phone" [formControl]= "myForm.controls[\'aditional_phone\']"></ion-input>\n            <div *ngIf="!myForm.controls[\'aditional_phone\'].valid && myForm.controls[\'aditional_phone\'].touched"   \n              class="alert alert-danger"></div>\n        </ion-item>\n\n        <ion-item class="login-Class">\n            <ion-label  floating for="specialty"></ion-label>\n              <ion-input type="text"  placeholder="Especialización o cualidades"\n                id="specialty" [formControl]= "myForm.controls[\'specialty\']"></ion-input>\n              <p *ngIf="!myForm.controls[\'specialty\'].valid && myForm.controls[\'specialty\'].touched"   \n                  class="alert alert-danger"></p>\n        </ion-item> 	\n    \n        <ion-item class="login-Class">\n          <ion-label  floating for="address"></ion-label>\n            <ion-input type="text"  placeholder="Dirección "\n              id="address" [formControl]= "myForm.controls[\'address\']"></ion-input>\n            <p *ngIf="!myForm.controls[\'address\'].valid && myForm.controls[\'address\'].touched"   \n                class="alert alert-danger"></p>\n        </ion-item> 	\n\n        <ion-item class="login-Class">\n            <ion-label  floating for="brands"></ion-label>\n              <ion-input type="text"  placeholder="Marcas"\n                id="brands" [formControl]= "myForm.controls[\'brands\']"></ion-input>\n              <p *ngIf="!myForm.controls[\'brands\'].valid && myForm.controls[\'brands\'].touched"   \n                  class="alert alert-danger"></p>\n          </ion-item> 	\n\n        <ion-item class="login-Class">\n          <ion-label  floating for="schedule"></ion-label>\n            <ion-input type="text"  placeholder="Horario"\n              id="schedule" [formControl]= "myForm.controls[\'schedule\']"></ion-input>\n            <p *ngIf="!myForm.controls[\'schedule\'].valid && myForm.controls[\'schedule\'].touched"   \n                class="alert alert-danger"></p>\n        </ion-item> 	\n\n        <ion-item class="login-Class">\n          <ion-label  floating for="website"></ion-label>\n            <ion-input type="text"  placeholder="Sitio web" [formControl]= "myForm.controls[\'website\']"\n              id="website"></ion-input>\n        </ion-item> 	\n        <br/>\n        <ion-item class="coords-Class">\n          <ion-label for="lat" item-start></ion-label >\n          <ion-input type="text"  placeholder="latitud" [(ngModel)]="fetchedLat"\n            id="lat" [formControl]= "myForm.controls[\'lat\']"  ></ion-input>\n          <p *ngIf="!myForm.controls[\'lat\'].valid && myForm.controls[\'lat\'].touched"   \n              class="alert alert-danger"></p>\n\n            <ion-label for="lng"></ion-label>\n          <ion-input type="text"  placeholder="longitud"  [(ngModel)]="fetchedLng"\n            id="lng" [formControl]= "myForm.controls[\'lng\']" ></ion-input>\n          <p *ngIf="!myForm.controls[\'lng\'].valid && myForm.controls[\'lng\'].touched"   \n              class="alert alert-danger"></p>\n            <button ion-button round type="button" (click)=getMyPos() color="buttons" item-end><ion-icon name="locate"></ion-icon> </button>\n        </ion-item> \n\n        <br/>\n        <div text-center padding> \n            <button [hidden]=isNewService ion-button block round type="submit" class="ok" [disabled]="!myForm.valid">Registrar</button>\n            <button [hidden]=!isNewService ion-button block round type="submit" class="ok" [disabled]="!myForm.valid">Actualizar</button>\n        </div>   \n        <br/>\n\n      </form>     \n  </ion-list>\n</ion-content>\n\n'/*ion-inline-end:"C:\WorkSpace\appMovile2017\villaInova\src\pages\add-supplier\add-supplier.html"*/,
+        selector: "page-add-supplier",template:/*ion-inline-start:"C:\WorkSpace\appMovile2017\villaInova\src\pages\add-supplier\add-supplier.html"*/'\n<ion-content>\n  <ion-list class="login-List"> \n      <form id="supplierForm" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">\n\n        <ion-item  class="login-Class" > \n          <ion-label for="service" style="color:rgb(146, 145, 145) !important" no-padding>Servicio</ion-label>\n            <ion-select id="service" [formControl]="myForm.controls[\'service\']" \n            placeholder="Selecciona un servicio" \n            cancelText="Atras" >\n              <ion-option *ngFor="let mainService of mainServices" [value]="mainService" no-padding>{{mainService}} </ion-option>\n              <ion-option *ngFor="let service of services" [value]="service" no-padding>{{service}} </ion-option>\n            </ion-select>\n        </ion-item> \n         \n        <ion-item class="login-Class">\n          <ion-label  floating for="company_name"></ion-label>\n            <ion-input type="text"  placeholder="Nombre del establecimiento"\n              id="company_name" [formControl]= "myForm.controls[\'company_name\']"></ion-input>\n            <p *ngIf="!myForm.controls[\'company_name\'].valid && myForm.controls[\'company_name\'].touched"   \n                class="alert alert-danger"></p>\n        </ion-item> 	\n\n        <ion-item class="login-Class">\n          <ion-label floating for="aditional_phone"></ion-label>\n            <ion-input type="tel"  placeholder="Teléfono del establecimiento (10 dígitos)" \n              id="aditional_phone" [formControl]= "myForm.controls[\'aditional_phone\']"></ion-input>\n            <div *ngIf="!myForm.controls[\'aditional_phone\'].valid && myForm.controls[\'aditional_phone\'].touched"   \n              class="alert alert-danger"></div>\n        </ion-item>\n\n        <ion-item class="login-Class">\n            <ion-label  floating for="specialty"></ion-label>\n              <ion-input type="text"  placeholder="Especialización o cualidades"\n                id="specialty" [formControl]= "myForm.controls[\'specialty\']"></ion-input>\n              <p *ngIf="!myForm.controls[\'specialty\'].valid && myForm.controls[\'specialty\'].touched"   \n                  class="alert alert-danger"></p>\n        </ion-item> 	\n    \n        <ion-item class="login-Class">\n          <ion-label  floating for="address"></ion-label>\n            <ion-input type="text"  placeholder="Dirección "\n              id="address" [formControl]= "myForm.controls[\'address\']"></ion-input>\n            <p *ngIf="!myForm.controls[\'address\'].valid && myForm.controls[\'address\'].touched"   \n                class="alert alert-danger"></p>\n        </ion-item> 	\n\n        <ion-item class="login-Class">\n            <ion-label  floating for="brands"></ion-label>\n              <ion-input type="text"  placeholder="Marcas"\n                id="brands" [formControl]= "myForm.controls[\'brands\']"></ion-input>\n              <p *ngIf="!myForm.controls[\'brands\'].valid && myForm.controls[\'brands\'].touched"   \n                  class="alert alert-danger"></p>\n          </ion-item> 	\n\n        <ion-item class="login-Class">\n          <ion-label  floating for="schedule"></ion-label>\n            <ion-input type="text"  placeholder="Horario"\n              id="schedule" [formControl]= "myForm.controls[\'schedule\']"></ion-input>\n            <p *ngIf="!myForm.controls[\'schedule\'].valid && myForm.controls[\'schedule\'].touched"   \n                class="alert alert-danger"></p>\n        </ion-item> 	\n\n        <ion-item class="login-Class">\n          <ion-label  floating for="website"></ion-label>\n            <ion-input type="text"  placeholder="Sitio web" [formControl]= "myForm.controls[\'website\']"\n              id="website"></ion-input>\n        </ion-item> 	\n        <br/>\n        <ion-item class="coords-Class">\n          <ion-label for="lat" item-start></ion-label >\n          <ion-input type="text"  placeholder="latitud" [(ngModel)]="fetchedLat"\n            id="lat" [formControl]= "myForm.controls[\'lat\']"  ></ion-input>\n          <p *ngIf="!myForm.controls[\'lat\'].valid && myForm.controls[\'lat\'].touched"   \n              class="alert alert-danger"></p>\n\n          <ion-label for="lng"></ion-label>\n          <ion-input type="text"  placeholder="longitud"  [(ngModel)]="fetchedLng"\n            id="lng" [formControl]= "myForm.controls[\'lng\']" ></ion-input>\n          <p *ngIf="!myForm.controls[\'lng\'].valid && myForm.controls[\'lng\'].touched"   \n              class="alert alert-danger"></p>\n          <button ion-button round type="button" (click)=getMyPos() color="buttons" item-end><ion-icon name="locate"></ion-icon> </button>\n        </ion-item> \n\n        <br/>\n        <div text-center padding> \n            <button [hidden]=!isNewService ion-button block round type="submit" class="ok" [disabled]="!myForm.valid">Registrar</button>\n            <button [hidden]=isNewService ion-button block round type="submit" class="ok" [disabled]="!myForm.valid">Guardar</button>\n        </div>   \n        <br/>\n\n      </form>     \n  </ion-list>\n</ion-content>\n\n'/*ion-inline-end:"C:\WorkSpace\appMovile2017\villaInova\src\pages\add-supplier\add-supplier.html"*/,
         providers: [__WEBPACK_IMPORTED_MODULE_0__service_autoservice_service__["a" /* AutoserviceService */], __WEBPACK_IMPORTED_MODULE_3__utils_supplier_mapping__["a" /* SupplierMapping */], __WEBPACK_IMPORTED_MODULE_2__utils_toaster__["a" /* ShowToaster */]],
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["n" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["n" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["o" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["o" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["s" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["s" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__utils_supplier_mapping__["a" /* SupplierMapping */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__utils_supplier_mapping__["a" /* SupplierMapping */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__service_autoservice_service__["a" /* AutoserviceService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__service_autoservice_service__["a" /* AutoserviceService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_2__utils_toaster__["a" /* ShowToaster */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__utils_toaster__["a" /* ShowToaster */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_5__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_forms__["a" /* FormBuilder */]) === "function" && _g || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4_ionic_angular__["n" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["o" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["s" /* ViewController */],
+        __WEBPACK_IMPORTED_MODULE_3__utils_supplier_mapping__["a" /* SupplierMapping */],
+        __WEBPACK_IMPORTED_MODULE_0__service_autoservice_service__["a" /* AutoserviceService */],
+        __WEBPACK_IMPORTED_MODULE_2__utils_toaster__["a" /* ShowToaster */],
+        __WEBPACK_IMPORTED_MODULE_5__angular_forms__["a" /* FormBuilder */]])
 ], AddSupplierPage);
 
-var _a, _b, _c, _d, _e, _f, _g;
 //# sourceMappingURL=add-supplier.js.map
 
 /***/ }),
@@ -1813,6 +1844,7 @@ var Constants;
 (function (Constants) {
     Constants.SUPPLIERS_URL = "http://localhost:4000/api/providers/service";
     Constants.CREATE_SUPPLIER_URL = "http://localhost:4000/api/users";
+    Constants.UPDATE_SUPPLIER_URL = "http://localhost:4000/api/provider/update/";
     Constants.CREATE_USER_URL = "http://localhost:4000/api/users/create";
     Constants.SERVICES_URL = "http://localhost:4000/api/services";
     Constants.MAIN_SERVICES_URL = "http://localhost:4000/api/mainservices";
@@ -1821,7 +1853,7 @@ var Constants;
     Constants.LOGGED_USER_URL = "http://localhost:4000/api/logged/user";
     Constants.USER_BY_ID = "http://localhost:4000/api/user";
     Constants.SERVICES_BY_USER_ID = "http://localhost:4000/api/providers/user";
-    Constants.SPINNER = "ball-triangle"; // puede ser "puff"
+    Constants.SPINNER = "puff"; // puede ser "puff" o "ball-triangle"
 })(Constants || (Constants = {}));
 //# sourceMappingURL=constants.js.map
 
@@ -2871,6 +2903,17 @@ var AutoserviceService = (function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Headers */]({ "Content-Type": "application/json" });
         var options = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["d" /* RequestOptions */]({ headers: headers });
         return this.http.post(postUrl, body, options).map(function (res) {
+            console.log("response:", res);
+            return res.json();
+        })
+            .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__["Observable"].throw(error.json().error || "Server error"); });
+    };
+    AutoserviceService.prototype.updateSupplier = function (id, provider) {
+        if (provider === void 0) { provider = {}; }
+        var body = JSON.stringify({ provider: provider });
+        var headers = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Headers */]({ "Content-Type": "application/json" });
+        var options = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["d" /* RequestOptions */]({ headers: headers });
+        return this.http.put(__WEBPACK_IMPORTED_MODULE_1__utils_constants__["a" /* Constants */].UPDATE_SUPPLIER_URL + "/" + id, body, options).map(function (res) {
             console.log("response:", res);
             return res.json();
         })

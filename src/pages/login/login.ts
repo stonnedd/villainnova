@@ -108,8 +108,6 @@ export class LoginPage {
 
   loginFailed() {
     this.spinner = false;
-    
-    
     this.settings.update("logged", false);
     this.showToaster.reveal("Contraseña incorrecta", "top", 3000);
     this.loginForm.controls["password"].setValue("");

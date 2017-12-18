@@ -122,7 +122,6 @@ var ProfilePage = (function () {
         });
     };
     ProfilePage.prototype.addProvider = function (event) {
-        console.log(event);
         var ev = {
             target: {
                 getBoundingClientRect: function () {
@@ -132,6 +131,8 @@ var ProfilePage = (function () {
                 },
             },
         };
+        this.user.isNewProvider = true;
+        this.user.provider = 0;
         var popover = this.popCtrl.create(__WEBPACK_IMPORTED_MODULE_6__pages_add_supplier_add_supplier__["a" /* AddSupplierPage */], this.user);
         popover.present({ ev: ev });
     };
@@ -149,6 +150,7 @@ var ProfilePage = (function () {
     };
     ProfilePage.prototype.editDetail = function (supplierData, event) {
         this.user.provider = supplierData;
+        this.user.isNewProvider = false;
         var popover = this.popCtrl.create(__WEBPACK_IMPORTED_MODULE_6__pages_add_supplier_add_supplier__["a" /* AddSupplierPage */], this.user);
         popover.present({ ev: "" });
     };
@@ -156,11 +158,11 @@ var ProfilePage = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Content */]),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Content */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Content */]) === "function" && _a || Object)
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Content */])
 ], ProfilePage.prototype, "content", void 0);
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* FabButton */]),
-    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* FabButton */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* FabButton */]) === "function" && _b || Object)
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* FabButton */])
 ], ProfilePage.prototype, "fabButton", void 0);
 ProfilePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* IonicPage */])(),
@@ -168,10 +170,15 @@ ProfilePage = __decorate([
         selector: "page-profile",template:/*ion-inline-start:"C:\WorkSpace\appMovile2017\villaInova\src\pages\profile\profile.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>{{title}}</ion-title>\n  </ion-navbar>\n</ion-header>\n    \n    \n<ion-content class="card-background-page">\n    <ion-refresher (ionRefresh)="doRefresh($event)">\n      <ion-refresher-content></ion-refresher-content>\n    </ion-refresher>\n\n  <ion-card>\n      <img src="../../assets/images/background/profile.jpg"/>\n      <div class="card-title" paddinge-left> <ion-icon item-left icon-small name="contact"></ion-icon>{{user.name}}</div>\n      <div class="card-phone" paddinge-left> <ion-icon item-left icon-small name="phone-portrait"></ion-icon>{{user.phone}}</div>\n      <div class="card-email" paddinge-left> <ion-icon item-left icon-small name="mail"></ion-icon>{{user.email}}</div>\n  </ion-card>\n\n  <div class="list-avatar-page">\n    <ion-list >\n    <ion-list-header><strong>Mis Servicios</strong></ion-list-header>\n      <ion-item *ngFor="let provider of userServices">\n        <ion-avatar item-start>\n          <img [src]="\'../../assets/mapicons/\'+provider.map_icon">\n        </ion-avatar>\n        <h2>{{provider.company_name}}</h2>\n        <p>{{provider.service}}</p>\n        <div text-right>\n          <ion-icon name="eye" (click)="showDetail(provider, $event)"  ></ion-icon>\n          <ion-icon name="create"(click)="editDetail(provider, $event)" ></ion-icon>\n        </div>\n      </ion-item>\n    </ion-list>\n  </div>\n\n  <ion-fab #fab bottom right>\n    <button button-ion-fab ion-fab (click)="addProvider($event)">\n        <ion-icon name="add"></ion-icon>\n    </button>\n  </ion-fab>\n\n\n  </ion-content>'/*ion-inline-end:"C:\WorkSpace\appMovile2017\villaInova\src\pages\profile\profile.html"*/,
         providers: [__WEBPACK_IMPORTED_MODULE_2__service_profile_service__["a" /* ProfileService */], __WEBPACK_IMPORTED_MODULE_4__utils_toaster__["a" /* ShowToaster */]],
     }),
-    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* NavParams */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__service_profile_service__["a" /* ProfileService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__service_profile_service__["a" /* ProfileService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_3__providers_settings_settings__["a" /* Settings */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_settings_settings__["a" /* Settings */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_4__utils_toaster__["a" /* ShowToaster */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__utils_toaster__["a" /* ShowToaster */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_5__ngx_translate_core__["c" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ngx_translate_core__["c" /* TranslateService */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* PopoverController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* PopoverController */]) === "function" && _j || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_2__service_profile_service__["a" /* ProfileService */],
+        __WEBPACK_IMPORTED_MODULE_3__providers_settings_settings__["a" /* Settings */],
+        __WEBPACK_IMPORTED_MODULE_4__utils_toaster__["a" /* ShowToaster */],
+        __WEBPACK_IMPORTED_MODULE_5__ngx_translate_core__["c" /* TranslateService */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* PopoverController */]])
 ], ProfilePage);
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j;
 //# sourceMappingURL=profile.js.map
 
 /***/ }),

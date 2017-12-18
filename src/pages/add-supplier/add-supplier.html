@@ -1,0 +1,95 @@
+
+<ion-content>
+  <ion-list class="login-List"> 
+      <form id="supplierForm" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">
+
+        <ion-item  class="login-Class" > 
+          <ion-label for="service" style="color:rgb(146, 145, 145) !important" no-padding>Servicio</ion-label>
+            <ion-select id="service" [formControl]="myForm.controls['service']" 
+            placeholder="Selecciona un servicio" 
+            cancelText="Atras" >
+              <ion-option *ngFor="let mainService of mainServices" [value]="mainService" no-padding>{{mainService}} </ion-option>
+              <ion-option *ngFor="let service of services" [value]="service" no-padding>{{service}} </ion-option>
+            </ion-select>
+        </ion-item> 
+         
+        <ion-item class="login-Class">
+          <ion-label  floating for="company_name"></ion-label>
+            <ion-input type="text"  placeholder="Nombre del establecimiento"
+              id="company_name" [formControl]= "myForm.controls['company_name']"></ion-input>
+            <p *ngIf="!myForm.controls['company_name'].valid && myForm.controls['company_name'].touched"   
+                class="alert alert-danger"></p>
+        </ion-item> 	
+
+        <ion-item class="login-Class">
+          <ion-label floating for="aditional_phone"></ion-label>
+            <ion-input type="tel"  placeholder="Teléfono del establecimiento (10 dígitos)" 
+              id="aditional_phone" [formControl]= "myForm.controls['aditional_phone']"></ion-input>
+            <div *ngIf="!myForm.controls['aditional_phone'].valid && myForm.controls['aditional_phone'].touched"   
+              class="alert alert-danger"></div>
+        </ion-item>
+
+        <ion-item class="login-Class">
+            <ion-label  floating for="specialty"></ion-label>
+              <ion-input type="text"  placeholder="Especialización o cualidades"
+                id="specialty" [formControl]= "myForm.controls['specialty']"></ion-input>
+              <p *ngIf="!myForm.controls['specialty'].valid && myForm.controls['specialty'].touched"   
+                  class="alert alert-danger"></p>
+        </ion-item> 	
+    
+        <ion-item class="login-Class">
+          <ion-label  floating for="address"></ion-label>
+            <ion-input type="text"  placeholder="Dirección "
+              id="address" [formControl]= "myForm.controls['address']"></ion-input>
+            <p *ngIf="!myForm.controls['address'].valid && myForm.controls['address'].touched"   
+                class="alert alert-danger"></p>
+        </ion-item> 	
+
+        <ion-item class="login-Class">
+            <ion-label  floating for="brands"></ion-label>
+              <ion-input type="text"  placeholder="Marcas"
+                id="brands" [formControl]= "myForm.controls['brands']"></ion-input>
+              <p *ngIf="!myForm.controls['brands'].valid && myForm.controls['brands'].touched"   
+                  class="alert alert-danger"></p>
+          </ion-item> 	
+
+        <ion-item class="login-Class">
+          <ion-label  floating for="schedule"></ion-label>
+            <ion-input type="text"  placeholder="Horario"
+              id="schedule" [formControl]= "myForm.controls['schedule']"></ion-input>
+            <p *ngIf="!myForm.controls['schedule'].valid && myForm.controls['schedule'].touched"   
+                class="alert alert-danger"></p>
+        </ion-item> 	
+
+        <ion-item class="login-Class">
+          <ion-label  floating for="website"></ion-label>
+            <ion-input type="text"  placeholder="Sitio web" [formControl]= "myForm.controls['website']"
+              id="website"></ion-input>
+        </ion-item> 	
+        <br/>
+        <ion-item class="coords-Class">
+          <ion-label for="lat" item-start></ion-label >
+          <ion-input type="text"  placeholder="latitud" [(ngModel)]="fetchedLat"
+            id="lat" [formControl]= "myForm.controls['lat']"  ></ion-input>
+          <p *ngIf="!myForm.controls['lat'].valid && myForm.controls['lat'].touched"   
+              class="alert alert-danger"></p>
+
+          <ion-label for="lng"></ion-label>
+          <ion-input type="text"  placeholder="longitud"  [(ngModel)]="fetchedLng"
+            id="lng" [formControl]= "myForm.controls['lng']" ></ion-input>
+          <p *ngIf="!myForm.controls['lng'].valid && myForm.controls['lng'].touched"   
+              class="alert alert-danger"></p>
+          <button ion-button round type="button" (click)=getMyPos() color="buttons" item-end><ion-icon name="locate"></ion-icon> </button>
+        </ion-item> 
+
+        <br/>
+        <div text-center padding> 
+            <button [hidden]=!isNewService ion-button block round type="submit" class="ok" [disabled]="!myForm.valid">Registrar</button>
+            <button [hidden]=isNewService ion-button block round type="submit" class="ok" [disabled]="!myForm.valid">Guardar</button>
+        </div>   
+        <br/>
+
+      </form>     
+  </ion-list>
+</ion-content>
+
