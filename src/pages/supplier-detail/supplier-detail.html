@@ -1,24 +1,29 @@
 <ion-content no-padding>
 
   <div card-image class="title-style">
-    <img images-filter src={{data.img}}/>
+      <div style="text-align:right" no-padding >
+          <button ion-button clear icon-only small (click)=close()>
+            <ion-icon > <i class="icon icon-close-circle"></i> </ion-icon>
+          </button>
+      </div>
+    <!-- <img images-filter src={{data.img}}> -->
     <ion-card-header no-padding>
       <ion-grid>
-          <ion-row align-items-center >
-              <ion-col col-3 align-self-end><div text-right>
-                <img [src]="'../assets/mapicons/'+data.map_icon" alt="icon">
-              </div> 
-              </ion-col>
-              <ion-col col-9> <h1 card-title >{{data.company_name}}</h1>  
-                <rating style= "text-align:center" [(ngModel)]="data.ranking"
-                  readOnly="false"
-                  max="5"
-                  emptyStarIconName="star-outline"
-                  halfStarIconName="star-half"
-                  starIconName="star"
-                  nullable="false" 
-                  (ngModelChange)="onRatingChange($event)"></rating></ion-col>
-            </ion-row>
+        <ion-row align-items-center >
+            <ion-col col-3 align-self-end><div text-right>
+              <img [src]="'../assets/mapicons/'+data.map_icon"> 
+            </div> 
+            </ion-col>
+            <ion-col col-9> <h1 card-title >{{data.company_name}}</h1>  
+              <rating style= "text-align:center" [(ngModel)]="data.ranking"
+                readOnly="false"
+                max="5"
+                emptyStarIconName="star-outline"
+                halfStarIconName="star-half"
+                starIconName="star"
+                nullable="false" 
+                (ngModelChange)="onRatingChange($event)"></rating></ion-col>
+          </ion-row>
       </ion-grid>
       <h2 card-title>{{data.service}}</h2>
       <!-- <p>{{data.specialty}}</p> -->
@@ -86,13 +91,14 @@
         <p no-margin maps-description>{{data.email}}<p>
       </ion-col>
     </ion-row> -->
-
+    <br/><br/><br/><br/>
   </ion-grid>
-  <div style="text-align:center" >
-      <button ion-button clear icon-only small (click)=close()>
-        <ion-icon > <i class="icon icon-close-circle"></i> </ion-icon>
-      </button>
-  </div>
+  <ion-fab #fab bottom right>
+    <button button-ion-fab ion-fab mini (click)="request()">
+        <ion-icon name="pricetag"></ion-icon>
+    </button>
+  </ion-fab>
+  
 
 </div>
 

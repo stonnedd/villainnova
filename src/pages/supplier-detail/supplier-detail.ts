@@ -2,6 +2,8 @@ import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams, ViewController } from "ionic-angular";
 import { CallNumber } from "@ionic-native/call-number";
 import { LaunchNavigator, LaunchNavigatorOptions } from "@ionic-native/launch-navigator";
+import { RequestPage } from "../request/request";
+
 
 @IonicPage()
 @Component({
@@ -32,6 +34,12 @@ export class SupplierDetailPage {
     this.callNumber.callNumber(phone, true)
     .then(() => console.log("Launched dialer!"))
     .catch(() => console.log("Error launching dialer"));
+  }
+
+  request(event, providerData ) {
+    console.log(providerData);
+    this.viewCtrl.dismiss();
+    this.navCtrl.push(RequestPage, this.data);
   }
 
   navigate(destination) {

@@ -74889,6 +74889,98 @@ page-profile .card-background-page h3 {
   text-transform: uppercase !important;
 }
 
+page-request button.ok {
+  margin-top: 25px;
+  background-color: transparent;
+  -webkit-box-shadow: 0px 2px 2px rgba(24, 68, 159, 0.4);
+  box-shadow: 0px 2px 2px rgba(24, 68, 159, 0.4);
+  color: #2653af;
+  font-stretch: expanded;
+  font: bolder;
+}
+
+page-request button.ok.activated {
+  background-color: gainsboro;
+}
+
+page-request .company-Name h2 {
+  margin: 10px 10px 10px 10px !important;
+  text-transform: uppercase !important;
+  text-align: center !important;
+  font-weight: bold;
+  color: #363636;
+}
+
+page-request .divider {
+  background: #ffffff;
+  margin: 0px 0px 0px 0px !important;
+  text-align: center !important;
+}
+
+page-request .divider .label-md {
+  margin: 0px 0px 0px 0px !important;
+  color: #363636;
+}
+
+page-request .divider p {
+  color: #bebebe;
+}
+
+page-request ion-row {
+  text-align: center !important;
+  padding: 0px 0px 0px 0px !important;
+}
+
+page-request ion-col {
+  text-align: center !important;
+  padding: 0px 0px 0px 0px !important;
+}
+
+page-request ion-col input {
+  text-align: center !important;
+  padding: 0px 0px 0px 0px !important;
+}
+
+page-request .profile-image-wrapper {
+  padding: 0px 0px 0px 0px !important;
+  text-align: center !important;
+  -webkit-align-content: center !important;
+  -ms-flex-line-pack: center !important;
+  align-content: center !important;
+  margin: 0px 0px 0px 0px !important;
+}
+
+page-request .profile-image-wrapper .profile-image {
+  padding: 0px 0px 0px 0px !important;
+  -webkit-align-content: center !important;
+  -ms-flex-line-pack: center !important;
+  align-content: center !important;
+  text-align: center !important;
+  width: 56px;
+  height: 56px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+page-request .profile-image-wrapper .profile-image-placeholder {
+  -webkit-align-content: center !important;
+  -ms-flex-line-pack: center !important;
+  align-content: center !important;
+  padding: 0px 0px 0px 0px !important;
+  text-align: center !important;
+  background-color: #eee;
+  width: 60px;
+  height: 60px;
+  font-size: 12px;
+}
+
+page-request .profile-image-wrapper .profile-image-placeholder ion-icon {
+  padding: 0px 0px 0px 0px !important;
+  font-size: 44px;
+  text-align: center !important;
+  margin: 0px 0px 0px 0px;
+}
+
 page-settings .settings {
   background-color: white !important;
 }

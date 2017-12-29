@@ -73,7 +73,7 @@ export class AddSupplierPage {
     this.fetchedLat = this.data.provider.lat;
     this.fetchedLng = this.data.provider.lng;
   }
-
+  
   fetchMainServices() {
     this.autoservice.getMainServices().subscribe(
       mservices => {
