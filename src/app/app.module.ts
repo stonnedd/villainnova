@@ -30,6 +30,8 @@ import { LoginPageModule} from "../pages/login/login.module";
 import { AddSupplierPageModule} from "../pages/add-supplier/add-supplier.module";
 import { RequestPageModule } from "../pages/request/request.module";
 import { RequestMethod } from "@angular/http/src/enums";
+import { FileTransfer, FileUploadOptions, FileTransferObject } from "@ionic-native/file-transfer";
+import { File } from "@ionic-native/file";
 
 // export const firebaseConfig = {
 //   apiKey: "AIzaSyBdQOPM3re7vBFNTEspKM7G0vzKH7ub6H8",
@@ -107,6 +109,8 @@ export function provideSettings(storage: Storage) {
     GoogleMaps,
     SplashScreen,
     StatusBar,
+    FileTransfer,
+    File,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },

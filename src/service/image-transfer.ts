@@ -1,47 +1,54 @@
 import { FileTransfer, FileUploadOptions, FileTransferObject } from "@ionic-native/file-transfer";
 import { Injectable, Inject } from "@angular/core";
+import { File } from "@ionic-native/file";
+import { Component, ViewChild } from "@angular/core";
+
+// @Component({
+//     providers: [FileTransfer],
+// })
 
 @Injectable()
-export class ImageTransfer {
-    images: any= [];
-    counter: number = 0;
-    constructor() {}
 
-    upholdImages(formData: any= {}) {
+
+export class ImageTransfer {
+   
+    constructor(private transfer: FileTransfer, private file: File) {}
+
+    upholdImages(formData: any= {}): any[] {
+        let images: any = [];
+        let counter: number = 0;
         console.log(formData);
-        this.counter = 0;
-        formData.pic1 === "" ? console.log("empty") : this.addImage(formData.pic1);
-        formData.pic2 === "" ? console.log("empty") : this.addImage(formData.pic2);
-        formData.pic3 === "" ? console.log("empty") : this.addImage(formData.pic3);
-        console.log("numero de imagenes:", this.counter);
-        if (this.counter !== 0) {
-            this.transferImages();
+        if (formData.pic1 !== "") {
+            images[counter] = formData.pic1;
+            counter++;
+        }
+        if (formData.pic2 !== "") {
+            images[counter] = formData.pic2;
+            counter++;
+        }
+        if (formData.pic3 !== "") {
+            images[counter] = formData.pic3;
+            counter++;
+        }
+        if (counter === 0) {
+            return null;
+        }else {
+            return images;
         }
     }
 
-    transferImages() {  ///esto va en request aqui va solo para uno con reture antes del then
-        this.images.forEach(element => {
-            this.uploadFile(element);
-            console.log("element:", element);
-        });
-//
-        ///   ver com ohacer el promise desde el request
-
-    }
-
-    addImage(img: any) {
-        this.images[this.counter] = img;
-        this.counter++;
-    }
-
-    uploadFile(image: any) {
+    uploadImage(image, uploadUrl, pic_number) {
+        const fileTransfer: FileTransferObject = this.transfer.create();
+        let fName = "pic" + String(pic_number);
         let options: FileUploadOptions = {
-          fileKey: "ionicfile",
-          fileName: "ionicfile",
-          chunkedMode: false,
-          mimeType: "image/jpeg",
-          headers: { },
+            fileKey: "request",
+            fileName: fName,
+            chunkedMode: false,
+            mimeType: "image/jpeg",
+            headers: { },
         };
+        return fileTransfer.upload(image, uploadUrl, options);
     }
+
 
 }

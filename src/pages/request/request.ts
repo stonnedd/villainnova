@@ -1,17 +1,20 @@
+import { Constants} from "../../utils/constants";
 import { AutoserviceService } from "../../service/autoservice-service";
 import { Component, ViewChild } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { Camera, CameraOptions } from "@ionic-native/camera";
 import { ShowToaster } from "../../utils/toaster";
+import { ImageTransfer } from "../../service/image-transfer";
+import { ApiService} from "../../service/api-service";
+import { Settings } from "../../providers/settings/settings";
 import { FormGroup, ReactiveFormsModule, FormControl,
   FormBuilder, Validators} from "@angular/forms";
-//import { combineAll } from "rxjs/operator/combineAll";
-import {ImageTransfer } from "../../service/image-transfer";
+
 @IonicPage()
 @Component({
   selector: "page-request",
   templateUrl: "request.html",
-  providers: [ShowToaster, AutoserviceService, ImageTransfer],
+  providers: [ShowToaster, AutoserviceService, ImageTransfer, ApiService],
 })
 
 export class RequestPage {
@@ -21,16 +24,21 @@ export class RequestPage {
   requestForm: FormGroup;
   broadcast: boolean = false;
   slctdProvider: any;
-  pictures: any[];
+  user_id: number;
   picCase: number = 1;
   requestParams: any = [];
+  spinner: boolean = false;
+  params: any= {};
+  
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public tstCtrl: ShowToaster,
               public fBuilder: FormBuilder,
               public camera: Camera,
               public autoservice: AutoserviceService,
-              public imageTransfer: ImageTransfer) {
+              public imageTransfer: ImageTransfer,
+              public settings: Settings,
+              public apiSvc: ApiService) {
 
     this.requestForm = fBuilder.group({
       "service": ["", Validators.compose([Validators.required])],
@@ -42,7 +50,7 @@ export class RequestPage {
       pic2: [""],
       pic3: [""],
     });
-
+    this.params.data = {"icon": Constants.SPINNER};
   }
 
   getProfileImageStyle(pic) {
@@ -87,8 +95,11 @@ export class RequestPage {
       this.fileInput.nativeElement.click();
     }
   }
- 
+
   ngOnInit() {
+    this.settings.settingsObservable.subscribe(
+      data => { this.user_id = data.id; },
+    );
     if (this.navParams.data) {
       this.broadcast = false;
       this.slctdProvider = this.navParams.data;
@@ -126,21 +137,26 @@ export class RequestPage {
       coords => {
         this.fetchedLat = coords.coords.latitude;
         this.fetchedLng = coords.coords.longitude;
-        console.log("coords:", this.fetchedLat, this.fetchedLng);
       },
     );
   }
 
   onSubmit(formData: any = {}) {
     console.log("submit");
-    this.requestParams.provider_id = this.slctdProvider.id;
-    console.log(formData);
-    this.imageTransfer.upholdImages(formData);
-    // do the transfer files
-    // do post request
-    // do image model separete phoenix
-
+    formData.provider = this.slctdProvider.id;
+    let rqstURL = Constants.CREATE_REQUEST + "/" + this.user_id + "/CMS/request";
+    console.log(rqstURL);
+    let images = this.imageTransfer.upholdImages(formData);
+    this.apiSvc.postService(rqstURL, this.arrangeData(formData)).subscribe(
+      res => {
+        // if (images !== null){
+          //this.imageTransfer.uploadImage(images[0], "", 1);
+        //}
+        console.log("quiero el ID", res.requests.id);
+      }, err => {this.tstCtrl.reveal(err.toString, "bottom", 2500); },
+    );
   }
-  
-
+  arrangeData(request) {
+    return JSON.stringify({request});
+  }
 }

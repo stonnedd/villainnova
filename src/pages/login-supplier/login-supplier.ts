@@ -68,7 +68,6 @@ export class LoginSupplierPage {
   }
 
   ionViewDidLoad() {
-    
     console.log("ionViewDidLoad LoginSupplierPage");
   }
 
@@ -80,7 +79,6 @@ export class LoginSupplierPage {
   ngOnInit() {
     this.fetchMainServices();
     this.fetchServices();
-    
   }
 
   fetchServices() {

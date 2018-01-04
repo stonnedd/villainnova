@@ -10,7 +10,7 @@ export namespace Constants {
     export const LOGGED_USER_URL: string = "http://localhost:4000/api/logged/user";
     export const USER_BY_ID: string = "http://localhost:4000/api/user";
     export const SERVICES_BY_USER_ID: string = "http://localhost:4000/api/providers/user";
-
+    export const CREATE_REQUEST: string = "http://localhost:4000/api/users";
 
     export const SPINNER: string = "puff"; // puede ser "puff" o "ball-triangle"
 }
