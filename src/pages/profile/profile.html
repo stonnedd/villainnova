@@ -8,40 +8,13 @@
 </ion-header>
     
     
-<ion-content class="card-background-page">
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-      <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>
+<ion-content no-padding ="true">
+    <spinner [data]="params.data" *ngIf="spinner"></spinner>
+    <ion-tabs >
+      <ion-tab [root]="requestsPage" [rootParams]="user" tabIcon="list-box" tabTitle="Solicitudes" ></ion-tab>
+      <ion-tab [root]="servicesPage" [rootParams]="user" tabIcon="build" tabTitle="Servicios" [tabBadge]="fetchedRequests" tabBadgeStyle="locate"></ion-tab>
+      <!-- <ion-tab [root]="servicesPage" [rootParams]="user" tabIcon="build" tabTitle="Servicios"></ion-tab> -->
+      
+    </ion-tabs>
 
-  <ion-card>
-      <img src="../../assets/images/background/profile.jpg"/>
-      <div class="card-title" paddinge-left> <ion-icon item-left icon-small name="contact"></ion-icon>{{user.name}}</div>
-      <div class="card-phone" paddinge-left> <ion-icon item-left icon-small name="phone-portrait"></ion-icon>{{user.phone}}</div>
-      <div class="card-email" paddinge-left> <ion-icon item-left icon-small name="mail"></ion-icon>{{user.email}}</div>
-  </ion-card>
-
-  <div class="list-avatar-page">
-    <ion-list >
-    <ion-list-header><strong>Mis Servicios</strong></ion-list-header>
-      <ion-item *ngFor="let provider of userServices">
-        <ion-avatar item-start>
-          <img [src]="'../../assets/mapicons/'+provider.map_icon">
-        </ion-avatar>
-        <h2>{{provider.company_name}}</h2>
-        <p>{{provider.service}}</p>
-        <div text-right>
-          <ion-icon name="eye" (click)="showDetail(provider, $event)"  ></ion-icon>
-          <ion-icon name="create"(click)="editDetail(provider, $event)" ></ion-icon>
-        </div>
-      </ion-item>
-    </ion-list>
-  </div>
-
-  <ion-fab #fab bottom right>
-    <button button-ion-fab ion-fab (click)="addProvider($event)">
-        <ion-icon name="add"></ion-icon>
-    </button>
-  </ion-fab>
-
-
-  </ion-content>
+</ion-content>

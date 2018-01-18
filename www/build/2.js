@@ -1,15 +1,15 @@
 webpackJsonp([2],{
 
-/***/ 662:
+/***/ 672:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TutorialPageModule", function() { return TutorialPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabsPageModule", function() { return TabsPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tutorial__ = __webpack_require__(676);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs__ = __webpack_require__(685);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -20,38 +20,39 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var TutorialPageModule = (function () {
-    function TutorialPageModule() {
+var TabsPageModule = (function () {
+    function TabsPageModule() {
     }
-    return TutorialPageModule;
+    return TabsPageModule;
 }());
-TutorialPageModule = __decorate([
+TabsPageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_2__tutorial__["a" /* TutorialPage */],
+            __WEBPACK_IMPORTED_MODULE_3__tabs__["a" /* TabsPage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__tutorial__["a" /* TutorialPage */]),
-            __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["b" /* TranslateModule */].forChild()
+            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_3__tabs__["a" /* TabsPage */]),
+            __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["b" /* TranslateModule */].forChild()
         ],
         exports: [
-            __WEBPACK_IMPORTED_MODULE_2__tutorial__["a" /* TutorialPage */]
+            __WEBPACK_IMPORTED_MODULE_3__tabs__["a" /* TabsPage */]
         ]
     })
-], TutorialPageModule);
+], TabsPageModule);
 
-//# sourceMappingURL=tutorial.module.js.map
+//# sourceMappingURL=tabs.module.js.map
 
 /***/ }),
 
-/***/ 676:
+/***/ 685:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TutorialPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages__ = __webpack_require__(160);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -64,70 +65,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var TutorialPage = (function () {
-    function TutorialPage(navCtrl, menu, translate, platform) {
+
+
+
+var TabsPage = (function () {
+    function TabsPage(navCtrl, translateService) {
         var _this = this;
         this.navCtrl = navCtrl;
-        this.menu = menu;
-        this.platform = platform;
-        this.showSkip = true;
-        this.dir = 'ltr';
-        this.dir = platform.dir();
-        translate.get(["TUTORIAL_SLIDE1_TITLE",
-            "TUTORIAL_SLIDE1_DESCRIPTION",
-            "TUTORIAL_SLIDE2_TITLE",
-            "TUTORIAL_SLIDE2_DESCRIPTION",
-            "TUTORIAL_SLIDE3_TITLE",
-            "TUTORIAL_SLIDE3_DESCRIPTION",
-        ]).subscribe(function (values) {
-            console.log('Loaded values', values);
-            _this.slides = [
-                {
-                    title: 'Bienvenido a Autocar',
-                    description: '',
-                    image: 'assets/img/ica-slidebox-img-1.png',
-                },
-                {
-                    title: 'Cómo funciona',
-                    description: 'bla bla bla..',
-                    image: 'assets/img/ica-slidebox-img-2.png',
-                },
-                {
-                    title: values.TUTORIAL_SLIDE3_TITLE,
-                    description: '¿Necesitas ayuda?',
-                    image: 'assets/img/ica-slidebox-img-3.png',
-                }
-            ];
+        this.translateService = translateService;
+        this.tab1Root = __WEBPACK_IMPORTED_MODULE_3__pages__["c" /* Tab1Root */];
+        this.tab2Root = __WEBPACK_IMPORTED_MODULE_3__pages__["d" /* Tab2Root */];
+        this.tab3Root = __WEBPACK_IMPORTED_MODULE_3__pages__["e" /* Tab3Root */];
+        this.tab1Title = " ";
+        this.tab2Title = " ";
+        this.tab3Title = " ";
+        translateService.get(['TAB1_TITLE', 'TAB2_TITLE', 'TAB3_TITLE']).subscribe(function (values) {
+            _this.tab1Title = values['TAB1_TITLE'];
+            _this.tab2Title = values['TAB2_TITLE'];
+            _this.tab3Title = values['TAB3_TITLE'];
         });
     }
-    TutorialPage.prototype.startApp = function () {
-        this.navCtrl.setRoot('WelcomePage', {}, {
-            animate: true,
-            direction: 'forward'
-        });
-    };
-    TutorialPage.prototype.onSlideChangeStart = function (slider) {
-        this.showSkip = !slider.isEnd();
-    };
-    TutorialPage.prototype.ionViewDidEnter = function () {
-        // the root left menu should be disabled on the tutorial page
-        this.menu.enable(false);
-    };
-    TutorialPage.prototype.ionViewWillLeave = function () {
-        // enable the root left menu when leaving the tutorial page
-        this.menu.enable(true);
-    };
-    return TutorialPage;
+    return TabsPage;
 }());
-TutorialPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* IonicPage */])(),
+TabsPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'page-tutorial',template:/*ion-inline-start:"C:\Workspace\autocar\front\villainnova\src\pages\tutorial\tutorial.html"*/'<ion-header no-shadow>\n\n  <ion-navbar>\n\n    <ion-buttons end *ngIf="showSkip">\n\n      <button ion-button (click)="startApp()" color="primary">{{ \'TUTORIAL_SKIP_BUTTON\' | translate}}</button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content no-bounce>\n\n  <ion-slides pager="true" dir="{{dir}}" (ionSlideWillChange)="onSlideChangeStart($event)">\n\n    <ion-slide *ngFor="let slide of slides">\n\n      <img [src]="slide.image" class="slide-image" />\n\n      <h2 class="slide-title" [innerHTML]="slide.title"></h2>\n\n      <p [innerHTML]="slide.description"></p>\n\n    </ion-slide>\n\n    <ion-slide>\n\n      <img src="assets/img/ica-slidebox-img-4.png" class="slide-image" />\n\n      <h2 class="slide-title">{{ \'TUTORIAL_SLIDE4_TITLE\' | translate }}</h2>\n\n      <button ion-button icon-end large clear (click)="startApp()">\n\n        {{ \'TUTORIAL_CONTINUE_BUTTON\' | translate }}\n\n        <ion-icon name="arrow-forward"></ion-icon>\n\n      </button>\n\n    </ion-slide>\n\n  </ion-slides>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Workspace\autocar\front\villainnova\src\pages\tutorial\tutorial.html"*/
+        selector: 'page-tabs',template:/*ion-inline-start:"c:\Workspace\autocar\front\villainnova\src\pages\tabs\tabs.html"*/'<ion-tabs>\n\n  <ion-tab [root]="tab1Root" [tabTitle]="tab1Title" tabIcon="home"></ion-tab>\n\n  <ion-tab [root]="tab2Root" [tabTitle]="tab2Title" tabIcon="search"></ion-tab>\n\n  <ion-tab [root]="tab3Root" [tabTitle]="tab3Title" tabIcon="cog"></ion-tab>\n\n</ion-tabs>'/*ion-inline-end:"c:\Workspace\autocar\front\villainnova\src\pages\tabs\tabs.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* MenuController */], __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__["c" /* TranslateService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* Platform */]])
-], TutorialPage);
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["o" /* NavController */], __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["c" /* TranslateService */]])
+], TabsPage);
 
-//# sourceMappingURL=tutorial.js.map
+//# sourceMappingURL=tabs.js.map
 
 /***/ })
 

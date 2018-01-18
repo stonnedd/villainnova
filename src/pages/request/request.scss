@@ -1,21 +1,44 @@
 page-request {
 
+  spinner * {
+    position: fixed;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+    top: 45%;
+    width: 35%;
+}
+
   button.ok {
-        margin-top: 25px;
-        background-color: transparent;
-        box-shadow: 0px 2px 2px rgba(24, 68, 159, 0.4);
-        color: #2653af;
-        font-stretch: expanded;
-        font: bolder;
-    
-        &.activated {
-          background-color: rgb(220, 220, 220);
-        }
-      }
+    margin-top: 25px;
+    background-color: transparent;
+    box-shadow: 0px 2px 2px rgba(24, 68, 159, 0.4);
+    color: #2653af;
+    font-stretch: expanded;
+    font: bolder;
+
+    &.activated {
+      background-color: rgb(220, 220, 220);
+    }
+  }
+
+  button.cancel {
+    margin-top: 25px;
+    background-color: transparent;
+    box-shadow: 0px 2px 2px rgba(159, 24, 24, 0.4);
+    color: #af2626;
+    font-stretch: expanded;
+    font: bolder;
+
+    &.activated {
+      background-color: rgb(220, 220, 220);
+    }
+  }
 
   .company-Name{
     h2{
-      margin: 10px 10px 10px 10px !important;
+      margin: 1
+      0px 10px 10px 10px !important;
       text-transform: uppercase !important;
       text-align: center !important;  
       font-weight: bold;
@@ -54,18 +77,16 @@ page-request {
     padding: 0px 0px 0px 0px !important;
     text-align: center !important;
     align-content: center !important;
-    margin: 0px 0px 0px 0px !important;
+    margin: auto !important;  
     //margin: 20px 0;
     .profile-image {
+      margin: auto !important;  
       padding: 0px 0px 0px 0px !important;
       align-content: center !important;
       text-align: center !important;
       width: 56px;
       height: 56px;
-      //border-radius: 50%;
-      //display: inline-block;
       background-repeat: no-repeat;
-      //background-size: cover;
       background-size: cover
     }
 
@@ -78,14 +99,12 @@ page-request {
       width: 60px;
       height: 60px;
       //border-radius: 50%;
+      margin: auto !important;    
       font-size: 12px;
       ion-icon {
         padding: 0px 0px 0px 0px !important;
         font-size: 44px;
         text-align: center !important;
-        margin: 0px 0px 0px 0px;    
-        // margin-bottom: -10px;
-        // margin-top: 10px;
       }
     }
   }

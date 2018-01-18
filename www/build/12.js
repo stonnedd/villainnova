@@ -1,15 +1,15 @@
 webpackJsonp([12],{
 
-/***/ 651:
+/***/ 663:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardsPageModule", function() { return CardsPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__cards__ = __webpack_require__(664);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__cards__ = __webpack_require__(676);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -44,13 +44,13 @@ CardsPageModule = __decorate([
 
 /***/ }),
 
-/***/ 664:
+/***/ 676:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CardsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -100,9 +100,9 @@ var CardsPage = (function () {
 CardsPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'page-cards',template:/*ion-inline-start:"C:\Workspace\autocar\front\villainnova\src\pages\cards\cards.html"*/'<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>{{ \'CARDS_TITLE\' | translate }}</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content>\n\n\n\n  <ion-card *ngFor="let item of cardItems">\n\n\n\n    <ion-item>\n\n      <ion-avatar item-start>\n\n        <img [src]="item.user.avatar">\n\n      </ion-avatar>\n\n      <h2>{{item.user.name}}</h2>\n\n      <p>{{item.date}}</p>\n\n    </ion-item>\n\n\n\n    <img [src]="item.image">\n\n\n\n    <ion-card-content>\n\n      <p>{{item.content}}</p>\n\n    </ion-card-content>\n\n\n\n    <ion-row>\n\n      <ion-col>\n\n        <button ion-button color="primary" clear small icon-start>\n\n            <ion-icon name=\'thumbs-up\'></ion-icon>\n\n            12 Likes\n\n          </button>\n\n      </ion-col>\n\n      <ion-col>\n\n        <button ion-button color="primary" clear small icon-start>\n\n            <ion-icon name=\'text\'></ion-icon>\n\n            4 Comments\n\n          </button>\n\n      </ion-col>\n\n      <ion-col center text-center>\n\n        <ion-note>\n\n          11h ago\n\n        </ion-note>\n\n      </ion-col>\n\n    </ion-row>\n\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"C:\Workspace\autocar\front\villainnova\src\pages\cards\cards.html"*/
+        selector: 'page-cards',template:/*ion-inline-start:"c:\Workspace\autocar\front\villainnova\src\pages\cards\cards.html"*/'<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>{{ \'CARDS_TITLE\' | translate }}</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content>\n\n\n\n  <ion-card *ngFor="let item of cardItems">\n\n\n\n    <ion-item>\n\n      <ion-avatar item-start>\n\n        <img [src]="item.user.avatar">\n\n      </ion-avatar>\n\n      <h2>{{item.user.name}}</h2>\n\n      <p>{{item.date}}</p>\n\n    </ion-item>\n\n\n\n    <img [src]="item.image">\n\n\n\n    <ion-card-content>\n\n      <p>{{item.content}}</p>\n\n    </ion-card-content>\n\n\n\n    <ion-row>\n\n      <ion-col>\n\n        <button ion-button color="primary" clear small icon-start>\n\n            <ion-icon name=\'thumbs-up\'></ion-icon>\n\n            12 Likes\n\n          </button>\n\n      </ion-col>\n\n      <ion-col>\n\n        <button ion-button color="primary" clear small icon-start>\n\n            <ion-icon name=\'text\'></ion-icon>\n\n            4 Comments\n\n          </button>\n\n      </ion-col>\n\n      <ion-col center text-center>\n\n        <ion-note>\n\n          11h ago\n\n        </ion-note>\n\n      </ion-col>\n\n    </ion-row>\n\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"c:\Workspace\autocar\front\villainnova\src\pages\cards\cards.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavController */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* NavController */]])
 ], CardsPage);
 
 //# sourceMappingURL=cards.js.map

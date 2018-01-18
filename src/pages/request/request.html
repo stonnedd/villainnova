@@ -1,19 +1,23 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Cotizar</ion-title>
+    <ion-buttons end ><button ion-button (click)="close()">
+      <ion-icon name="close" style="color:white"></ion-icon>
+    </button></ion-buttons>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-  <spinner [data]="params.data" *ngIf="spinner" ></spinner>
+
   <ion-card class="company-Name">
     <h2>{{slctdProvider.company_name}}</h2>
   </ion-card>
-
+  <spinner [data]="params.data" *ngIf="spinner"></spinner>
   <ion-list class="login-List"> 
+  
     <form id="requestForm" [formGroup]="requestForm" (ngSubmit)="onSubmit(requestForm.value)">    
-      
+        
       <ion-item  class="login-Class" *ngIf="broadcast" > 
         <ion-label for="service" style="color:rgb(146, 145, 145) !important" no-padding>Servicio</ion-label>
           <ion-select id="service" [formControl]="requestForm.controls['service']" 
@@ -34,7 +38,7 @@
       
       <ion-item class="login-Class">
         <ion-label stacked for="comment"></ion-label>
-        <ion-input type="text"  placeholder="Describe tu cotización" 
+        <ion-input type="text"  placeholder="Describe tu servicio" maxlength="140" 
           id="comment" [formControl]= "requestForm.controls['comment']"></ion-input>
         <div *ngIf="!requestForm.controls['comment'].valid && requestForm.controls['comment'].touched"   
           class="alert alert-danger"></div>
@@ -42,7 +46,7 @@
 
       <ion-item class="login-Class">
         <ion-label  floating for="vehicle"></ion-label>
-          <ion-input type="text"  placeholder="Vehiculo, marca y modelo (opcional)"
+          <ion-input type="text"  placeholder="Vehículo, marca, modelo y placas (opcional)"
             id="vehicle" [formControl]= "requestForm.controls['vehicle']"></ion-input>
           <p *ngIf="!requestForm.controls['vehicle'].valid && requestForm.controls['vehicle'].touched"   
             class="alert alert-danger"></p>
@@ -102,7 +106,8 @@
       </ion-item>
       <br/>
       <div text-center padding> 
-          <button ion-button block round type="submit" class="ok" [disabled]="!requestForm.valid">Enviar</button>
+        <button ion-button block round type="submit" class="ok" [disabled]="!requestForm.valid || spinner == true">Enviar</button>
+        <button ion-button block round type="button" class="cancel" (click)="close()" [disabled]="spinner == true">Cancelar</button>
       </div>   
       <br/>
     </form>     

@@ -1,11 +1,20 @@
 <ion-content no-padding>
+  <ion-header>
+    <ion-buttons end icon-only><button ion-button icon-only clear small  (click)="close()">
+      <ion-icon name="close" float-right style="color:white"></ion-icon>
+    </button></ion-buttons>
+  </ion-header>
+
+  
+  <!-- <div class="bar">
+    <h1 class="title">bar-assertive</h1>
+    <ion-buttons end ><button ion-button (click)="close()">
+      <ion-icon name="close" style="color:white"></ion-icon>
+    </button></ion-buttons>
+  </div> -->
+
 
   <div card-image class="title-style">
-      <div style="text-align:right" no-padding >
-          <button ion-button clear icon-only small (click)=close()>
-            <ion-icon > <i class="icon icon-close-circle"></i> </ion-icon>
-          </button>
-      </div>
     <!-- <img images-filter src={{data.img}}> -->
     <ion-card-header no-padding>
       <ion-grid>
@@ -39,15 +48,16 @@
         </ion-icon>
       </ion-col>
       <ion-col>
-        <p no-margin maps-description>{{data.address}} bla bla bla bla bla bla bla bla bal
+        <p no-margin maps-description>{{data.address}}
         </p>
       </ion-col>
     </ion-row>
 
-    <button ion-button clear icon-only small (click)=navigate([data.lat,data.lng])>
-        <ion-icon name="ios-navigate" class= "custom-icon"></ion-icon>
-    </button>
-
+    <ion-chip (click)="navigate([data.lat,data.lng])" color="buttons" >
+      <ion-label>Navegar</ion-label>
+      <ion-icon color="nav" name="navigate"></ion-icon>
+    </ion-chip>
+    
     <ion-row>
       <ion-col col-2>
         <ion-icon item-left>

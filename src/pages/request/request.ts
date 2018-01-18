@@ -1,12 +1,13 @@
 import { Constants} from "../../utils/constants";
 import { AutoserviceService } from "../../service/autoservice-service";
 import { Component, ViewChild } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { IonicPage, NavController, NavParams, ViewController } from "ionic-angular";
 import { Camera, CameraOptions } from "@ionic-native/camera";
 import { ShowToaster } from "../../utils/toaster";
 import { ImageTransfer } from "../../service/image-transfer";
 import { ApiService} from "../../service/api-service";
 import { Settings } from "../../providers/settings/settings";
+import { ProfilePage } from "../../pages/profile/profile";
 import { FormGroup, ReactiveFormsModule, FormControl,
   FormBuilder, Validators} from "@angular/forms";
 
@@ -38,7 +39,8 @@ export class RequestPage {
               public autoservice: AutoserviceService,
               public imageTransfer: ImageTransfer,
               public settings: Settings,
-              public apiSvc: ApiService) {
+              public apiSvc: ApiService,
+              public vwCtrl: ViewController) {
 
     this.requestForm = fBuilder.group({
       "service": ["", Validators.compose([Validators.required])],
@@ -80,13 +82,13 @@ export class RequestPage {
     if (Camera["installed"]()) {
       this.camera.getPicture(options).then((imageData) => {
         if (this.picCase === 1) {
-          this.requestForm.patchValue({ "pic1" : "data:image/jpg;base64," + imageData});
+          this.requestForm.patchValue({ "pic1" :  imageData});
         }
         if (this.picCase === 2) {
-          this.requestForm.patchValue({ "pic2" : "data:image/jpg;base64," + imageData});
+          this.requestForm.patchValue({ "pic2" : imageData});
         }
         if (this.picCase === 3) {
-          this.requestForm.patchValue({ "pic3" : "data:image/jpg;base64," + imageData});
+          this.requestForm.patchValue({ "pic3" : imageData});
         }
         }, err => {
           alert(err.JSON());
@@ -142,21 +144,68 @@ export class RequestPage {
   }
 
   onSubmit(formData: any = {}) {
-    console.log("submit");
+    this.spinner = true;
+    let completedCount: number = 1;
+    let startedCount: number = 1
+    console.log("En enviar request");
     formData.provider = this.slctdProvider.id;
     let rqstURL = Constants.CREATE_REQUEST + "/" + this.user_id + "/CMS/request";
-    console.log(rqstURL);
     let images = this.imageTransfer.upholdImages(formData);
+    delete formData.pic1;
+    delete formData.pic2;
+    delete formData.pic3;
     this.apiSvc.postService(rqstURL, this.arrangeData(formData)).subscribe(
       res => {
-        // if (images !== null){
-          //this.imageTransfer.uploadImage(images[0], "", 1);
-        //}
-        console.log("quiero el ID", res.requests.id);
-      }, err => {this.tstCtrl.reveal(err.toString, "bottom", 2500); },
+        console.log("res request", res);
+        if (images !== null) {
+          this.apiSvc.postService(Constants.CREATE_ATTACHMENT, this.dftAttachment(res.requests.id)).subscribe(
+            attch => {
+              console.log("numero de attach", attch.data.id);
+              images.forEach( e => {
+                this.apiSvc.postService(
+                  this.imageTransfer.getImageURL(attch.data.id, startedCount),
+                  this.imageTransfer.arrangeImage(e))
+                 .subscribe(
+                    (imgSave) => {
+                      console.log("picture", completedCount, "complete of", images.length);
+                      console.log("Resp IMG save:", imgSave );
+                      if (images.length === completedCount) {
+                        this.spinner = false;
+                        this.tstCtrl.reveal("tu solicitud ha sido enviado con éxito", "middle", 2500);
+                        this.navCtrl.push(ProfilePage);
+                        this.close();
+                      }
+                      completedCount++;
+                    },
+                  err => {console.log(err);
+                    this.tstCtrl.reveal(err.toString, "bottom", 3500);
+                    this.spinner = false;
+                  });
+                  startedCount++;
+              });
+            });
+        }else {
+          this.apiSvc.postService(Constants.CREATE_ATTACHMENT, this.dftAttachment(res.requests.id)).subscribe(
+            attch => {
+              console.log("numero de attach", attch.data.id);
+              this.spinner = false;
+              this.tstCtrl.reveal("tu solicitud ha sido enviado con éxito", "middle", 2500);
+              this.navCtrl.push(ProfilePage);
+              this.close();
+          }, err => {this.tstCtrl.reveal(err.toString, "bottom", 1500); this.spinner = false; });
+        }
+      }, err => {this.tstCtrl.reveal(err.toString, "bottom", 1500); this.spinner = false; },
     );
   }
+
   arrangeData(request) {
     return JSON.stringify({request});
+  }
+  dftAttachment(requestId) {
+    let attachment = {url_pic1: "", url_pic2: "", url_pic3: "", request_id : requestId};
+    return JSON.stringify({attachment});
+  }
+  close() {
+    this.vwCtrl.dismiss();
   }
 }

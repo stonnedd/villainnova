@@ -1,15 +1,15 @@
 webpackJsonp([3],{
 
-/***/ 661:
+/***/ 671:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabsPageModule", function() { return TabsPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignupPageModule", function() { return SignupPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs__ = __webpack_require__(675);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__signup__ = __webpack_require__(684);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -20,39 +20,42 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var TabsPageModule = (function () {
-    function TabsPageModule() {
+var SignupPageModule = (function () {
+    function SignupPageModule() {
     }
-    return TabsPageModule;
+    return SignupPageModule;
 }());
-TabsPageModule = __decorate([
+SignupPageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_3__tabs__["a" /* TabsPage */],
+            __WEBPACK_IMPORTED_MODULE_3__signup__["a" /* SignupPage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_3__tabs__["a" /* TabsPage */]),
+            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_3__signup__["a" /* SignupPage */]),
             __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["b" /* TranslateModule */].forChild()
         ],
         exports: [
-            __WEBPACK_IMPORTED_MODULE_3__tabs__["a" /* TabsPage */]
+            __WEBPACK_IMPORTED_MODULE_3__signup__["a" /* SignupPage */]
         ]
     })
-], TabsPageModule);
+], SignupPageModule);
 
-//# sourceMappingURL=tabs.module.js.map
+//# sourceMappingURL=signup.module.js.map
 
 /***/ }),
 
-/***/ 675:
+/***/ 684:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SignupPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_providers__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_login__ = __webpack_require__(93);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__login_customer_login_customer__ = __webpack_require__(327);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__login_supplier_login_supplier__ = __webpack_require__(328);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -68,34 +71,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var TabsPage = (function () {
-    function TabsPage(navCtrl, translateService) {
+
+var SignupPage = (function () {
+    function SignupPage(navCtrl, user, toastCtrl, translateService) {
         var _this = this;
         this.navCtrl = navCtrl;
+        this.user = user;
+        this.toastCtrl = toastCtrl;
         this.translateService = translateService;
-        this.tab1Root = __WEBPACK_IMPORTED_MODULE_3__pages__["c" /* Tab1Root */];
-        this.tab2Root = __WEBPACK_IMPORTED_MODULE_3__pages__["d" /* Tab2Root */];
-        this.tab3Root = __WEBPACK_IMPORTED_MODULE_3__pages__["e" /* Tab3Root */];
-        this.tab1Title = " ";
-        this.tab2Title = " ";
-        this.tab3Title = " ";
-        translateService.get(['TAB1_TITLE', 'TAB2_TITLE', 'TAB3_TITLE']).subscribe(function (values) {
-            _this.tab1Title = values['TAB1_TITLE'];
-            _this.tab2Title = values['TAB2_TITLE'];
-            _this.tab3Title = values['TAB3_TITLE'];
+        function pushSignin() {
+            console.log("eNTRO AL LOGIN");
+            navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__login_login__["a" /* LoginPage */]);
+        }
+        this.userLogin = __WEBPACK_IMPORTED_MODULE_5__login_customer_login_customer__["a" /* LoginCustomerPage */];
+        this.supplierLogin = __WEBPACK_IMPORTED_MODULE_6__login_supplier_login_supplier__["a" /* LoginSupplierPage */];
+        this.translateService.get("SIGNUP_ERROR").subscribe(function (value) {
+            _this.signupErrorString = value;
         });
     }
-    return TabsPage;
+    return SignupPage;
 }());
-TabsPage = __decorate([
+SignupPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'page-tabs',template:/*ion-inline-start:"C:\Workspace\autocar\front\villainnova\src\pages\tabs\tabs.html"*/'<ion-tabs>\n\n  <ion-tab [root]="tab1Root" [tabTitle]="tab1Title" tabIcon="home"></ion-tab>\n\n  <ion-tab [root]="tab2Root" [tabTitle]="tab2Title" tabIcon="search"></ion-tab>\n\n  <ion-tab [root]="tab3Root" [tabTitle]="tab3Title" tabIcon="cog"></ion-tab>\n\n</ion-tabs>'/*ion-inline-end:"C:\Workspace\autocar\front\villainnova\src\pages\tabs\tabs.html"*/
+        selector: "page-signup",template:/*ion-inline-start:"c:\Workspace\autocar\front\villainnova\src\pages\signup\signup.html"*/'<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>{{ \'SIGNUP_TITLE\' | translate }}</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n \n\n<ion-tabs>\n\n    <ion-tab tabIcon="people" tabTitle="Cliente" [root]="userLogin"></ion-tab>\n\n    <ion-tab tabIcon="person" tabTitle="Proveedor"[root]="supplierLogin"  ></ion-tab>\n\n</ion-tabs>\n\n\n\n'/*ion-inline-end:"c:\Workspace\autocar\front\villainnova\src\pages\signup\signup.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["n" /* NavController */], __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["c" /* TranslateService */]])
-], TabsPage);
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["o" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_3__providers_providers__["d" /* User */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["s" /* ToastController */],
+        __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["c" /* TranslateService */]])
+], SignupPage);
 
-//# sourceMappingURL=tabs.js.map
+//# sourceMappingURL=signup.js.map
 
 /***/ })
 

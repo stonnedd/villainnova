@@ -1,125 +1,53 @@
-import { Component, ViewChild } from "@angular/core";
-import { IonicPage, NavController, NavParams, PopoverController } from "ionic-angular";
-import { ProfileService } from "../../service/profile-service";
-import { Settings } from "../../providers/settings/settings";
 import { ShowToaster } from "../../utils/toaster";
-import { TranslateService } from "@ngx-translate/core";
-import { Content, FabButton } from "ionic-angular";
-import { AddSupplierPage } from "../../pages/add-supplier/add-supplier";
-import { SupplierMapping} from "../../utils/supplier-mapping";
-import { SupplierDetailPage} from "../../pages/supplier-detail/supplier-detail";
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { UserServicesPage } from "../../pages/user-services/user-services"; 
+import { UserRequestsPage } from "../../pages/user-requests/user-requests";
+import { ApiService} from "../../service/api-service";
+import { Settings } from "../../providers/settings/settings";
+import { Constants} from "../../utils/constants";
 
 @IonicPage()
 @Component({
   selector: "page-profile",
   templateUrl: "profile.html",
-  providers: [ProfileService, ShowToaster],
+  providers: [ShowToaster, ApiService],
 })
 
 export class ProfilePage {
-  
-  @ViewChild(Content)
-  content: Content;
-  @ViewChild(FabButton)
-  fabButton: FabButton;
-  private loginErrorString: string;
-  public userId: string;
-  userServices = [];
-  user: any = {};
+
   title: string= "Mi perfil";
+  fetchedRequests: number = 2;
+  servicesPage: any;
+  requestsPage: any;
+  user: any = {};
+  params: any = {};
+  spinner: boolean = false;
 
-
-  constructor(public navCtrl: NavController,
+  constructor (public navCtrl: NavController,
     public navParams: NavParams,
-    public profileSvc: ProfileService,
     public settings: Settings,
-    public showToaster: ShowToaster,
-    public translateService: TranslateService,
-    public popCtrl: PopoverController,
+    public shwToaster: ShowToaster,
+    public apiSvc: ApiService,
     ) {
-    this.translateService.get("LOGIN_ERROR").subscribe((value) => {
-      this.loginErrorString = value;
-    });
-  }
-
-  doRefresh(refresher) {
-    this.profileSvc.getUserServices(this.user.id).subscribe(
-      userServices => {
-         console.log("refreshing");
-         this.userServices = userServices;
-         refresher.complete();
-      });
-  }
-  
-  ionViewDidLoad() {
-    console.log("ionViewDidLoad ProfilePage");
+      this.servicesPage = UserServicesPage;
+      this.requestsPage = UserRequestsPage;
+      this.params.data = {"icon": Constants.SPINNER};
   }
 
   ngOnInit() {
+    this.spinner = true;
     this.settings.settingsObservable.subscribe(
-      value => {
-          this.user.id = value.id;
-          this.user.token = value.token;
-          console.log("storage:", value);
-          this.profileSvc.getUserData(this.user.id).subscribe(
-            userData => {
-              console.log("Datos de usuario", userData),
-              this.loadUserData(userData[0]);
-              this.profileSvc.getUserServices(this.user.id).subscribe(
-                userServices => {
-                   console.log(userServices);
-                   this.userServices = userServices;
-                });
-            });
-      }, (err) => {
-        this.showToaster.reveal(this.loginErrorString, "top", 3000);
+      data => {
+        console.log("LOCAL STORAGE DATA:", data);
+        this.user.id = data.id;
+        this.user.token = data.token;
+        this.spinner = false;
+      }, err => {
+        this.shwToaster.reveal("volver a iniciar sesión", "bottom", 3000);
+        this.spinner = false;
     });
   }
 
-  ngAfterViewInit() {
-    this.content.ionScroll.subscribe((d) => {
-        this.fabButton.setElementClass("fab-button-out", d.directionY == "down");
-    });
-  }
   
-  addProvider(event) {
-    let ev = {
-      target : {
-        getBoundingClientRect : () => {
-          return {
-            top: "50",
-          };
-        },
-      },
-    };
-    this.user.isNewProvider = true;
-    this.user.provider = 0;
-    let popover = this.popCtrl.create(AddSupplierPage, this.user);
-    popover.present({ev : ev});
-  }
-
-  loadUserData (userData) {
-    this.user.name = userData.name;
-    this.user.phone = userData.phone;
-    this.user.email = userData.email;
-    this.user.profile = userData.profile;
-  }
-
-  showDetail(supplierData, event) {
-    let popover = this.popCtrl.create(SupplierDetailPage, supplierData);
-    popover.present({
-      ev: "onMarker",
-    });
-  }
-
-  editDetail(supplierData, event) {
-    this.user.provider = supplierData;
-    this.user.isNewProvider = false;
-    let popover = this.popCtrl.create(AddSupplierPage, this.user);
-    popover.present({ev : ""});
-  }
-
-
-
-
 }

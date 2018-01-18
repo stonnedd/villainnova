@@ -30,8 +30,13 @@ import { LoginPageModule} from "../pages/login/login.module";
 import { AddSupplierPageModule} from "../pages/add-supplier/add-supplier.module";
 import { RequestPageModule } from "../pages/request/request.module";
 import { RequestMethod } from "@angular/http/src/enums";
+import { UserServicesPageModule } from "../pages/user-services/user-services.module";
+import { UserRequestsPageModule } from "../pages/user-requests/user-requests.module";
 import { FileTransfer, FileUploadOptions, FileTransferObject } from "@ionic-native/file-transfer";
+import { RequestDetailPageModule } from "../pages/request-detail/request-detail.module";
 import { File } from "@ionic-native/file";
+import {AttachedImagesPageModule} from "../pages/attached-images/attached-images.module";
+
 
 // export const firebaseConfig = {
 //   apiKey: "AIzaSyBdQOPM3re7vBFNTEspKM7G0vzKH7ub6H8",
@@ -91,6 +96,10 @@ export function provideSettings(storage: Storage) {
     AutoservicePageModule,
     AddSupplierPageModule,
     RequestPageModule,
+    UserRequestsPageModule,
+    UserServicesPageModule,
+    RequestDetailPageModule,
+    AttachedImagesPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -31,14 +31,14 @@ export class LoginPage {
     private showToaster: ShowToaster,
     public settings: Settings,
     public appCtrl: App ) {
-    this.loginForm = fBuilder.group({
-      "email": ["", Validators.compose([Validators.required, Validators.email])],
-      "password": ["", Validators.compose([Validators.required, Validators.minLength(6)])],
-    });
-    this.translateService.get("LOGIN_ERROR").subscribe((value) => {
-      this.loginErrorString = value;
-    });
-    this.params.data = {"icon": Constants.SPINNER};
+      this.loginForm = fBuilder.group({
+        "email": ["", Validators.compose([Validators.required, Validators.email])],
+        "password": ["", Validators.compose([Validators.required, Validators.minLength(6)])],
+      });
+      this.translateService.get("LOGIN_ERROR").subscribe((value) => {
+        this.loginErrorString = value;
+      });
+      this.params.data = {"icon": Constants.SPINNER};
   }
 
   onSubmit(form: any) {
