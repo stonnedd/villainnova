@@ -1,0 +1,39 @@
+<ion-content>
+  <ion-list no-padding> 
+    <ion-item>
+      <ion-icon name="build" item-start></ion-icon>&nbsp;{{requestData.service}}
+    </ion-item> 
+    <ion-item>
+      <ion-icon name="mail-open" item-start></ion-icon>&nbsp;{{requestData.comment}}
+    </ion-item> 
+    <ion-item>
+      <ion-icon name="car" item-start></ion-icon>&nbsp;{{requestData.vehicle}}
+    </ion-item>
+    <ion-item>
+      <ion-icon name="pin" item-start></ion-icon>
+      <button ion-button clear (click)="navigate([requestData.lat,requestData.lng])">
+          Ubicación
+        <ion-icon color="nav" name="navigate"></ion-icon>
+      </button>
+    </ion-item>
+    <ion-item>
+        <ion-icon name="attach" item-start></ion-icon>
+        <button ion-button clear (click)="showImages([requestData.url_pic1,requestData.url_pic2,requestData.url_pic3])">
+            Imagenes
+        <ion-icon color="nav" name="photos"></ion-icon>
+        </button>
+    </ion-item>
+  </ion-list>
+  <!-- <div padding>
+    <button ion-button full round class="reply" icon-left> 
+      <ion-icon name="redo"> </ion-icon> Responder </button>
+    <button ion-button full round class="delete" icon-left>  
+      <ion-icon name="trash"> </ion-icon>  Eliminar </button>
+  </div>-->
+  <div style="text-align:center">
+    <button ion-button clear icon-only large (click)="closeView()">
+      <ion-icon name="close-circle" ></ion-icon>
+    </button>
+  </div> 
+
+</ion-content>

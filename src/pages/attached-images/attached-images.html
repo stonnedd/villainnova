@@ -1,0 +1,13 @@
+
+<ion-content>
+  <ion-list *ngFor="let attchImg of attchImgs" no-line inset> 
+    <ion-item>
+      <img [src]="attchImg" alt="attchImg" (click)="displayImage(attchImg)"/>
+    </ion-item>
+  </ion-list>
+  <div style="text-align:center">
+    <button ion-button clear icon-only large (click)="closeView()">
+      <ion-icon name="close-circle" ></ion-icon>
+    </button>
+  </div>
+</ion-content>

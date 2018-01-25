@@ -14,6 +14,8 @@ export namespace Constants {
     export const CREATE_REQUEST: string = "http://localhost:4000/api/users";
     export const UPDATE_REQUEST: string = HOST + "api/CMS/request/update/";
     export const GET_REQUEST: string = HOST + "api/users/";
+    export const GET_REQUEST_PROVIDER: string = HOST + "provider/";
+    export const USERS_PROVIDERS: string = HOST + "/api/user/providers/";
     export const UPLOAD_IMG: string = "http://localhost:4000/api/uploader/image";
     export const CREATE_ATTACHMENT: string = "http://localhost:4000/api/attachments/create";
     export const GET_FULL_USER: string = HOST + "api/user/full/";

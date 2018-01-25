@@ -1,0 +1,33 @@
+<ion-content >
+  <spinner [data]="params.data" *ngIf="spinner"></spinner>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  
+  <div class="list-avatar-page">
+    <ion-list >
+    <ion-list-header>
+      <ion-icon name="build"></ion-icon>
+      <strong>Mis Servicios</strong></ion-list-header>
+      <ion-item *ngFor="let provider of userServices">
+        <ion-avatar item-start>
+          <img [src]="'../../assets/mapicons/'+provider.map_icon">
+        </ion-avatar>
+        <h2>{{provider.company_name}}</h2>
+        <p>{{provider.service}}</p>
+        <div text-right>
+          <ion-icon name="eye" (click)="showDetail(provider, $event)"  ></ion-icon>
+          <ion-icon name="create"(click)="editDetail(provider, $event)" ></ion-icon>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+  
+  <ion-fab #fab bottom right>
+    <button button-ion-fab ion-fab (click)="addProvider($event)">
+        <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+  
+</ion-content>

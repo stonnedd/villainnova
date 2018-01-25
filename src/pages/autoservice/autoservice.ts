@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { Constants} from "../../utils/constants";
+import { ShowNotification} from "../../utils/show-notification";
 import { FormsModule }   from "@angular/forms";
 import { AutoserviceService } from "../../service/autoservice-service";
 import { SupplierModel} from "../../models/supplierModel";
@@ -9,12 +10,16 @@ import { PopoverController } from "ionic-angular";
 import { SettingsPage} from "../settings/settings";
 import { ToastController } from "ionic-angular";
 import { Observable} from "rxjs/Rx";
+import { BackgroundMode } from "@ionic-native/background-mode";
+
+//import { PhotoViewer } from "@ionic-native/photo-viewer";
+
 
 @IonicPage()
 @Component({
   selector: "page-autoservice",
   templateUrl: "autoservice.html",
-  providers: [AutoserviceService],
+  providers: [AutoserviceService, BackgroundMode],
 
 })
 export class AutoservicePage {
@@ -30,8 +35,8 @@ export class AutoservicePage {
     public popCtrl: PopoverController,
     public toastCtrl: ToastController,
     public autoservice: AutoserviceService,
-
-    ) {
+    private backgroundMode: BackgroundMode,
+    public  shwNotification: ShowNotification ) {
     this.params.spinner = {"icon": Constants.SPINNER};
     this.params.data = {};
     this.params.suppliers = [];
@@ -78,7 +83,15 @@ export class AutoservicePage {
   }
 
   ionViewDidLoad() {
+    let count = 1 ;
+    this.backgroundMode.enable();
+    setInterval(data => {
+      console.log("timer:", count);
+      //this.shwNotification.reveal("jola", "tu");
+      count++;
+    }, 90000);
   }
+
 
   ngOnInit() {
     this.spinnerSts = true;

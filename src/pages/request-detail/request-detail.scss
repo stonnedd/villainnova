@@ -1,0 +1,26 @@
+page-request-detail {
+
+    button.reply {
+        margin-top: 0px;
+        background-color: transparent;
+        box-shadow: 0px 2px 2px rgba(24, 68, 159, 0.4);
+        color: #18449f;
+    
+        &.activated {
+          background-color: rgb(220, 220, 220);
+        }
+      }
+    
+      button.delete {
+        margin-top: 25px;
+        background-color: transparent !important;
+        box-shadow: 0px 1px 2px rgba(192, 16, 16, 0.4);
+        color: #e43d3d;
+    
+        &.activated {
+          background-color: rgb(220, 220, 220);
+        }
+      }
+
+      
+}

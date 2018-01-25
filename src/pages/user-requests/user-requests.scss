@@ -1,0 +1,23 @@
+page-user-requests {
+    
+    spinner * {
+       position: fixed;
+       align-items: center;
+        justify-content: center;
+        z-index: 1;
+        top: 35%;
+        width: 35%;
+    }
+   ion-item-sliding .input-wrapper{
+        margin: auto !important;
+        border-bottom: 0px !important;
+        border-top: 0px;
+        padding-bottom: 0px;
+        padding-top: 0px;
+    }
+    ion-icon.detail{
+        color: #2653af;
+    }
+
+    
+}

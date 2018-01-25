@@ -1,0 +1,36 @@
+<ion-content>
+  <spinner [data]="params.data" *ngIf="spinner"></spinner>
+  <div class="list-avatar-page">  
+    <ion-list #requestList>
+      <ion-list-header> 
+        <ion-icon name="list-box"></ion-icon>
+        <strong>Mis Solicitudes</strong></ion-list-header>
+        <ion-item-sliding *ngFor="let uRequest of userRequests" #slidingItem>
+          <ion-item>
+            <ion-avatar item-start>
+              <!-- <img [src]="'../../assets/mapicons/''"> -->
+            </ion-avatar>
+              <h2>{{uRequest.service}}</h2>
+              <p>{{uRequest.created_at | date: 'dd-MM-yyyy'}}</p> 
+              <p>{{uRequest.created_at | date: 'h:mm - a'}}</p> 
+            <div text-right >
+              <button ion-button only-icon [color]="getDataSts(uRequest.status,'color')">
+              {{getDataSts(uRequest.status,'char')}}
+              </button>
+              <button ion-button only-icon clear>
+                <ion-icon name="eye" class="detail" (click)="showDetail(uRequest, $event)"></ion-icon>
+              </button>
+            </div>
+          </ion-item>
+          <ion-item-options>  
+            <button ion-button expandable color="danger" (click)="delete(slidingItem, uRequest.id)">
+              <ion-icon name="trash"></ion-icon>
+              Eliminar
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>  
+  </div>
+</ion-content>
+
+

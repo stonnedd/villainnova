@@ -1,15 +1,15 @@
 webpackJsonp([7],{
 
-/***/ 668:
+/***/ 672:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MapPageModule", function() { return MapPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ListMasterPageModule", function() { return ListMasterPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__map__ = __webpack_require__(681);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__list_master__ = __webpack_require__(684);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -20,38 +20,38 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var MapPageModule = (function () {
-    function MapPageModule() {
+var ListMasterPageModule = (function () {
+    function ListMasterPageModule() {
     }
-    return MapPageModule;
+    return ListMasterPageModule;
 }());
-MapPageModule = __decorate([
+ListMasterPageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_3__map__["a" /* MapPage */],
+            __WEBPACK_IMPORTED_MODULE_3__list_master__["a" /* ListMasterPage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_3__map__["a" /* MapPage */]),
+            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_3__list_master__["a" /* ListMasterPage */]),
             __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["b" /* TranslateModule */].forChild()
         ],
         exports: [
-            __WEBPACK_IMPORTED_MODULE_3__map__["a" /* MapPage */]
+            __WEBPACK_IMPORTED_MODULE_3__list_master__["a" /* ListMasterPage */]
         ]
     })
-], MapPageModule);
+], ListMasterPageModule);
 
-//# sourceMappingURL=map.module.js.map
+//# sourceMappingURL=list-master.module.js.map
 
 /***/ }),
 
-/***/ 681:
+/***/ 684:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MapPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ListMasterPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_google_maps__ = __webpack_require__(324);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_providers__ = __webpack_require__(52);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -64,99 +64,57 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var MapPage = (function () {
-    function MapPage(googleMaps, navCtrl, platform) {
-        this.googleMaps = googleMaps;
+var ListMasterPage = (function () {
+    function ListMasterPage(navCtrl, items, modalCtrl) {
         this.navCtrl = navCtrl;
-        this.platform = platform;
+        this.items = items;
+        this.modalCtrl = modalCtrl;
+        this.currentItems = this.items.query();
     }
-    MapPage.prototype.ngAfterViewInit = function () {
-        this.loadMap();
+    /**
+     * The view loaded, let's query our items for the list
+     */
+    ListMasterPage.prototype.ionViewDidLoad = function () {
     };
-    MapPage.prototype.loadMap = function () {
-        // make sure to create following structure in your view.html file
-        // and add a height (for example 100%) to it, else the map won't be visible
-        // <ion-content>
-        //  <div #map id="map" style="height:100%;"></div>
-        // </ion-content>
-        // create a new map by passing HTMLElement
-        var element = document.getElementById('map');
-        var map = this.googleMaps.create(element);
-        // listen to MAP_READY event
-        // You must wait for this event to fire before adding something to the map or modifying it in anyway
-        map.one(__WEBPACK_IMPORTED_MODULE_1__ionic_native_google_maps__["b" /* GoogleMapsEvent */].MAP_READY).then(function () { return console.log('Map is ready!'); });
-        // create LatLng object
-        var ionic = new __WEBPACK_IMPORTED_MODULE_1__ionic_native_google_maps__["c" /* LatLng */](43.0741904, -89.3809802);
-        // create CameraPosition
-        var position = {
-            target: ionic,
-            zoom: 18,
-            tilt: 30
-        };
-        // move the map's camera to position
-        map.moveCamera(position);
-        // create new marker
-        //  let markerOptions: MarkerOptions = {
-        //    position: ionic,
-        //    title: 'Ionic'
-        //  };
-        //
-        //  const marker: Marker = map.addMarker(markerOptions)
-        //    .then((marker: Marker) => {
-        //       marker.showInfoWindow();
-        //     });
-        //  }
-        //
-        // initJSMaps(mapEle) {
-        //   new google.maps.Map(mapEle, {
-        //     center: { lat: 43.071584, lng: -89.380120 },
-        //     zoom: 16
-        //   });
-        // }
-        //
-        // initNativeMaps(mapEle) {
-        //   this.map = new GoogleMap(mapEle);
-        //   mapEle.classList.add('show-map');
-        //
-        //   GoogleMap.isAvailable().then(() => {
-        //     const position = new GoogleMapsLatLng(43.074395, -89.381056);
-        //     this.map.setPosition(position);
-        //   });
-        // }
-        //
-        // ionViewDidLoad() {
-        //   let mapEle = this.map.nativeElement;
-        //
-        //   if (!mapEle) {
-        //     console.error('Unable to initialize map, no map element with #map view reference.');
-        //     return;
-        //   }
-        //
-        //   // Disable this switch if you'd like to only use JS maps, as the APIs
-        //   // are slightly different between the two. However, this makes it easy
-        //   // to use native maps while running in Cordova, and JS maps on the web.
-        //   if (this.platform.is('cordova') === true) {
-        //     this.initNativeMaps(mapEle);
-        //   } else {
-        //     this.initJSMaps(mapEle);
-        //   }
-        // }
+    /**
+     * Prompt the user to add a new item. This shows our ItemCreatePage in a
+     * modal and then adds the new item to our data source if the user created one.
+     */
+    ListMasterPage.prototype.addItem = function () {
+        var _this = this;
+        var addModal = this.modalCtrl.create('ItemCreatePage');
+        addModal.onDidDismiss(function (item) {
+            if (item) {
+                _this.items.add(item);
+            }
+        });
+        addModal.present();
     };
-    return MapPage;
+    /**
+     * Delete an item from the list of items.
+     */
+    ListMasterPage.prototype.deleteItem = function (item) {
+        this.items.delete(item);
+    };
+    /**
+     * Navigate to the detail page for this item.
+     */
+    ListMasterPage.prototype.openItem = function (item) {
+        this.navCtrl.push('ItemDetailPage', {
+            item: item
+        });
+    };
+    return ListMasterPage;
 }());
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('map'),
-    __metadata("design:type", Object)
-], MapPage.prototype, "map", void 0);
-MapPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* IonicPage */])(),
+ListMasterPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'page-map',template:/*ion-inline-start:"c:\Workspace\autocar\front\villainnova\src\pages\map\map.html"*/'<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>{{ \'MAP_TITLE\' | translate }}</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content>\n\n  <div #map id="map"></div>\n\n</ion-content>'/*ion-inline-end:"c:\Workspace\autocar\front\villainnova\src\pages\map\map.html"*/
+        selector: 'page-list-master',template:/*ion-inline-start:"c:\Workspace\autocar\front\villainnova\src\pages\list-master\list-master.html"*/'<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>{{ \'LIST_MASTER_TITLE\' | translate }}</ion-title>\n\n\n\n    <ion-buttons end>\n\n      <button ion-button icon-only (click)="addItem()">\n\n        <ion-icon name="add"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n  <ion-list>\n\n    <ion-item-sliding *ngFor="let item of currentItems">\n\n      <button ion-item (click)="openItem(item)">\n\n        <ion-avatar item-start>\n\n          <img [src]="item.profilePic" />\n\n        </ion-avatar>\n\n        <h2>{{item.name}}</h2>\n\n        <p>{{item.about}}</p>\n\n        <ion-note item-end *ngIf="item.note">{{item.note}}</ion-note>\n\n      </button>\n\n\n\n      <ion-item-options>\n\n        <button ion-button color="danger" (click)="deleteItem(item)">\n\n          {{ \'DELETE_BUTTON\' | translate }}\n\n        </button>\n\n      </ion-item-options>\n\n    </ion-item-sliding>\n\n  </ion-list>\n\n</ion-content>'/*ion-inline-end:"c:\Workspace\autocar\front\villainnova\src\pages\list-master\list-master.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ionic_native_google_maps__["a" /* GoogleMaps */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["o" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["q" /* Platform */]])
-], MapPage);
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_providers__["b" /* Items */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* ModalController */]])
+], ListMasterPage);
 
-//# sourceMappingURL=map.js.map
+//# sourceMappingURL=list-master.js.map
 
 /***/ })
 

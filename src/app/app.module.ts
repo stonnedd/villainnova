@@ -1,3 +1,4 @@
+import { PhonegapLocalNotification } from "@ionic-native/phonegap-local-notification";
 import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { Http, HttpModule } from "@angular/http";
 import { BrowserModule } from "@angular/platform-browser";
@@ -36,8 +37,11 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from "@ionic-nati
 import { RequestDetailPageModule } from "../pages/request-detail/request-detail.module";
 import { File } from "@ionic-native/file";
 import {AttachedImagesPageModule} from "../pages/attached-images/attached-images.module";
-
-
+import { ProfilePageModule} from "../pages/profile/profile.module";
+import { RequestProviderDetailPageModule} from "../pages/request-provider-detail/request-provider-detail.module"
+import { BackgroundMode } from "@ionic-native/background-mode";
+import { ShowNotification } from "../utils/utils";
+import { ApiService } from "../service/services";
 // export const firebaseConfig = {
 //   apiKey: "AIzaSyBdQOPM3re7vBFNTEspKM7G0vzKH7ub6H8",
 //   authDomain: "villainova-app.firebaseapp.com",
@@ -100,6 +104,8 @@ export function provideSettings(storage: Storage) {
     UserServicesPageModule,
     RequestDetailPageModule,
     AttachedImagesPageModule,
+    ProfilePageModule,
+    RequestProviderDetailPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -118,7 +124,10 @@ export function provideSettings(storage: Storage) {
     GoogleMaps,
     SplashScreen,
     StatusBar,
+    ShowNotification,
+    PhonegapLocalNotification,
     FileTransfer,
+    ApiService,
     File,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development

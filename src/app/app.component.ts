@@ -5,8 +5,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { Config, Nav, Platform } from "ionic-angular";
 import { FirstRunPage } from "../pages/pages";
 import { Settings } from "../providers/providers";
-//import { ParallaxLayout1} from '../components/parallax/layout-1/parallax-layout-1';//
-//import { ElasticHeader} from '../components/parallax/elastic-header';
+
 
 @Component({
   selector: "menu",

@@ -1,0 +1,2 @@
+Agregar spiner request y profile
+agregar lista de requests, auto refresh
