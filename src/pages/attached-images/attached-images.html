@@ -1,7 +1,7 @@
 
 <ion-content>
-  <ion-list *ngFor="let attchImg of attchImgs" no-line inset> 
-    <ion-item>
+  <ion-list *ngFor="let attchImg of attchImgs" no-line inset style="text-align:center"> 
+    <ion-item style="text-align:center">
       <img [src]="attchImg" alt="attchImg" (click)="displayImage(attchImg)"/>
     </ion-item>
   </ion-list>

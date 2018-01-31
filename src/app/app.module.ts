@@ -36,12 +36,16 @@ import { UserRequestsPageModule } from "../pages/user-requests/user-requests.mod
 import { FileTransfer, FileUploadOptions, FileTransferObject } from "@ionic-native/file-transfer";
 import { RequestDetailPageModule } from "../pages/request-detail/request-detail.module";
 import { File } from "@ionic-native/file";
-import {AttachedImagesPageModule} from "../pages/attached-images/attached-images.module";
+import { AttachedImagesPageModule} from "../pages/attached-images/attached-images.module";
 import { ProfilePageModule} from "../pages/profile/profile.module";
 import { RequestProviderDetailPageModule} from "../pages/request-provider-detail/request-provider-detail.module"
 import { BackgroundMode } from "@ionic-native/background-mode";
-import { ShowNotification } from "../utils/utils";
+import { ShowNotification, ShowToaster } from "../utils/utils";
 import { ApiService } from "../service/services";
+import { ProviderRequestsPageModule} from "../pages/provider-requests/provider-requests.module";
+import { CustomerUserDetailPageModule} from "../pages/customer-user-detail/customer-user-detail.module";
+import { from } from "rxjs/observable/from";
+import { ProviderProposalPageModule } from "../pages/provider-proposal/provider-proposal.module";
 // export const firebaseConfig = {
 //   apiKey: "AIzaSyBdQOPM3re7vBFNTEspKM7G0vzKH7ub6H8",
 //   authDomain: "villainova-app.firebaseapp.com",
@@ -106,6 +110,9 @@ export function provideSettings(storage: Storage) {
     AttachedImagesPageModule,
     ProfilePageModule,
     RequestProviderDetailPageModule,
+    ProviderRequestsPageModule,
+    CustomerUserDetailPageModule,
+    ProviderProposalPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -128,6 +135,7 @@ export function provideSettings(storage: Storage) {
     PhonegapLocalNotification,
     FileTransfer,
     ApiService,
+    ShowToaster,
     File,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development

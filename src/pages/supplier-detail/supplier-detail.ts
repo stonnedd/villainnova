@@ -3,12 +3,13 @@ import { IonicPage, NavController, NavParams, ViewController } from "ionic-angul
 import { CallNumber } from "@ionic-native/call-number";
 import { LaunchNavigator, LaunchNavigatorOptions } from "@ionic-native/launch-navigator";
 import { RequestPage } from "../request/request";
-
+import { AutoserviceService} from "../../service/autoservice-service";
 
 @IonicPage()
 @Component({
   selector: "page-supplier-detail",
   templateUrl: "supplier-detail.html",
+  providers: [AutoserviceService],
 })
 export class SupplierDetailPage {
   data: any;
@@ -17,6 +18,7 @@ export class SupplierDetailPage {
     public viewCtrl: ViewController,
     private callNumber: CallNumber,
     private lchNav: LaunchNavigator,
+    public autoSvc: AutoserviceService,
   ) {  }
 
   ngOnInit() {
@@ -43,15 +45,15 @@ export class SupplierDetailPage {
   }
 
   navigate(destination) {
-    let options: LaunchNavigatorOptions = {
-      start: "pachuca, MX",
-    };
-
-    this.lchNav.navigate(destination, options)
-        .then(
-            success => alert("Launched navigator"),
-            error => alert("Error launching navigator: " + error),
-    );
+    this.autoSvc.getPosition().then(pos => {
+      let options: LaunchNavigatorOptions = {
+        start: [pos.coords.latitude, pos.coords.longitude],
+      };
+      this.lchNav.navigate(destination, options).then(
+        success => alert("Launched navigator"),
+        error => alert("Error launching navigator: " + error),
+      );
+    });
   }
 
 

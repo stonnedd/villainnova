@@ -34,6 +34,13 @@
 //  Default Overview Ionic
 //////////////////////////////////////////////////
 
+.popover-md .popover-content  {
+  min-width: 320px !important;
+  margin: auto !important;
+  padding: 0%; 
+} 
+
+
 .app-root{
   margin:0% !important;
 
@@ -662,6 +669,7 @@ $searchbar-md-input-clear-icon-color: theme-colors('textColors', 'secondary');
       font-size: 15px !important;
       font-weight: bold;
       color: #2653af;
+      text-align: center;
     }
 
     .alert-head,
@@ -712,4 +720,8 @@ $searchbar-md-input-clear-icon-color: theme-colors('textColors', 'secondary');
       /* Firefox 18- */
       color: theme-colors('textColors', 'accent') !important;
     }
+
+    
+       
+
   }

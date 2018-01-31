@@ -10,6 +10,7 @@ import { SupplierMapping} from "../../utils/supplier-mapping";
 import { SupplierDetailPage} from "../../pages/supplier-detail/supplier-detail";
 import { Constants} from "../../utils/constants";
 import { ApiService} from "../../service/api-service"; 
+import { ProviderRequestsPage } from "../../pages/provider-requests/provider-requests";
 @IonicPage()
 @Component({
   selector: "page-user-services",
@@ -49,6 +50,7 @@ export class UserServicesPage {
     this.spinner = true;
     this.user = this.navParams.data;
     if (this.user !== undefined && this.user !== null && this.user !== {}) {
+      console.log("user::", this.user);
       this.getData();
     }else {
       this.spinner = false;
@@ -58,24 +60,31 @@ export class UserServicesPage {
   }
 
   doRefresh(refresher) {
-    this.profileSvc.getUserServices(this.user.id).subscribe(
-      userServices => {
-        console.log("refreshing");
-        this.userServices = userServices;
+    this.apiSvc.getService(Constants.USERS_PROVIDERS + this.user.id).subscribe(
+      usrData => {
+        if (usrData.user.length === 0) {
+          this.showToaster.reveal("Aun no registras ningún servicio", "bottom", 3500);
+          refresher.complete();
+        } else {
+          this.userServices = usrData.user[0].providers;
+        }
         refresher.complete();
-      },
-    );
-  }
-
-  ngOnInit() {
+    }, err => {
+        this.showToaster.reveal("cargando...", "bottom", 300);
+        refresher.complete();
+        this.ionViewDidLoad();
+    });
   }
 
   getData() {
     this.apiSvc.getService(Constants.USERS_PROVIDERS + this.user.id).subscribe(
       usrData => {
-        console.log("ABCDE::", usrData.user[0].providers);
-        this.loadUserData(usrData.user[0]);
-        this.userServices = usrData.user[0].providers;
+        if (usrData.user.length === 0) {
+          this.showToaster.reveal("Aun no registras ningún servicio", "bottom", 3500);
+          this.spinner = false;
+        } else {
+          this.userServices = usrData.user[0].providers;
+        }
         this.spinner = false;
     }, err => {
         this.showToaster.reveal("cargando...", "bottom", 300);
@@ -106,11 +115,11 @@ export class UserServicesPage {
     popover.present({ev : ev});
   }
 
-  loadUserData (userData) {
-    this.user.name = userData.name;
-    this.user.phone = userData.phone;
-    this.user.email = userData.email;
-    this.user.profile = userData.profile;
+  showRequests(requests, service) {
+    let params: any = {};
+    params.requests = requests;
+    params.service = service;
+    this.navCtrl.push(ProviderRequestsPage, params);
   }
 
   showDetail(supplierData, event) {

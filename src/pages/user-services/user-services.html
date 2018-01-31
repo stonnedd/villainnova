@@ -2,7 +2,7 @@
   <spinner [data]="params.data" *ngIf="spinner"></spinner>
 
   <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
+    <ion-refresher-content>Actualizando...</ion-refresher-content>
   </ion-refresher>
   
   <div class="list-avatar-page">
@@ -17,8 +17,9 @@
         <h2>{{provider.company_name}}</h2>
         <p>{{provider.service}}</p>
         <div text-right>
-          <ion-icon name="eye" (click)="showDetail(provider, $event)"  ></ion-icon>
-          <ion-icon name="create"(click)="editDetail(provider, $event)" ></ion-icon>
+          <button ion-button only-icon color="danger" (click)="showRequests(provider.providers_requests, provider.company_name)" > {{provider.providers_requests.length}}</button>
+          <button ion-button only-icon clear> <ion-icon name="eye" (click)="showDetail(provider, $event)"></ion-icon></button>
+          <button ion-button only-icon clear> <ion-icon name="create"(click)="editDetail(provider, $event)" ></ion-icon></button>
         </div>
       </ion-item>
     </ion-list>

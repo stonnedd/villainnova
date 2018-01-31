@@ -5,6 +5,7 @@ import { SupplierMapping} from "../../utils/supplier-mapping";
 import { IonicPage, NavController, NavParams,
         ViewController, PopoverController } from "ionic-angular";
 import { AutoservicePage } from "../autoservice/autoservice";
+import { ProfilePage} from "../../pages/profile/profile";
 import { FormGroup, ReactiveFormsModule, FormControl,
   FormBuilder, Validators, AbstractControl} from "@angular/forms";
 
@@ -149,6 +150,7 @@ export class AddSupplierPage {
     console.log("ionViewDidLoad AddSupplierPage");
   }
   close() {
+    this.navCtrl.push(ProfilePage);
     this.viewCtrl.dismiss();
   }
 

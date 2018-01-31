@@ -2984,6 +2984,12 @@ Copyright (c) 2015 Daniel Eden
   animation-name: slideOutUp;
 }
 
+.popover-md .popover-content {
+  min-width: 320px !important;
+  margin: auto !important;
+  padding: 0%;
+}
+
 .app-root {
   margin: 0% !important;
 }
@@ -3970,6 +3976,7 @@ Settings header for IOS .platform-ios [header-bcg] {
   font-size: 15px !important;
   font-weight: bold;
   color: #2653af;
+  text-align: center;
 }
 
 .alert-md .alert-head,
@@ -85233,6 +85240,15 @@ page-autoservice .icon-size {
   font-size: 20px;
 }
 
+page-customer-user-detail .list {
+  margin-left: 20px;
+  margin-top: 30px;
+}
+
+page-customer-user-detail .list p {
+  border-top: 5px;
+}
+
 page-item-create .profile-image-wrapper {
   text-align: center;
   margin: 20px 0;
@@ -85523,6 +85539,96 @@ page-profile spinner * {
   z-index: 2;
   top: 35%;
   width: 35%;
+}
+
+page-provider-proposal h2 {
+  text-align: center;
+  color: #464444;
+  font-weight: bolder;
+  font-size: 14px;
+}
+
+page-provider-proposal button.ok {
+  margin-top: 25px;
+  background-color: transparent;
+  -webkit-box-shadow: 0px 2px 2px rgba(24, 68, 159, 0.4);
+  box-shadow: 0px 2px 2px rgba(24, 68, 159, 0.4);
+  color: #2653af;
+  font-stretch: expanded;
+  font: bolder;
+}
+
+page-provider-proposal button.ok.activated {
+  background-color: gainsboro;
+}
+
+page-provider-requests h1 {
+  font-size: medium;
+  color: darkslategray;
+}
+
+page-provider-requests .requests {
+  padding-top: 15px;
+}
+
+page-provider-requests .requests button {
+  background-color: transparent !important;
+  -webkit-box-shadow: 0px 2px 2px rgba(159, 24, 24, 0.4);
+  box-shadow: 0px 2px 2px rgba(159, 24, 24, 0.4);
+  color: #af2626;
+  font: bolder;
+  color: #181818;
+}
+
+page-provider-requests .requests button ion-icon {
+  color: #181818;
+}
+
+page-provider-requests .r-card {
+  padding-top: 30px;
+  padding-right: 30px;
+}
+
+page-provider-requests .r-card .fab-options {
+  background-color: transparent !important;
+  -webkit-box-shadow: 0px 2px 2px rgba(24, 33, 159, 0.425);
+  box-shadow: 0px 2px 2px rgba(24, 33, 159, 0.425);
+  color: #2651af;
+  font: bolder;
+  color: #181818;
+}
+
+page-provider-requests .r-card .fab-options ion-icon {
+  color: #1a2dda;
+}
+
+page-provider-requests .fab-list {
+  background-color: white !important;
+  -webkit-box-shadow: 0px 2px 2px rgba(24, 33, 159, 0.5);
+  box-shadow: 0px 2px 2px rgba(24, 33, 159, 0.5);
+  color: #164099;
+  font: bolder;
+  color: #181818;
+}
+
+page-provider-requests .fab-list ion-icon {
+  color: #2e3fd4;
+}
+
+page-provider-requests .request-card {
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+page-provider-requests .label-md {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
 }
 
 page-request spinner * {

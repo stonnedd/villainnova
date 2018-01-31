@@ -148,7 +148,7 @@ export class RequestPage {
     let completedCount: number = 1;
     let startedCount: number = 1
     console.log("En enviar request");
-    formData.provider = this.slctdProvider.id;
+    formData.provider_id = this.slctdProvider.id;
     let rqstURL = Constants.CREATE_REQUEST + "/" + this.user_id + "/CMS/request";
     let images = this.imageTransfer.upholdImages(formData);
     delete formData.pic1;

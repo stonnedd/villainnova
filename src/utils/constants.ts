@@ -19,5 +19,6 @@ export namespace Constants {
     export const UPLOAD_IMG: string = "http://localhost:4000/api/uploader/image";
     export const CREATE_ATTACHMENT: string = "http://localhost:4000/api/attachments/create";
     export const GET_FULL_USER: string = HOST + "api/user/full/";
+    export const PROVIDER_CUSTOMER: string = HOST + "api/provider/customer/";
     export const SPINNER: string = "puff"; // puede ser "puff" o "ball-triangle"
 }
