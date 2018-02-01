@@ -1,0 +1,15 @@
+<ion-header>
+</ion-header>
+
+<ion-content>
+  <div class ="list">  
+    <p><ion-icon name="person" item-start></ion-icon>&nbsp;{{userData.name}}</p> 
+    <p><ion-icon name="call" item-start></ion-icon>&nbsp;<a (click)= makeACall(userData.phone)>{{userData.phone}}</a></p> 
+    <p><ion-icon name="mail" item-start></ion-icon>&nbsp;{{userData.email}}</p>
+  </div>
+  <div style="text-align:center">
+    <button ion-button clear icon-only large (click)="closeView()">
+      <ion-icon name="close-circle" ></ion-icon>
+    </button>
+  </div>
+</ion-content>

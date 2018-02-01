@@ -116,10 +116,14 @@ export class UserServicesPage {
   }
 
   showRequests(requests, service) {
-    let params: any = {};
+    if (requests.length !== 0) {
+      let params: any = {};
     params.requests = requests;
     params.service = service;
     this.navCtrl.push(ProviderRequestsPage, params);
+    }else {
+      this.showToaster.reveal("    No hay solicitudes ...", "middle", 2000);
+    }
   }
 
   showDetail(supplierData, event) {

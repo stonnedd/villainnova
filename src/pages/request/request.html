@@ -30,7 +30,7 @@
 
       <ion-item class="login-Class" *ngIf="!broadcast" >
         <ion-label stacked for="service"></ion-label>
-        <ion-input type="text"  disabled="true" 
+        <ion-input type="text" readonly="true" 
           id="service" [formControl]= "requestForm.controls['service']"></ion-input>
         <div *ngIf="!requestForm.controls['service'].valid && requestForm.controls['service'].touched"   
           class="alert alert-danger"></div>
@@ -38,8 +38,8 @@
       
       <ion-item class="login-Class">
         <ion-label stacked for="comment"></ion-label>
-        <ion-input type="text"  placeholder="Describe tu servicio" maxlength="140" 
-          id="comment" [formControl]= "requestForm.controls['comment']"></ion-input>
+        <ion-textarea type="text"  placeholder="Describe tu servicio" maxlength="140" 
+          id="comment" [formControl]= "requestForm.controls['comment']"></ion-textarea>
         <div *ngIf="!requestForm.controls['comment'].valid && requestForm.controls['comment'].touched"   
           class="alert alert-danger"></div>
       </ion-item> 

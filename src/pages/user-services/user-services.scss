@@ -44,4 +44,18 @@ page-user-services {
           text-transform: uppercase !important;
         }
       }
+
+      .badge-icon {
+        position: absolute;
+        top: -0.1rem;
+        right: -0.0rem;
+        background-color: rgb(63, 133, 224) !important;
+        color: rgb(248, 248, 248) !important;
+      }
+
+      
+      .icon-badge {
+        margin-right: 1.0rem;
+      }
+      
 }

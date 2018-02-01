@@ -7,20 +7,27 @@
         <strong>Mis Solicitudes</strong></ion-list-header>
         <ion-item-sliding *ngFor="let uRequest of userRequests" #slidingItem>
           <ion-item>
-            <ion-avatar item-start>
-              <!-- <img [src]="'../../assets/mapicons/''"> -->
-            </ion-avatar>
-              <h2>{{uRequest.service}}</h2>
-              <p>{{uRequest.created_at | date: 'dd-MM-yyyy'}}</p> 
-              <p>{{uRequest.created_at | date: 'h:mm - a'}}</p> 
-            <div text-right >
-              <button ion-button only-icon [color]="getDataSts(uRequest.status,'color')">
-              {{getDataSts(uRequest.status,'char')}}
-              </button>
-              <button ion-button only-icon clear>
-                <ion-icon name="eye" class="detail" (click)="showDetail(uRequest, $event)"></ion-icon>
-              </button>
-            </div>
+            <ion-grid>
+              <ion-row align-items-center>
+                <ion-col col-4 align-self-center>
+                  <img [src]="getIconService(uRequest.service)">
+                </ion-col>
+                <ion-col col-8>
+                    <h2>{{uRequest.service}}</h2>
+                    <p>{{uRequest.created_at | date: 'dd-MM-yyyy'}}</p> 
+                    <p>{{uRequest.created_at | date: 'h:mm - a'}}</p> 
+                  <div text-right>
+                    <button ion-button only-icon clear>
+                        <ion-icon name="eye" (click)="showDetail(uRequest, $event)"></ion-icon>
+                    </button>
+                    <button ion-button only-icon clear>
+                      <ion-icon name="pricetag" class="icon-badge"></ion-icon> 
+                      <ion-badge class="badge-icon" [color]="getDataSts(uRequest.status,'color')">{{getDataSts(uRequest.status,'char')}} </ion-badge>
+                    </button>
+                  </div>  
+                </ion-col>
+              </ion-row>
+            </ion-grid>
           </ion-item>
           <ion-item-options>  
             <button ion-button expandable color="danger" (click)="delete(slidingItem, uRequest.id)">

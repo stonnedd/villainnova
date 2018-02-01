@@ -18,6 +18,17 @@ page-user-requests {
     ion-icon.detail{
         color: #2653af;
     }
-
+    .sts-btn {
+        background-color: transparent !important;
+        box-shadow: none;
+    }
+    .icon-badge {
+        margin-right: 1.0rem;
+    }
+    .badge-icon {
+        position: absolute;
+        top: -0.1rem;
+        right: -0.0rem;
+    }
     
 }

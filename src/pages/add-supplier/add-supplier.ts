@@ -154,4 +154,8 @@ export class AddSupplierPage {
     this.viewCtrl.dismiss();
   }
 
+  closeView() {
+    this.viewCtrl.dismiss();
+  }
+
 }

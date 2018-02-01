@@ -9,10 +9,10 @@ export class StatusMapping {
     }
     getColor(status: number) {
         let colorList =  new Map<number, string> ();
-        colorList.set(0, "secondary");
-        colorList.set(1, "favorite");
-        colorList.set(2, "danger");
-        colorList.set(3, "nav");
+        colorList.set(0, "openSts");
+        colorList.set(1, "processedSts");
+        colorList.set(2, "finishedSts");
+        colorList.set(3, "canceledSts");
         return colorList.get(status);
     }
 

@@ -11,16 +11,25 @@
       <ion-icon name="build"></ion-icon>
       <strong>Mis Servicios</strong></ion-list-header>
       <ion-item *ngFor="let provider of userServices">
-        <ion-avatar item-start>
-          <img [src]="'../../assets/mapicons/'+provider.map_icon">
-        </ion-avatar>
-        <h2>{{provider.company_name}}</h2>
-        <p>{{provider.service}}</p>
-        <div text-right>
-          <button ion-button only-icon color="danger" (click)="showRequests(provider.providers_requests, provider.company_name)" > {{provider.providers_requests.length}}</button>
-          <button ion-button only-icon clear> <ion-icon name="eye" (click)="showDetail(provider, $event)"></ion-icon></button>
-          <button ion-button only-icon clear> <ion-icon name="create"(click)="editDetail(provider, $event)" ></ion-icon></button>
-        </div>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-4>
+              <img [src]="'../../assets/servicons/'+provider.map_icon">
+            </ion-col>
+            <ion-col col-8>
+              <h2>{{provider.company_name}}</h2>
+              <p>{{provider.service}}</p>
+              <div text-right>
+                <button ion-button only-icon clear> <ion-icon name="eye" (click)="showDetail(provider, $event)"></ion-icon></button>
+                <button ion-button only-icon clear> <ion-icon name="create"(click)="editDetail(provider, $event)" ></ion-icon></button>
+                <button ion-button only-icon clear (click)="showRequests(provider.providers_requests, provider.company_name)" > 
+                  <ion-icon name="pricetags" class="icon-badge"></ion-icon> 
+                  <ion-badge class="badge-icon" *ngIf="provider.providers_requests.length!=0" >{{provider.providers_requests.length}}</ion-badge> 
+                </button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-item>
     </ion-list>
   </div>
