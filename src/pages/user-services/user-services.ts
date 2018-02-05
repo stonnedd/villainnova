@@ -122,7 +122,7 @@ export class UserServicesPage {
     params.service = service;
     this.navCtrl.push(ProviderRequestsPage, params);
     }else {
-      this.showToaster.reveal("    No hay solicitudes ...", "middle", 2000);
+      this.showToaster.reveal("    No hay solicitudes ...", "middle", 1500);
     }
   }
 

@@ -22,7 +22,11 @@
                     </button>
                     <button ion-button only-icon clear>
                       <ion-icon name="pricetag" class="icon-badge"></ion-icon> 
-                      <ion-badge class="badge-icon" [color]="getDataSts(uRequest.status,'color')">{{getDataSts(uRequest.status,'char')}} </ion-badge>
+                      <ion-badge class="badge-icon" [color]="getDataSts(uRequest.status,'color')">
+                        <!-- {{getDataSts(uRequest.status,'char')}}  -->
+                        <ion-icon name="checkmark" *ngIf="uRequest.status==0"></ion-icon>
+                        <ion-icon name="checkmark-circle-outline"  *ngIf="uRequest.status==1" ></ion-icon>
+                    </ion-badge>
                     </button>
                   </div>  
                 </ion-col>

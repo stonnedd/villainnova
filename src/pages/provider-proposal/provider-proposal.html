@@ -1,5 +1,7 @@
 
 <ion-content padding>
+<spinner [data]="params.data" *ngIf="spinner"></spinner>
+
   <h2><ion-icon name="pricetag"></ion-icon> Propuesta</h2>
   <ion-list >
     <form id="prslForm" [formGroup]="proposalForm" (ngSubmit)="onSubmit(proposalForm.value)">
@@ -22,10 +24,10 @@
       </ion-item>
 
         <ion-item class="login-Class">
-          <ion-label  floating for="comments"></ion-label>
+          <ion-label  floating for="comment"></ion-label>
           <ion-textarea type="text"  placeholder="Comentarios" maxlength="120"
-            id="comments" [formControl]= "proposalForm.controls['comments']" name="comments"></ion-textarea>
-            <p *ngIf="!proposalForm.controls['comments'].valid && (proposalForm.controls['comments'].touched)"   
+            id="comment" [formControl]= "proposalForm.controls['comment']" name="comment"></ion-textarea>
+            <p *ngIf="!proposalForm.controls['comment'].valid && (proposalForm.controls['comment'].touched)"   
               class="alert alert-danger"></p>
         </ion-item>
 

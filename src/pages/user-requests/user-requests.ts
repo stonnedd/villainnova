@@ -44,7 +44,7 @@ export class UserRequestsPage {
           this.userRequests = userData.requests;
           this.spinner = false;
         }, error => {
-          this.shwToaster.reveal("cargando...", "bottom", 300);
+          this.shwToaster.reveal("Error:" + error, "bottom", 1000);
           this.ionViewDidLoad();
           this.spinner = false;
           },
