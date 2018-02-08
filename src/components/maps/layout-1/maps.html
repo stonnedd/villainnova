@@ -1,19 +1,21 @@
 
 <ion-content  has-header>
-  
-  <ion-grid no-padding class="option-service">
-    <ion-item style="height:45px" class="option-service" > 
+  <div class="option-service">
+    <ion-item style="height:45px" no-lines > 
       <ion-label for="services"><ion-icon  item-left name="build"></ion-icon>Servicios</ion-label>
       <ion-select id="services" requiered  [(ngModel)]="selectedService" 
       (ionChange)="svcSelected()" 
-      multiple="true" 
+      multiple="false" 
       cancelText="Atras">
         <ion-option *ngFor="let mainService of mainServices" [value]="mainService">{{mainService}} </ion-option>
         <ion-option *ngFor="let service of services | orderBy : '+'" [value]="service">{{service}} </ion-option>
       </ion-select>
     </ion-item>
-  </ion-grid>
-  <sebm-google-map [latitude]="mapData.lat" [longitude]="mapData.lng" [zoom]="mapZoom" [mapTypeControl]=true [streetViewControl]=true>
+  </div>
+    
+
+
+  <sebm-google-map id="map" [latitude]="mapData.lat" [longitude]="mapData.lng" [zoom]="mapZoom" [mapTypeControl]=true [streetViewControl]=true>
   
     <sebm-google-map-marker *ngFor="let supplier of suppliers"  
       [latitude]="supplier.lat" 
@@ -23,10 +25,19 @@
       [iconUrl]="'../assets/mapicons/'+supplier.map_icon">
     </sebm-google-map-marker>
     <sebm-google-map-marker [iconUrl]="userData.userPos.iconUrl" [latitude]="userData.userPos.lat" [longitude]="userData.userPos.lng"></sebm-google-map-marker>
+
   </sebm-google-map>
+  
   <spinner [data]="spinner" *ngIf="spinnerSts" ></spinner>
+  
+  <ion-fab bottom left class="requests">
+    <button ion-fab color="locate" mini (click)="requestQuote()"><ion-icon name="pricetags"></ion-icon></button>
+  </ion-fab>
+
   <ion-fab bottom left>
-      <button ion-fab color="locate" mini><ion-icon name="md-locate"></ion-icon></button>
-    </ion-fab>
+      <button ion-fab color="locate" mini (click)="updatePos()"><ion-icon name="md-locate"></ion-icon></button>
+  </ion-fab>
+  
+ 
 
 </ion-content>

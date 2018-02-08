@@ -668,15 +668,18 @@ $searchbar-md-input-clear-icon-color: theme-colors('textColors', 'secondary');
     .alert-title {
       font-size: 15px !important;
       font-weight: bold;
-      color: #2653af;
+      // color: #2653af;
+      color: #444549;
       text-align: center;
     }
 
+    
+
     .alert-head,
     .alert-input,
-    .alert-message,
     .button-inner {
-      color: theme-colors('textColors', 'secondary') !important;
+      color: #242222 !important;
+      text-align: left;
     }
     .alert-head {
       padding: 20px 24px 15px 24px !important;
@@ -690,6 +693,8 @@ $searchbar-md-input-clear-icon-color: theme-colors('textColors', 'secondary');
       overflow-y: hidden;
       max-height: 40px !important;
       padding: 0 24px 0px 24px !important;
+      text-align: center;
+      color: #444549;
     }
 
     .alert-input {
@@ -698,7 +703,7 @@ $searchbar-md-input-clear-icon-color: theme-colors('textColors', 'secondary');
 
     .alert-wrapper {
       //background-color: theme-colors('mainColors', 'accent') !important;
-      background-color: white;
+      background-color: rgb(255, 255, 255) !important;
     }
 
     ::-webkit-input-placeholder {

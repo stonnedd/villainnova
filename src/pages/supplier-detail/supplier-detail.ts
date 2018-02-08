@@ -38,8 +38,7 @@ export class SupplierDetailPage {
     .catch(() => console.log("Error launching dialer"));
   }
 
-  request(event, providerData ) {
-    console.log(providerData);
+  request() {
     this.viewCtrl.dismiss();
     this.navCtrl.push(RequestPage, this.data);
   }

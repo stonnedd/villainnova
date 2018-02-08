@@ -63,7 +63,7 @@ export class ProviderProposalPage {
             this.shwToaster.reveal("tu propuesta se envió con éxito", "middle", 2000);
             this.viewCtrl.dismiss();
             this.spinner = false;
-            this.appCtrl.getRootNav().push(ProfilePage);
+            this.appCtrl.getRootNav().setRoot(ProfilePage);
           },
           err => {
             this.shwToaster.reveal("Ha ocurrido un error" + err, "bottom", 2000);

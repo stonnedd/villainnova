@@ -1,6 +1,6 @@
 import { ShowToaster } from "../../utils/toaster";
-import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { Component, ViewChild } from "@angular/core";
+import { IonicPage, NavController, NavParams, Tabs, Events } from "ionic-angular";
 import { UserServicesPage } from "../../pages/user-services/user-services"; 
 import { UserRequestsPage } from "../../pages/user-requests/user-requests";
 import { ApiService} from "../../service/api-service";
@@ -15,9 +15,9 @@ import { Constants} from "../../utils/constants";
 })
 
 export class ProfilePage {
-
+  @ViewChild ("UserTabs") tabs: Tabs;
   title: string= "Mi perfil";
-  fetchedRequests: number = 2;
+  fetchedRequests: any;
   servicesPage: any;
   requestsPage: any;
   user: any = {};
@@ -29,7 +29,9 @@ export class ProfilePage {
     public settings: Settings,
     public shwToaster: ShowToaster,
     public apiSvc: ApiService,
+    public event: Events,
     ) {
+      this.rqstNotify();
       this.servicesPage = UserServicesPage;
       this.requestsPage = UserRequestsPage;
       this.params.data = {"icon": Constants.SPINNER};
@@ -49,5 +51,21 @@ export class ProfilePage {
     });
   }
 
-  
+  ionViewDidLoad() {
+    this.rqstNotify();
+  }
+
+  rqstNotify() {
+    this.event.subscribe("rqstNotify",
+    (data) => {
+      console.log("En profile:::", data);
+      this.fetchedRequests = data;
+      // if (data !== 0 ) {
+      //   this.fetchedRequests = null;
+      // }else {
+      //   this.fetchedRequests = data;
+      // }
+    });
+  }
+
 }

@@ -46,6 +46,7 @@ import { ProviderRequestsPageModule} from "../pages/provider-requests/provider-r
 import { CustomerUserDetailPageModule} from "../pages/customer-user-detail/customer-user-detail.module";
 import { from } from "rxjs/observable/from";
 import { ProviderProposalPageModule } from "../pages/provider-proposal/provider-proposal.module";
+import { ProposalDetailPageModule} from "../pages/proposal-detail/proposal-detail.module";
 // export const firebaseConfig = {
 //   apiKey: "AIzaSyBdQOPM3re7vBFNTEspKM7G0vzKH7ub6H8",
 //   authDomain: "villainova-app.firebaseapp.com",
@@ -113,6 +114,7 @@ export function provideSettings(storage: Storage) {
     ProviderRequestsPageModule,
     CustomerUserDetailPageModule,
     ProviderProposalPageModule,
+    ProposalDetailPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [

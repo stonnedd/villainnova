@@ -11,7 +11,6 @@ import { SettingsPage} from "../settings/settings";
 import { ToastController } from "ionic-angular";
 import { Observable} from "rxjs/Rx";
 import { BackgroundMode } from "@ionic-native/background-mode";
-
 //import { PhotoViewer } from "@ionic-native/photo-viewer";
 
 
@@ -155,7 +154,6 @@ export class AutoservicePage {
     this.autoservice.getServices().subscribe(
       services => {
         this.params.services = services;
-        console.log("fetchedServ", this.params.services);
         this.spinnerSts = false;
       },
       err => {
@@ -169,7 +167,6 @@ export class AutoservicePage {
     this.autoservice.getMainServices().subscribe(
       mservices => {
         this.params.mainServices = mservices;
-        console.log("fetchedMServ", this.params.services);
         this.fetchServices();
       },
       err => {

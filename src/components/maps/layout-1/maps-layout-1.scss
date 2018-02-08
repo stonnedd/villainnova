@@ -8,7 +8,7 @@ maps-layout-1 {
   }
   
   .sebm-google-map-container {
-    height: 95%;
+    height: 100%;
   }
 
   [map-header] ion-item {
@@ -19,6 +19,13 @@ maps-layout-1 {
   }
   .option-service{
     background-color: white !important;
+    position: fixed;
+    z-index: 5;
+    width: 100% !important;
+  }
+
+  .button-inner{
+    height: 40px !important;
   }
   .m-service{
     border: 1px solid;
@@ -31,4 +38,7 @@ maps-layout-1 {
     border-bottom-color: #3A1010;
   }
 
+  .requests{
+    padding-bottom: 50px;
+  }
 }

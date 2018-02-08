@@ -1,5 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
-import { IonicPage, NavController, NavParams, PopoverController, LoadingController } from "ionic-angular";
+import { IonicPage, NavController, NavParams, PopoverController, LoadingController, Events } from "ionic-angular";
 import { ProfileService } from "../../service/profile-service";
 import { Settings } from "../../providers/settings/settings";
 import { ShowToaster } from "../../utils/toaster";
@@ -11,6 +11,7 @@ import { SupplierDetailPage} from "../../pages/supplier-detail/supplier-detail";
 import { Constants} from "../../utils/constants";
 import { ApiService} from "../../service/api-service"; 
 import { ProviderRequestsPage } from "../../pages/provider-requests/provider-requests";
+
 @IonicPage()
 @Component({
   selector: "page-user-services",
@@ -39,6 +40,7 @@ export class UserServicesPage {
     public popCtrl: PopoverController,
     public ldingCtrl: LoadingController,
     public apiSvc: ApiService,
+    public event: Events,
     ) {
       this.translateService.get("LOGIN_ERROR").subscribe((value) => {
         this.loginErrorString = value;
@@ -84,6 +86,7 @@ export class UserServicesPage {
           this.spinner = false;
         } else {
           this.userServices = usrData.user[0].providers;
+          this.emitNotifications(this.userServices);
         }
         this.spinner = false;
     }, err => {
@@ -91,6 +94,15 @@ export class UserServicesPage {
         this.spinner = false;
         this.ionViewDidLoad();
     });
+  }
+
+  emitNotifications(myServices) {
+    let totalRqsts: number = 0;
+    myServices.forEach(element => {
+      totalRqsts += element.providers_requests.length;
+    });
+    console.log("Numero total de RQST:", totalRqsts);
+    this.event.publish("rqstNotify", totalRqsts);
   }
 
   ngAfterViewInit() {
@@ -127,6 +139,7 @@ export class UserServicesPage {
   }
 
   showDetail(supplierData, event) {
+    console.log(supplierData)
     let popover = this.popCtrl.create(SupplierDetailPage, supplierData);
     popover.present({
       ev: "onMarker",

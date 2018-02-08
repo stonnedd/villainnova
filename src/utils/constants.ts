@@ -21,6 +21,8 @@ export namespace Constants {
     export const GET_FULL_USER: string = HOST + "api/user/full/";
     export const PROVIDER_CUSTOMER: string = HOST + "api/provider/customer/";
     export const CREATE_PROPOSAL: string = HOST + "api/CMS/proposal/create";
+    export const GET_PROVIDER: string = HOST + "api/provider/";
+    export const RATE_PROVIDER: string = HOST + "api/provider/rate/";
 
     export const SPINNER: string = "puff"; // puede ser "puff" o "ball-triangle"
 }

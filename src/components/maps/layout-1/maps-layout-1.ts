@@ -3,7 +3,9 @@ import { PopoverController } from "ionic-angular";
 import { SupplierDetailPage} from "../../../pages/supplier-detail/supplier-detail";
 import { ToastController } from "ionic-angular";
 import { AlertController } from "ionic-angular";
-
+import { AutoserviceService} from "../../../service/autoservice-service";
+import { RequestPage } from "../../../pages/request/request";
+import { NavController} from "ionic-angular";
 
 @Component({
     selector: "maps-layout-1",
@@ -26,8 +28,15 @@ export class MapsLayout1 {
     selectedService: any;
     labelService: string;
     mapZoom: number = 14;
+    map: any;
 
-    constructor(public popCtrl: PopoverController, public toastCtrl: ToastController, public alertCtrl: AlertController) { }
+    constructor(
+        public popCtrl: PopoverController,
+        public toastCtrl: ToastController,
+        public alertCtrl: AlertController,
+        public autSvc: AutoserviceService,
+        public navCtrl: NavController,
+    ) { }
 
     svcToast( note: string, pos: string) {
         const toast = this.toastCtrl.create({
@@ -57,8 +66,7 @@ export class MapsLayout1 {
         if (this.selectedService.length === 0) {
             this.labelService = "un servicio";
             this.suppliers = [];
-            
-        }else
+        } else
         if (this.selectedService.length === 1) {
             this.labelService = this.selectedService[0];
         }else {
@@ -88,4 +96,25 @@ export class MapsLayout1 {
     ngOnInit() {
         this.svcToast("Selecciona un servicio", "bottom");
     }
+
+    ionViewDidLoad() {
+    }
+    updatePos() {
+        this.autSvc.getPosition().then(
+            pos => {
+                console.log(pos);
+                this.mapData.lat = pos.coords.latitude;
+                this.mapData.lng = pos.coords.longitude;
+                this.userData.userPos.lat = pos.coords.latitude;
+                this.userData.userPos.lng = pos.coords.longitude;
+                this.mapZoom = 12;
+                this.ionViewDidLoad();
+            },
+        );
+    }
+
+    requestQuote(){
+        this.navCtrl.push(RequestPage, null);
+    }
+
 }

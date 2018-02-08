@@ -1,7 +1,7 @@
 import { Constants} from "../../utils/constants";
 import { AutoserviceService } from "../../service/autoservice-service";
 import { Component, ViewChild } from "@angular/core";
-import { IonicPage, NavController, NavParams, ViewController } from "ionic-angular";
+import { IonicPage, NavController, NavParams, ViewController, App } from "ionic-angular";
 import { Camera, CameraOptions } from "@ionic-native/camera";
 import { ShowToaster } from "../../utils/toaster";
 import { ImageTransfer } from "../../service/image-transfer";
@@ -20,6 +20,7 @@ import { FormGroup, ReactiveFormsModule, FormControl,
 
 export class RequestPage {
   @ViewChild("fileInput") fileInput;
+
   fetchedLng: number = null;
   fetchedLat: number = null;
   requestForm: FormGroup;
@@ -30,17 +31,22 @@ export class RequestPage {
   requestParams: any = [];
   spinner: boolean = false;
   params: any= {};
-  
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              public tstCtrl: ShowToaster,
-              public fBuilder: FormBuilder,
-              public camera: Camera,
-              public autoservice: AutoserviceService,
-              public imageTransfer: ImageTransfer,
-              public settings: Settings,
-              public apiSvc: ApiService,
-              public vwCtrl: ViewController) {
+  mainServices: any = [];
+  services: any = [];
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public tstCtrl: ShowToaster,
+    public fBuilder: FormBuilder,
+    public camera: Camera,
+    public autoservice: AutoserviceService,
+    public imageTransfer: ImageTransfer,
+    public settings: Settings,
+    public apiSvc: ApiService,
+    public vwCtrl: ViewController,
+    public appCtrl: App,
+  ) {
 
     this.requestForm = fBuilder.group({
       "service": ["", Validators.compose([Validators.required])],
@@ -90,9 +96,9 @@ export class RequestPage {
         if (this.picCase === 3) {
           this.requestForm.patchValue({ "pic3" : imageData});
         }
-        }, err => {
+      }, err => {
           alert(err.JSON());
-        });
+      });
     }else {
       this.fileInput.nativeElement.click();
     }
@@ -102,14 +108,57 @@ export class RequestPage {
     this.settings.settingsObservable.subscribe(
       data => { this.user_id = data.id; },
     );
-    if (this.navParams.data) {
+    if (this.navParams.data.service !== undefined) {
       this.broadcast = false;
       this.slctdProvider = this.navParams.data;
-      console.log(this.slctdProvider.service);
       this.requestForm.controls["service"].setValue(this.slctdProvider.service);
-      console.log("selectedProvider", this.slctdProvider);
+    }else {
+      this.broadcast = true;
+      this.spinner = true;
+      this.fetchMainServices();
     }
   }
+
+  svcSelected(service) {
+    console.log("Seleccionaste:::", service);
+    /////////////////////////////////////////////////////////////////////
+      this.apiSvc.getService("").subscribe(
+        listOfProviders => {
+          console.log("LISTA DE SERVICIOS:", listOfProviders);
+        }, err => {
+          this.tstCtrl.reveal("Ocurrio un erro intentalo mas tarde", "bottom", 2000);
+        },
+    );
+  }
+
+  fetchServices() {
+    this.autoservice.getServices().subscribe(
+      services => {
+        this.services = services;
+        console.log("fetchedServ", this.services);
+        this.spinner = false;
+      },
+      err => {
+        console.log(err);
+        this.spinner = false;
+      },
+    );
+  }
+
+  fetchMainServices() {
+    this.autoservice.getMainServices().subscribe(
+      mservices => {
+        this.mainServices = mservices;
+        console.log("fetchedMainServ", this.mainServices);
+        this.fetchServices();
+      },
+      err => {
+        console.log(err);
+        this.spinner = false;
+      },
+    );
+  }
+
 
   processWebImage(event) {
     // let name = JSON.stringify(picture);
@@ -146,7 +195,7 @@ export class RequestPage {
   onSubmit(formData: any = {}) {
     this.spinner = true;
     let completedCount: number = 1;
-    let startedCount: number = 1
+    let startedCount: number = 1;
     console.log("En enviar request");
     formData.provider_id = this.slctdProvider.id;
     let rqstURL = Constants.CREATE_REQUEST + "/" + this.user_id + "/CMS/request";
@@ -172,7 +221,7 @@ export class RequestPage {
                       if (images.length === completedCount) {
                         this.spinner = false;
                         this.tstCtrl.reveal("tu solicitud ha sido enviado con éxito", "middle", 2500);
-                        this.navCtrl.push(ProfilePage);
+                        this.appCtrl.getRootNav().setRoot(ProfilePage);
                         this.close();
                       }
                       completedCount++;
