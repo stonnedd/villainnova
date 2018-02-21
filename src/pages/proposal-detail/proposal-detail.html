@@ -1,0 +1,45 @@
+<ion-content>
+  <spinner [data]="params.data" *ngIf="spinner"></spinner>
+
+  <ion-list no-padding> 
+    <ion-item>
+      <ion-icon name="cash" item-start></ion-icon>&nbsp;$ {{proposal.price}} MXN
+    </ion-item> 
+    <ion-item>
+      
+      <ion-icon name="clock" item-start></ion-icon>&nbsp;{{proposal.time}}
+    </ion-item> 
+    <ion-item>
+      <ion-icon name="paper" item-start></ion-icon>&nbsp;{{proposal.comment}}
+    </ion-item>
+  </ion-list>
+
+  <div class="rating" *ngIf="proposal.provider_id != null && proposal.provider_id != ''" >
+    <h2 > <ion-icon name="ribbon" item-start> </ion-icon> No olvides calificar el servicio</h2>
+    <ion-grid class="rating-Ok">
+      <ion-row justify-content: center>
+        <ion-col col-9 class="stars">
+          <rating style= "text-align:right" [(ngModel)]="ranking"
+            readOnly="false"
+            max="5"
+            emptyStarIconName="star-outline"
+            halfStarIconName="star-half"
+            starIconName="star"
+            nullable="false" 
+            (ngModelChange)="onRatingChange($event)">
+          </rating>
+        </ion-col>
+        <ion-col col-3  style="padding: 10px 0px 0px 0px !important; text-align:left !important">
+          <button ion-button icon-only clear (click)="rateTheService(proposal.provider_id, proposal.request_id)"><ion-icon name="checkmark-circle"> </ion-icon> </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  
+  <div style="text-align:center">
+    <button ion-button clear icon-only large (click)="closeView()">
+      <ion-icon name="close-circle" ></ion-icon>
+    </button>
+  </div> 
+  
+</ion-content>

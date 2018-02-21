@@ -17,12 +17,18 @@ export namespace Constants {
     export const GET_REQUEST_PROVIDER: string = HOST + "provider/";
     export const USERS_PROVIDERS: string = HOST + "api/user/providers/";
     export const UPLOAD_IMG: string = HOST + "api/uploader/image";
+    export const UPLOAD_ONE_IMG: string = HOST + "api/uploader/img";
     export const CREATE_ATTACHMENT: string = HOST + "api/attachments/create";
     export const GET_FULL_USER: string = HOST + "api/user/full/";
     export const PROVIDER_CUSTOMER: string = HOST + "api/provider/customer/";
     export const CREATE_PROPOSAL: string = HOST + "api/CMS/proposal/create";
     export const GET_PROVIDER: string = HOST + "api/provider/";
     export const RATE_PROVIDER: string = HOST + "api/provider/rate/";
+    export const PROVIDERS_DISTANCE: string = HOST + "api/providers/distance";
+    export const PROVIDERS_DISTANCE_FULL: string = HOST + "api/providers/distance/full";
+    export const CREATE_MULT_REQUEST: string = HOST + "api/CMS/request/multiple/create";
+    export const GET_NOTIFICATIONS: string = HOST + "api/user/notification/";
+    export const NOTIFY_DELAY: number = 300000; 
 
     export const SPINNER: string = "puff"; // puede ser "puff" o "ball-triangle"
 }

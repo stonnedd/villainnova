@@ -8,6 +8,8 @@ import { ImageTransfer } from "../../service/image-transfer";
 import { ApiService} from "../../service/api-service";
 import { Settings } from "../../providers/settings/settings";
 import { ProfilePage } from "../../pages/profile/profile";
+import { TSMap } from "typescript-map";
+import {MainPage } from "../pages";
 import { FormGroup, ReactiveFormsModule, FormControl,
   FormBuilder, Validators} from "@angular/forms";
 
@@ -20,12 +22,12 @@ import { FormGroup, ReactiveFormsModule, FormControl,
 
 export class RequestPage {
   @ViewChild("fileInput") fileInput;
-
+  distance: number = 3;
   fetchedLng: number = null;
   fetchedLat: number = null;
   requestForm: FormGroup;
   broadcast: boolean = false;
-  slctdProvider: any;
+  slctdProviders: any= [];
   user_id: number;
   picCase: number = 1;
   requestParams: any = [];
@@ -33,6 +35,7 @@ export class RequestPage {
   params: any= {};
   mainServices: any = [];
   services: any = [];
+  listProviders: any = [];
 
   constructor(
     public navCtrl: NavController,
@@ -52,6 +55,7 @@ export class RequestPage {
       "service": ["", Validators.compose([Validators.required])],
       "vehicle": [""],
       "comment": ["", Validators.compose([Validators.required])],
+      "providers": [""],
       "lat": [""],
       "lng": [""],
       pic1: [""],
@@ -110,8 +114,8 @@ export class RequestPage {
     );
     if (this.navParams.data.service !== undefined) {
       this.broadcast = false;
-      this.slctdProvider = this.navParams.data;
-      this.requestForm.controls["service"].setValue(this.slctdProvider.service);
+      this.slctdProviders[0] = this.navParams.data;
+      this.requestForm.controls["service"].setValue(this.slctdProviders[0].service);
     }else {
       this.broadcast = true;
       this.spinner = true;
@@ -119,15 +123,40 @@ export class RequestPage {
     }
   }
 
+  providerSelected(provider) {
+    console.log(provider);
+  }
+
   svcSelected(service) {
-    console.log("Seleccionaste:::", service);
-    /////////////////////////////////////////////////////////////////////
-      this.apiSvc.getService("").subscribe(
-        listOfProviders => {
-          console.log("LISTA DE SERVICIOS:", listOfProviders);
-        }, err => {
-          this.tstCtrl.reveal("Ocurrio un erro intentalo mas tarde", "bottom", 2000);
-        },
+    console.log("distancia", this.distance);
+    this.spinner = true;
+    this.autoservice.getPosition().then(
+      coords => {
+        this.fetchedLat = coords.coords.latitude;
+        this.fetchedLng = coords.coords.longitude;
+        if (service) {
+          let data = {
+            "service": service ,
+            "distance": this.distance,
+            "lat": this.fetchedLat,
+            "lng": this.fetchedLng,
+            "limit": 5,
+          };
+          console.log("Seleccionaste:::", service);
+          this.apiSvc.postService(Constants.PROVIDERS_DISTANCE, JSON.stringify({data})).subscribe(
+            listOfProviders => {
+              this.listProviders = listOfProviders;
+              console.log("LISTA DE SERVICIOS:", listOfProviders);
+              this.spinner = false;
+            }, err => {
+              this.spinner = false;
+              this.tstCtrl.reveal("Ocurrio un error intentalo mas tarde", "bottom", 2000);
+            },
+          );
+        }else {
+          this.spinner = false;
+        }
+      },
     );
   }
 
@@ -183,6 +212,7 @@ export class RequestPage {
      };
     reader.readAsDataURL(event.target.files[0]);
   }
+ 
   getMyPos() {
     this.autoservice.getPosition().then(
       coords => {
@@ -192,58 +222,56 @@ export class RequestPage {
     );
   }
 
+
   onSubmit(formData: any = {}) {
     this.spinner = true;
-    let completedCount: number = 1;
+    if (!this.broadcast) {formData.providers = [this.slctdProviders[0].id]; }
+    let completedCount: number = 0;
     let startedCount: number = 1;
-    console.log("En enviar request");
-    formData.provider_id = this.slctdProvider.id;
-    let rqstURL = Constants.CREATE_REQUEST + "/" + this.user_id + "/CMS/request";
     let images = this.imageTransfer.upholdImages(formData);
+    formData.user_id = this.user_id;
     delete formData.pic1;
     delete formData.pic2;
     delete formData.pic3;
-    this.apiSvc.postService(rqstURL, this.arrangeData(formData)).subscribe(
-      res => {
-        console.log("res request", res);
-        if (images !== null) {
-          this.apiSvc.postService(Constants.CREATE_ATTACHMENT, this.dftAttachment(res.requests.id)).subscribe(
-            attch => {
-              console.log("numero de attach", attch.data.id);
-              images.forEach( e => {
-                this.apiSvc.postService(
-                  this.imageTransfer.getImageURL(attch.data.id, startedCount),
-                  this.imageTransfer.arrangeImage(e))
-                 .subscribe(
-                    (imgSave) => {
-                      console.log("picture", completedCount, "complete of", images.length);
-                      console.log("Resp IMG save:", imgSave );
-                      if (images.length === completedCount) {
-                        this.spinner = false;
-                        this.tstCtrl.reveal("tu solicitud ha sido enviado con éxito", "middle", 2500);
-                        this.appCtrl.getRootNav().setRoot(ProfilePage);
-                        this.close();
-                      }
-                      completedCount++;
-                    },
-                  err => {console.log(err);
-                    this.tstCtrl.reveal(err.toString, "bottom", 3500);
-                    this.spinner = false;
-                  });
-                  startedCount++;
-              });
-            });
-        }else {
-          this.apiSvc.postService(Constants.CREATE_ATTACHMENT, this.dftAttachment(res.requests.id)).subscribe(
-            attch => {
-              console.log("numero de attach", attch.data.id);
-              this.spinner = false;
-              this.tstCtrl.reveal("tu solicitud ha sido enviado con éxito", "middle", 2500);
-              this.navCtrl.push(ProfilePage);
-              this.close();
-          }, err => {this.tstCtrl.reveal(err.toString, "bottom", 1500); this.spinner = false; });
-        }
-      }, err => {this.tstCtrl.reveal(err.toString, "bottom", 1500); this.spinner = false; },
+    let attachments = new TSMap <any, any> ();
+    if (images !== null) {
+      images.forEach( e => {
+        this.apiSvc.postService(Constants.UPLOAD_ONE_IMG, this.imageTransfer.arrangeImage(e)).subscribe(
+          imgUrl => {
+            attachments.set("url_pic" + (completedCount + 1), imgUrl);
+            completedCount++;
+            console.log("Completado  " + completedCount + " de " + images.length );
+            if (completedCount === images.length) {
+              formData.attachments = attachments.toJSON();
+              console.log("REQUEST DATA:", formData);
+              this.sendRequest(formData);
+            }
+
+          }, err => {
+            this.tstCtrl.reveal("ha ocurrido un error", "bottom", 2000);
+            this.spinner = false;
+          },
+        );
+      });
+    }else {
+      formData.attachments = {url_pic1: "", url_pic2: "", url_pic3: ""};
+      this.sendRequest(formData);
+    }
+  }
+
+  sendRequest(formData) {
+    this.apiSvc.postService(Constants.CREATE_MULT_REQUEST, this.arrangeData(formData)).subscribe(
+      respRequest => {
+      console.log(respRequest);
+      this.close();
+      this.appCtrl.getRootNav().setRoot(MainPage);
+      this.spinner = false;
+      this.tstCtrl.reveal("Tu solicitud ha sido enviada con éxito", "middle", 2500);
+      }, err => {
+        console.log(err);
+        this.tstCtrl.reveal("Se ha producido un error:" + err, "middle", 2500);
+        this.spinner = false;
+      },
     );
   }
 

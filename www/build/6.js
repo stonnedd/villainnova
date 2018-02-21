@@ -1,15 +1,16 @@
 webpackJsonp([6],{
 
-/***/ 684:
+/***/ 691:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MapPageModule", function() { return MapPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WelcomePageModule", function() { return WelcomePageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__map__ = __webpack_require__(696);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__welcome__ = __webpack_require__(703);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_spinner_spinner_module__ = __webpack_require__(27);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -20,38 +21,45 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var MapPageModule = (function () {
-    function MapPageModule() {
+
+var WelcomePageModule = (function () {
+    function WelcomePageModule() {
     }
-    return MapPageModule;
+    return WelcomePageModule;
 }());
-MapPageModule = __decorate([
+WelcomePageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_3__map__["a" /* MapPage */],
+            __WEBPACK_IMPORTED_MODULE_3__welcome__["a" /* WelcomePage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_3__map__["a" /* MapPage */]),
-            __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["b" /* TranslateModule */].forChild()
+            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_3__welcome__["a" /* WelcomePage */]),
+            __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["b" /* TranslateModule */].forChild(),
+            __WEBPACK_IMPORTED_MODULE_4__components_spinner_spinner_module__["SpinnerModule"],
         ],
         exports: [
-            __WEBPACK_IMPORTED_MODULE_3__map__["a" /* MapPage */]
-        ]
+            __WEBPACK_IMPORTED_MODULE_3__welcome__["a" /* WelcomePage */],
+        ],
+        schemas: [__WEBPACK_IMPORTED_MODULE_0__angular_core__["CUSTOM_ELEMENTS_SCHEMA"]],
     })
-], MapPageModule);
+], WelcomePageModule);
 
-//# sourceMappingURL=map.module.js.map
+//# sourceMappingURL=welcome.module.js.map
 
 /***/ }),
 
-/***/ 696:
+/***/ 703:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MapPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_google_maps__ = __webpack_require__(339);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WelcomePage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_settings_settings__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__service_api_service__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_toaster__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_constants__ = __webpack_require__(21);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -64,99 +72,72 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var MapPage = (function () {
-    function MapPage(googleMaps, navCtrl, platform) {
-        this.googleMaps = googleMaps;
+
+
+
+
+var WelcomePage = (function () {
+    function WelcomePage(navCtrl, settings, appCtrl, apiSvc, shwTostr) {
         this.navCtrl = navCtrl;
-        this.platform = platform;
+        this.settings = settings;
+        this.appCtrl = appCtrl;
+        this.apiSvc = apiSvc;
+        this.shwTostr = shwTostr;
+        this.spinner = false;
+        this.params = {};
+        this.user = {};
+        this.params.data = { "icon": __WEBPACK_IMPORTED_MODULE_6__utils_constants__["a" /* Constants */].SPINNER };
     }
-    MapPage.prototype.ngAfterViewInit = function () {
-        this.loadMap();
+    WelcomePage.prototype.ionViewCanEnter = function () {
+        var _this = this;
+        this.spinner = true;
+        this.settings.settingsObservable.subscribe(function (strgeData) {
+            console.log("LOCAL STORAGE DATA:", strgeData);
+            if (strgeData.token !== "" && strgeData.token !== null && strgeData.token !== undefined) {
+                console.log("hay token");
+                _this.apiSvc.getService(__WEBPACK_IMPORTED_MODULE_6__utils_constants__["a" /* Constants */].LOGGED_USER_URL + "/" + strgeData.token).subscribe(function (data) {
+                    if (data[0].id === strgeData.id) {
+                        _this.appCtrl.getRootNav().setRoot(__WEBPACK_IMPORTED_MODULE_3__pages__["b" /* MainPage */]);
+                        _this.spinner = false;
+                    }
+                    _this.spinner = false;
+                }, function (err) {
+                    _this.spinner = false;
+                    _this.shwTostr.reveal("Error de conexión, comprueba tu conexión a internet. " + err, "middle", 3000);
+                });
+            }
+            else {
+                _this.spinner = false;
+            }
+        }, function (err) {
+            _this.spinner = false;
+        });
     };
-    MapPage.prototype.loadMap = function () {
-        // make sure to create following structure in your view.html file
-        // and add a height (for example 100%) to it, else the map won't be visible
-        // <ion-content>
-        //  <div #map id="map" style="height:100%;"></div>
-        // </ion-content>
-        // create a new map by passing HTMLElement
-        var element = document.getElementById('map');
-        var map = this.googleMaps.create(element);
-        // listen to MAP_READY event
-        // You must wait for this event to fire before adding something to the map or modifying it in anyway
-        map.one(__WEBPACK_IMPORTED_MODULE_1__ionic_native_google_maps__["b" /* GoogleMapsEvent */].MAP_READY).then(function () { return console.log('Map is ready!'); });
-        // create LatLng object
-        var ionic = new __WEBPACK_IMPORTED_MODULE_1__ionic_native_google_maps__["c" /* LatLng */](43.0741904, -89.3809802);
-        // create CameraPosition
-        var position = {
-            target: ionic,
-            zoom: 18,
-            tilt: 30
-        };
-        // move the map's camera to position
-        map.moveCamera(position);
-        // create new marker
-        //  let markerOptions: MarkerOptions = {
-        //    position: ionic,
-        //    title: 'Ionic'
-        //  };
-        //
-        //  const marker: Marker = map.addMarker(markerOptions)
-        //    .then((marker: Marker) => {
-        //       marker.showInfoWindow();
-        //     });
-        //  }
-        //
-        // initJSMaps(mapEle) {
-        //   new google.maps.Map(mapEle, {
-        //     center: { lat: 43.071584, lng: -89.380120 },
-        //     zoom: 16
-        //   });
-        // }
-        //
-        // initNativeMaps(mapEle) {
-        //   this.map = new GoogleMap(mapEle);
-        //   mapEle.classList.add('show-map');
-        //
-        //   GoogleMap.isAvailable().then(() => {
-        //     const position = new GoogleMapsLatLng(43.074395, -89.381056);
-        //     this.map.setPosition(position);
-        //   });
-        // }
-        //
-        // ionViewDidLoad() {
-        //   let mapEle = this.map.nativeElement;
-        //
-        //   if (!mapEle) {
-        //     console.error('Unable to initialize map, no map element with #map view reference.');
-        //     return;
-        //   }
-        //
-        //   // Disable this switch if you'd like to only use JS maps, as the APIs
-        //   // are slightly different between the two. However, this makes it easy
-        //   // to use native maps while running in Cordova, and JS maps on the web.
-        //   if (this.platform.is('cordova') === true) {
-        //     this.initNativeMaps(mapEle);
-        //   } else {
-        //     this.initJSMaps(mapEle);
-        //   }
-        // }
+    WelcomePage.prototype.login = function () {
+        this.navCtrl.push("LoginPage");
     };
-    return MapPage;
+    WelcomePage.prototype.signup = function () {
+        this.navCtrl.push("SignupPage");
+    };
+    return WelcomePage;
 }());
 __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('map'),
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Input"])(),
     __metadata("design:type", Object)
-], MapPage.prototype, "map", void 0);
-MapPage = __decorate([
+], WelcomePage.prototype, "data", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], WelcomePage.prototype, "events", void 0);
+WelcomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* IonicPage */])(),
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'page-map',template:/*ion-inline-start:"c:\Workspace\autocar\front\villainnova\src\pages\map\map.html"*/'<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>{{ \'MAP_TITLE\' | translate }}</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content>\n\n  <div #map id="map"></div>\n\n</ion-content>'/*ion-inline-end:"c:\Workspace\autocar\front\villainnova\src\pages\map\map.html"*/
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
+        selector: "page-welcome",template:/*ion-inline-start:"c:\Workspace\autocar\front\villainnova\src\pages\welcome\welcome.html"*/'<ion-content scroll="false">\n\n    <spinner [data]="params.data" *ngIf="spinner"></spinner>\n\n\n\n  <div class="splash-bg"></div>\n\n  <div class="splash-info">\n\n    <div class="splash-logo"></div>\n\n    <div class="splash-intro">\n\n    </div>\n\n  </div>\n\n  <div padding>\n\n    <!-- <button ion-button block round (click)="signup()" class="signup">{{ \'SIGNUP\' | translate }}</button> -->\n\n    <button ion-button block round (click)="login()" class="login" [disabled]="spinner">{{ \'LOGIN\' | translate }}</button>\n\n    <button ion-button block round (click)="signup()" class="reg" [disabled]="spinner" >{{ \'SIGNUP\' | translate }}</button>\n\n    \n\n    \n\n  </div>\n\n</ion-content> \n\n\n\n\n\n\n\n'/*ion-inline-end:"c:\Workspace\autocar\front\villainnova\src\pages\welcome\welcome.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ionic_native_google_maps__["a" /* GoogleMaps */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["p" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["r" /* Platform */]])
-], MapPage);
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["o" /* NavController */], __WEBPACK_IMPORTED_MODULE_0__providers_settings_settings__["a" /* Settings */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* App */], __WEBPACK_IMPORTED_MODULE_4__service_api_service__["a" /* ApiService */], __WEBPACK_IMPORTED_MODULE_5__utils_toaster__["a" /* ShowToaster */]])
+], WelcomePage);
 
-//# sourceMappingURL=map.js.map
+//# sourceMappingURL=welcome.js.map
 
 /***/ })
 

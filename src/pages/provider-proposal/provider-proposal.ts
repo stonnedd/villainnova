@@ -60,7 +60,7 @@ export class ProviderProposalPage {
         console.log(resp);
         this.apiSvc.putService(Constants.UPDATE_REQUEST + proposal.request_id, JSON.stringify({request})).subscribe(
           () => {
-            this.shwToaster.reveal("tu propuesta se envió con éxito", "middle", 2000);
+            this.shwToaster.reveal("Tu propuesta se envió con éxito", "middle", 3000);
             this.viewCtrl.dismiss();
             this.spinner = false;
             this.appCtrl.getRootNav().setRoot(ProfilePage);

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
-import { NavController, NavParams, LoadingController } from "ionic-angular";
+import { NavController, NavParams, LoadingController, Events} from "ionic-angular";
 import { ApiService } from "../../service/api-service";
 import { Constants} from "../../utils/constants";
 import { ShowToaster } from "../../utils/toaster";
@@ -10,6 +10,7 @@ import { stringify } from "@angular/core/src/util";
 import { SupplierMapping } from "../../utils/supplier-mapping";
 import { SupplierDetailPage} from "../supplier-detail/supplier-detail";
 import { ProposalDetailPage} from "../proposal-detail/proposal-detail";
+import { count } from "rxjs/operator/count";
  @Component({
   selector: "page-user-requests",
   templateUrl: "user-requests.html",
@@ -20,6 +21,7 @@ export class UserRequestsPage {
   user: any= {};
   stsColor= "km";
   userRequests: any = [];
+  userGRequests: any = [];
   params: any = {};
   spinner: boolean = false;
 
@@ -33,6 +35,10 @@ export class UserRequestsPage {
     public ldingCtrl: LoadingController,
     public shwToaster: ShowToaster,
     public splMapp: SupplierMapping,
+    public events: Events,
+    
+    
+
   ) { this.params.data = {"icon": Constants.SPINNER}; }
 
   ionViewDidLoad() {
@@ -40,10 +46,10 @@ export class UserRequestsPage {
     if (this.user !== undefined && this.user !== null && this.user !== {}) {
       this.apiSvc.getService(Constants.GET_REQUEST + this.user.id + "/CMS/request" ).subscribe(
         userData => {
-          console.log ("lo que viene", this.user);
-          console.log("Lo que le paso :::", userData);
-          // console.log("Lo que le paso :::", userData.user[0].requests);
+          // console.log("Lo que le paso :::", userData);
+           //this.userRequests = this.groupRequests(userData.requests);
           this.userRequests = userData.requests;
+          this.emitRequestNotify(userData.requests),
           this.spinner = false;
         }, error => {
           this.shwToaster.reveal("Cargando...", "bottom", 1000);
@@ -55,6 +61,39 @@ export class UserRequestsPage {
       this.shwToaster.reveal("cargando...", "bottom", 1000);
       this.ionViewDidLoad();
     }
+  }
+
+  emitRequestNotify(requests){
+    console.log("Requestsssss:::",requests);
+    let count = 0;
+    requests.forEach(element => {
+      if (element.status ==1){
+        count++
+      }
+    });
+    this.events.publish("proposalNotify", count);
+  }
+
+  groupRequests(uRequests) {
+    let currentGroup: any;
+    let currentService: string = "";
+    uRequests.forEach((element, index) => {
+      if (element.service !== currentService) {
+        if (currentService !== "") {this.userGRequests.push(currentGroup); }
+        currentService = element.service;
+        let newGroup = {
+          title: currentService,
+          requests : [],
+        };
+        currentGroup = newGroup;
+      }
+      currentGroup.requests.push(element);
+      if ( uRequests.length === index + 1) {
+        this.userGRequests.push(currentGroup);
+      }
+    });
+    console.log("AGRUPADO:", this.userGRequests);
+    return this.userGRequests;
   }
 
   delete(slidingItem: ItemSliding, requestId: number, status: number) {

@@ -1,5 +1,5 @@
 
-<ion-menu [content]="content" style="width:200px; height:450px "  >
+<ion-menu [content]="content" style="width:200px; height:120px "  >
   <ion-header >
     <div menuClose  class="header-background-image" 
     (click)="openPage({ title:'Inicio', component:'AutoservicePage'})"  style="height:55px "    >
@@ -9,7 +9,7 @@
           <img src="assets/images/logo/main-logo.png" style="width:100px;" >
          </ion-col> -->
          <ion-col col-8>
-           <img src="assets/images/logo/autocar.png"  >
+           <img src="assets/images/logo/autocar1.png"  >
           </ion-col>
        </ion-row>
      </ion-grid>
@@ -20,12 +20,12 @@
     <ion-list no-margin >
       <button menuClose paddinge-left ion-item item-title main-menu
         *ngFor="let p of pages" (click)="openPage(p)" style="height: 50px">
-        <ion-icon icon-small item-left name="{{p.icon}}">
+        <ion-icon item-start item-left name="{{p.icon}}">
           <i class="icon {{p.icon}}"></i>
         </ion-icon>
         <strong>{{p.title}}</strong>
       </button>
-      <ion-item><div padding> <img src="assets/images/logo/main-logo.png" style="width:140px"> </div></ion-item>
+      <!-- <ion-item><div padding> <img src="assets/images/logo/main-logo.png" style="width:140px"> </div></ion-item> -->
     </ion-list>
   </ion-content>
 </ion-menu>

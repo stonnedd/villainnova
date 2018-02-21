@@ -18,6 +18,7 @@ export class ProfilePage {
   @ViewChild ("UserTabs") tabs: Tabs;
   title: string= "Mi perfil";
   fetchedRequests: any;
+  fetchedProposals: any;
   servicesPage: any;
   requestsPage: any;
   user: any = {};
@@ -49,6 +50,7 @@ export class ProfilePage {
         this.shwToaster.reveal("volver a iniciar sesión", "bottom", 3000);
         this.spinner = false;
     });
+    
   }
 
   ionViewDidLoad() {
@@ -60,11 +62,10 @@ export class ProfilePage {
     (data) => {
       console.log("En profile:::", data);
       this.fetchedRequests = data;
-      // if (data !== 0 ) {
-      //   this.fetchedRequests = null;
-      // }else {
-      //   this.fetchedRequests = data;
-      // }
+    });
+    this.event.subscribe("proposalNotify", 
+    props => {
+      this.fetchedProposals = props;
     });
   }
 

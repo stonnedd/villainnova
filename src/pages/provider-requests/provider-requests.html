@@ -1,44 +1,41 @@
-
 <ion-content>
-  <ion-list >
+  <ion-list no-lines>
     <ion-list-header>
       <br/>
       <ion-icon name="build"></ion-icon>
       <strong>Solicitudes de {{serviceRequest.service}}</strong>
     </ion-list-header>
-    <ion-item  class="request-card" *ngFor="let request of serviceRequest.requests">
-        <ion-card >
-            <ion-card-content>
-              <p><ion-icon  item-start name="mail-open"></ion-icon>{{request.comment}}</p>
-              <p><ion-icon  item-start name="car"></ion-icon>{{request.vehicle}}</p>
-              <p><ion-icon  name="pin" item-start></ion-icon>
-                <a (click)="navigate([request.lat, request.lng])">Ubicación
-                  <ion-icon color="nav" name="navigate"></ion-icon>
-                </a>
-              </p>
-              <p><ion-icon name="attach" item-start></ion-icon><a (click)="showImages([
-                  request.url_pic1,
-                  request.url_pic2,
-                  request.url_pic3
-                ])"> Imagenes
-                  <ion-icon color="nav" name="photos"></ion-icon>
-                </a>
-              </p>
-              <div style="text-align:right">
-                <p>{{request.created_at | date: 'dd-MM-yyyy'}}</p> 
-                <p>{{request.created_at | date: 'h:mm - a'}}</p> 
-              </div>
-              <ion-fab right top class="r-card">
-                  <button ion-fab mini class="fab-options"><ion-icon name="arrow-dropdown"></ion-icon></button>
-                  <ion-fab-list side="down" >
-                    <br/>
-                    <button ion-fab mini clear class="fab-list" (click)= "reply(request)" ><ion-icon name="redo"></ion-icon></button>
-                    <button ion-fab mini clear class="fab-list" (click)="showCustomerProfile(request.user_id)"><ion-icon name="person"></ion-icon></button>
-                    <button ion-fab mini clear class="fab-list"><ion-icon name="trash"></ion-icon></button>
-                  </ion-fab-list>
-                </ion-fab> 
-            </ion-card-content>
-          </ion-card>
+    <ion-item  class="request-card" *ngFor="let request of serviceRequest.requests" text-wrap>
+    <ion-card padding>
+        <p><ion-icon  item-start name="mail-open"></ion-icon> {{request.comment}}</p>
+        <p><ion-icon  item-start name="car"></ion-icon>{{request.vehicle}}</p>
+        <p><ion-icon  name="pin" item-start></ion-icon>
+          <a (click)="navigate([request.lat, request.lng])">Ubicación
+            <ion-icon color="nav" name="navigate"></ion-icon>
+          </a>
+        </p>
+        <p><ion-icon name="attach" item-start></ion-icon><a (click)="showImages([
+            request.url_pic1,
+            request.url_pic2,
+            request.url_pic3
+          ])"> Imagenes
+            <ion-icon color="nav" name="photos"></ion-icon>
+          </a>
+        </p>
+        <div style="text-align:right">
+          <p>{{request.created_at | date: 'dd-MM-yyyy'}}</p> 
+          <p>{{request.created_at | date: 'h:mm - a'}}</p> 
+        </div>
+        <ion-fab left bottom class="r-card">
+            <button ion-fab mini class="fab-options"><ion-icon name="arrow-dropright"></ion-icon></button>
+            <ion-fab-list side="right" >
+              <br/>
+              <button ion-fab mini clear class="fab-list" (click)= "reply(request)"> <ion-icon name="redo"></ion-icon></button>
+              <button ion-fab mini clear class="fab-list" (click)="showCustomerProfile(request.user_id)"><ion-icon name="person"></ion-icon></button>
+              <!-- <button ion-fab mini clear class="fab-list"><ion-icon name="trash"></ion-icon></button> -->
+            </ion-fab-list>
+          </ion-fab> 
+      </ion-card>
 
     </ion-item>
 

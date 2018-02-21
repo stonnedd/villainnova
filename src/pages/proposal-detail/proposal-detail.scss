@@ -1,0 +1,41 @@
+page-proposal-detail {
+
+    spinner * {
+        position: fixed;
+        z-index: 1;
+        align-items: center;
+        justify-content: center;
+        top: 45%;
+        width: 35%;
+      }
+
+    .rating {
+        h2 {
+            font-size: 14px !important;
+            text-align: center;
+        }
+        ul {
+            padding-left: 0px;
+        }
+        li {
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
+
+    }
+
+    .stars {
+        padding-right: 20px !important;
+    }
+
+    .rating-ok{
+        ion-col{
+            padding-left: 0px !important;
+            padding-top: 0px !important;
+            padding-right: 0px !important;
+            margin: auto;
+        }
+            
+    }
+    
+}

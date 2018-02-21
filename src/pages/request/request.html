@@ -14,6 +14,15 @@
   
   <ion-list class="login-List"> 
   
+    <ion-item class="login-Class" *ngIf="broadcast">
+      <ion-label stacked  style="color:rgb(146, 145, 145) !important" no-padding>Distancia</ion-label>
+      <ion-range min="1" max="100" [(ngModel)]="distance" color="km" pin="true"  (ionChange)="svcSelected(requestForm.controls['service'].value)" >
+        <ion-label range-left>1Km</ion-label>
+        <ion-label range-right>100Km</ion-label>
+      </ion-range>
+    </ion-item>
+
+    
     <form id="requestForm" [formGroup]="requestForm" (ngSubmit)="onSubmit(requestForm.value)">    
         
       <ion-item  class="login-Class" *ngIf="broadcast"> 
@@ -27,6 +36,18 @@
             </ion-select>
       </ion-item> 
 
+      <ion-item  class="login-Class" *ngIf="broadcast && requestForm.controls['service'].value" > 
+          <ion-label for="providers" style="color:rgb(146, 145, 145) !important" no-padding>Proveedores</ion-label>
+              <ion-select id="providers" [formControl]="requestForm.controls['providers']" 
+              (ionChange)="providerSelected(requestForm.controls['providers'].value)"
+              placeholder="Proveedor" 
+              cancelText="Atras" 
+              multiple=true>
+                <ion-option *ngFor="let lprovider of listProviders" [value]="lprovider.id" no-padding>{{lprovider.name}} </ion-option>
+              </ion-select>
+        </ion-item> 
+
+    
       <ion-item class="login-Class" *ngIf="!broadcast" >
         <ion-label stacked for="service"></ion-label>
         <ion-input type="text" readonly="true" 
@@ -36,7 +57,7 @@
       </ion-item>
 
       <ion-item class="login-Class" *ngIf="!broadcast" >
-        <ion-label stacked for="service">{{slctdProvider.company_name}}</ion-label>
+        <ion-label stacked for="service">{{slctdProviders[0].company_name}}</ion-label>
       </ion-item>
       
       <ion-item class="login-Class">

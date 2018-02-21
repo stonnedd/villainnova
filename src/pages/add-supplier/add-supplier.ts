@@ -3,7 +3,7 @@ import { Component } from "@angular/core";
 import { ShowToaster } from "../../utils/toaster";
 import { SupplierMapping} from "../../utils/supplier-mapping";
 import { IonicPage, NavController, NavParams,
-        ViewController, PopoverController } from "ionic-angular";
+        ViewController, PopoverController, App } from "ionic-angular";
 import { AutoservicePage } from "../autoservice/autoservice";
 import { ProfilePage} from "../../pages/profile/profile";
 import { FormGroup, ReactiveFormsModule, FormControl,
@@ -32,6 +32,7 @@ export class AddSupplierPage {
       public supplierMapping: SupplierMapping,
       public autoservice: AutoserviceService,
       public tstCtrl: ShowToaster,
+      public appCtrl: App,
       fBuilder: FormBuilder,
       ) {
 
@@ -125,6 +126,7 @@ export class AddSupplierPage {
     .subscribe((data: any) => {
         if (data && !null) {
           this.tstCtrl.reveal("Registrado con éxito", "bottom", 3000);
+          this.appCtrl.getRootNav().setRoot(ProfilePage);
           this.close();
         }
         else {
@@ -138,6 +140,7 @@ export class AddSupplierPage {
     .subscribe((data: any) => {
         if (data && !null) {
           this.tstCtrl.reveal("Guardado con éxito", "bottom", 3000);
+          this.appCtrl.getRootNav().setRoot(ProfilePage);
           this.close();
         }
         else {
@@ -150,7 +153,7 @@ export class AddSupplierPage {
     console.log("ionViewDidLoad AddSupplierPage");
   }
   close() {
-    this.navCtrl.push(ProfilePage);
+    this.appCtrl.getRootNav().setRoot(ProfilePage);
     this.viewCtrl.dismiss();
   }
 

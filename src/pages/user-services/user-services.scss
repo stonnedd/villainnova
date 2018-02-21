@@ -1,5 +1,14 @@
 page-user-services {
-    .card-background-page {
+  spinner * {
+    position: fixed;
+    align-items: center;
+     justify-content: center;
+     z-index: 1;
+     top: 35%;
+     width: 35%;
+ }
+
+  .card-background-page {
         ion-card {
           position: relative;
           text-align: left;

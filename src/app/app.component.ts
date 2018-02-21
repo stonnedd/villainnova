@@ -17,7 +17,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   pages: any[] = [
-    { title: "Inicio", component: "AutoservicePage", icon: "icon-home-variant" },
+    //{ title: "Inicio", component: "AutoservicePage", icon: "icon-home-variant" },
     { title: "Perfil", component: "ProfilePage", icon: "icon-account-box"},
     //{ title: 'Asistencia', component: 'AutoservicePage', icon:'build'},
    // { title: "Gasolineras", component: "ProfilePage", icon: "ios-car"},

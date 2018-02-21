@@ -1,7 +1,9 @@
-import { NgModule } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { IonicPageModule } from 'ionic-angular';
-import { WelcomePage } from './welcome';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { TranslateModule } from "@ngx-translate/core";
+import { IonicPageModule } from "ionic-angular";
+import { WelcomePage } from "./welcome";
+import { SpinnerModule } from "../../components/spinner/spinner.module";
+
 
 @NgModule({
   declarations: [
@@ -9,10 +11,12 @@ import { WelcomePage } from './welcome';
   ],
   imports: [
     IonicPageModule.forChild(WelcomePage),
-    TranslateModule.forChild()
+    TranslateModule.forChild(),
+    SpinnerModule,
   ],
   exports: [
-    WelcomePage
-  ]
+    WelcomePage,
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class WelcomePageModule { }

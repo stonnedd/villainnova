@@ -11,7 +11,7 @@
 <ion-content no-padding ="true">
     <spinner [data]="params.data" *ngIf="spinner"></spinner>
     <ion-tabs #UserTabs>
-      <ion-tab [root]="requestsPage" [rootParams]="user" tabIcon="list-box" tabTitle="Solicitudes" ></ion-tab>
+      <ion-tab [root]="requestsPage" [rootParams]="user" tabIcon="list-box" tabTitle="Solicitudes" [tabBadge]="fetchedProposals" tabBadgeStyle="locate" ></ion-tab>
       <ion-tab [root]="servicesPage" [rootParams]="user" tabIcon="build" tabTitle="Servicios" [tabBadge]="fetchedRequests" tabBadgeStyle="locate" ></ion-tab>
       <!-- <ion-tab [root]="servicesPage" [rootParams]="user" tabIcon="build" tabTitle="Servicios"></ion-tab> -->
     </ion-tabs>

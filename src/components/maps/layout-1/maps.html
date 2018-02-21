@@ -3,8 +3,8 @@
   <div class="option-service">
     <ion-item style="height:45px" no-lines > 
       <ion-label for="services"><ion-icon  item-left name="build"></ion-icon>Servicios</ion-label>
-      <ion-select id="services" requiered  [(ngModel)]="selectedService" 
-      (ionChange)="svcSelected()" 
+      <ion-select id="services" requiered  [(ngModel)]="data.selectService" 
+      (ionChange)="svcSelected(data.selectService)" 
       multiple="false" 
       cancelText="Atras">
         <ion-option *ngFor="let mainService of mainServices" [value]="mainService">{{mainService}} </ion-option>

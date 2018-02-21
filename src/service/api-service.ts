@@ -23,7 +23,7 @@ export class ApiService {
     }
 
     postService(postUrl, body: any= {}): Observable<any> {
-        console.log("En API SVC:",postUrl, body);
+        console.log("En API SVC:", postUrl, body);
         let headers = new Headers({ "Content-Type": "application/json" });
         let options = new RequestOptions({ headers: headers });
         return this.http.post(postUrl, body, options ).map(

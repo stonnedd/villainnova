@@ -27,6 +27,7 @@ export class MapsLayout1 {
     spinnerStatus: boolean = true;
     selectedService: any;
     labelService: string;
+    cleanSelect : boolean = false;
     mapZoom: number = 14;
     map: any;
 
@@ -36,7 +37,9 @@ export class MapsLayout1 {
         public alertCtrl: AlertController,
         public autSvc: AutoserviceService,
         public navCtrl: NavController,
-    ) { }
+    ) {     }
+
+     
 
     svcToast( note: string, pos: string) {
         const toast = this.toastCtrl.create({
@@ -61,21 +64,11 @@ export class MapsLayout1 {
         }
     }
 
-    svcSelected(): void {
-        console.log("Seleccion:::", this.selectedService);
-        if (this.selectedService.length === 0) {
-            this.labelService = "un servicio";
-            this.suppliers = [];
-        } else
-        if (this.selectedService.length === 1) {
-            this.labelService = this.selectedService[0];
-        }else {
-            this.labelService = "una opción";
-        }
-        this.svcToast("Seleciona " + this.labelService, "bottom");
-        this.serviceIsSelected.emit(this.selectedService);
+    svcSelected(service): void {
+        console.log("Seleccion:::", service);
+        this.serviceIsSelected.emit(service);
         this.spinnerSts;
-        this.mapZoom = 11;
+        this.mapZoom = 10;
     }
 
     onStarClass(items: any, index: number, e: any) {

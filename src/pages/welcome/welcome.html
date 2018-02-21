@@ -1,4 +1,6 @@
 <ion-content scroll="false">
+    <spinner [data]="params.data" *ngIf="spinner"></spinner>
+
   <div class="splash-bg"></div>
   <div class="splash-info">
     <div class="splash-logo"></div>
@@ -7,8 +9,8 @@
   </div>
   <div padding>
     <!-- <button ion-button block round (click)="signup()" class="signup">{{ 'SIGNUP' | translate }}</button> -->
-    <button ion-button block round (click)="login()" class="login">{{ 'LOGIN' | translate }}</button>
-    <button ion-button block round (click)="signup()" class="reg">{{ 'SIGNUP' | translate }}</button>
+    <button ion-button block round (click)="login()" class="login" [disabled]="spinner">{{ 'LOGIN' | translate }}</button>
+    <button ion-button block round (click)="signup()" class="reg" [disabled]="spinner" >{{ 'SIGNUP' | translate }}</button>
     
     
   </div>

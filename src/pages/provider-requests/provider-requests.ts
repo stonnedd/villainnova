@@ -92,8 +92,13 @@ export class ProviderRequestsPage {
   }
 
   reply(request) {
-    let popView = this.popCtrl.create(ProviderProposalPage, request);
-    popView.present({ev: "none"});
+    console.log("INFO REQUEST", request);
+    if (request.p_status !== 1) {
+      let popView = this.popCtrl.create(ProviderProposalPage, request);
+      popView.present({ev: "none"});
+    } else {
+      this.shwToaster.reveal("Ya respondiste esta solicitud", "middle", 2000);
+    }
   }
 
 

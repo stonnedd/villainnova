@@ -1,11 +1,13 @@
 <ion-content>
   <spinner [data]="params.data" *ngIf="spinner"></spinner>
   <div class="list-avatar-page">  
-    <ion-list #requestList>
+    
+  <ion-list #requestList [virtualScroll]= "userRequests" [approxItemHeight]="'170px'">
       <ion-list-header> 
         <ion-icon name="list-box"></ion-icon>
         <strong>Mis Solicitudes</strong></ion-list-header>
-        <ion-item-sliding *ngFor="let uRequest of userRequests" #slidingItem>
+        <!-- <ion-item-sliding *ngFor="let uRequest of userRequests" #slidingItem> -->
+        <ion-item-sliding *virtualItem="let uRequest" #slidingItem>
           <ion-item>
             <ion-grid>
               <ion-row align-items-center>
@@ -33,8 +35,8 @@
                       <ion-icon name="pricetag" class="icon-badge"></ion-icon> 
                       <ion-badge class="badge-icon" [color]="getDataSts(uRequest.status,'color')">
                         <!-- {{getDataSts(uRequest.status,'char')}}  -->
-                        <ion-icon name="checkmark-circle-outline"></ion-icon>
-                     </ion-badge>
+                        <ion-icon name="checkmark"></ion-icon>
+                      </ion-badge>
                     </button>
 
                     <button ion-button only-icon clear *ngIf ="uRequest.status==2"(click)='shwProviderProposal(uRequest.proposal)' >
