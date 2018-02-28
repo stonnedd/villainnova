@@ -116319,6 +116319,11 @@ ion-navbar.toolbar {
   }
 }
 
+.logo-menu img {
+  height: 34px;
+  margin-left: 12px;
+}
+
 .menuBackground {
   background-color: white;
   background-size: 100% 100%;
@@ -116429,6 +116434,21 @@ maps-layout-1 .m-service li ul {
 
 maps-layout-1 .requests {
   padding-bottom: 50px;
+}
+
+page-add-supplier spinner * {
+  position: fixed;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  top: 45%;
+  width: 35%;
+  z-index: 3;
 }
 
 page-add-supplier button.ok {
@@ -116792,6 +116812,59 @@ page-profile spinner * {
   width: 35%;
 }
 
+page-profile .userData ion-icon {
+  color: #5a5a5e !important;
+}
+
+page-profile .edit-pencil {
+  margin-top: 10px;
+  margin-right: 10px;
+  font-size: 28px;
+}
+
+page-profile-edit spinner * {
+  position: fixed;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  top: 45%;
+  width: 35%;
+  z-index: 3;
+}
+
+page-profile-edit button.ok {
+  margin-top: 25px;
+  background-color: transparent;
+  -webkit-box-shadow: 0px 2px 2px rgba(24, 68, 159, 0.4);
+  box-shadow: 0px 2px 2px rgba(24, 68, 159, 0.4);
+  color: #2653af;
+  font-stretch: expanded;
+  font: bolder;
+}
+
+page-profile-edit button.ok.activated {
+  background-color: gainsboro;
+}
+
+page-profile-edit button.cancel {
+  margin-top: 25px;
+  background-color: transparent;
+  -webkit-box-shadow: 0px 2px 2px rgba(159, 24, 24, 0.4);
+  box-shadow: 0px 2px 2px rgba(159, 24, 24, 0.4);
+  color: #af2626;
+  font-stretch: expanded;
+  font: bolder;
+}
+
+page-profile-edit button.cancel.activated {
+  background-color: gainsboro;
+}
+
 page-proposal-detail spinner * {
   position: fixed;
   z-index: 1;
@@ -116843,8 +116916,8 @@ page-provider-proposal spinner * {
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  top: 45%;
-  width: 35%;
+  top: 40%;
+  width: 40%;
 }
 
 page-provider-proposal h2 {
@@ -117277,6 +117350,63 @@ page-user-requests .badge-icon {
   right: -0.0rem;
 }
 
+page-user-requests .service-list img {
+  height: 30px;
+  margin-right: 40px !important;
+  margin-left: 20px !important;
+}
+
+page-user-requests .service-list ion-badge {
+  background-color: #2653af;
+}
+
+page-user-requests-detail spinner * {
+  position: fixed;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  z-index: 2;
+  top: 35%;
+  width: 40%;
+}
+
+page-user-requests-detail .sts-btn {
+  background-color: transparent !important;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+page-user-requests-detail .icon-badge {
+  margin-right: 1.0rem;
+  z-index: 5;
+  font-size: 25px !important;
+}
+
+page-user-requests-detail .badge-icon {
+  position: absolute;
+  top: -0.1rem;
+  right: -0.0rem;
+}
+
+page-user-requests-detail .req-list img {
+  height: 40px;
+  margin-right: 40px !important;
+}
+
+page-user-requests-detail .req-detail {
+  padding-left: 3px !important;
+  padding-right: 3px !important;
+}
+
+page-user-requests-detail .req-detail ion-icon {
+  font-size: 30px !important;
+}
+
 page-user-services spinner * {
   position: fixed;
   -webkit-box-align: center;
@@ -117355,6 +117485,23 @@ page-user-services .badge-icon {
 
 page-user-services .icon-badge {
   margin-right: 1.0rem;
+}
+
+page-user-services .img-servList img {
+  height: 40px !important;
+}
+
+page-user-services .input-wrapper {
+  height: 90px !important;
+}
+
+page-user-services .action-icons button {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+page-user-services .action-icons ion-icon {
+  font-size: 23px;
 }
 
 page-welcome spinner * {

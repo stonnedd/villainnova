@@ -16,9 +16,9 @@
   
     <ion-item class="login-Class" *ngIf="broadcast">
       <ion-label stacked  style="color:rgb(146, 145, 145) !important" no-padding>Distancia</ion-label>
-      <ion-range min="1" max="100" [(ngModel)]="distance" color="km" pin="true"  (ionChange)="svcSelected(requestForm.controls['service'].value)" >
+      <ion-range min="1" max="200" [(ngModel)]="distance" color="km" pin="true"  (ionChange)="svcSelected(requestForm.controls['service'].value)" >
         <ion-label range-left>1Km</ion-label>
-        <ion-label range-right>100Km</ion-label>
+        <ion-label range-right>200Km</ion-label>
       </ion-range>
     </ion-item>
 

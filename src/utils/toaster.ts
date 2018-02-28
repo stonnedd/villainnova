@@ -11,7 +11,7 @@ reveal( note: string, pos: string, time) {
         message: note,
         duration: time,
         position: pos,
-        showCloseButton: true,
+        showCloseButton: false,
         closeButtonText: "ok",
     });
     toast.present();

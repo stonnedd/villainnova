@@ -5,7 +5,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { Config, Nav, Platform } from "ionic-angular";
 import { FirstRunPage } from "../pages/pages";
 import { Settings } from "../providers/providers";
-
+import { UserRequestsPage} from "../pages/user-requests/user-requests";
 
 @Component({
   selector: "menu",
@@ -17,25 +17,9 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   pages: any[] = [
-    //{ title: "Inicio", component: "AutoservicePage", icon: "icon-home-variant" },
-    { title: "Perfil", component: "ProfilePage", icon: "icon-account-box"},
-    //{ title: 'Asistencia', component: 'AutoservicePage', icon:'build'},
-   // { title: "Gasolineras", component: "ProfilePage", icon: "ios-car"},
-    //{ title: 'Grúas', component: 'ProfilePage', icon:'icon-truck'},
-    //{ title: "Productos", component: "ProfilePage", icon: "md-list-box"},
-    /*
-    { title: 'Tutorial', component: 'TutorialPage' },
-    { title: 'Welcome', component: 'WelcomePage' },
-    { title: 'Tabs', component: 'TabsPage' },
-    { title: 'Cards', component: 'CardsPage' },
-    { title: 'Content', component: 'ContentPage' },
-    { title: 'Login', component: 'LoginPage' },
-    { title: 'Signup', component: 'SignupPage' },
-    { title: 'Map', component: 'MapPage' },
-    { title: 'Master Detail', component: 'ListMasterPage' },
-    { title: 'Menu', component: 'MenuPage' },
-    { title: 'Settings', component: 'SettingsPage' },
-    { title: 'Search', component: 'SearchPage' }//*/
+    { title: "Perfil", component: "ProfilePage", icon: "person"},
+    { title: 'Solicitudes', component: "UserRequestsPage", icon:"list-box" } ,
+    { title: "Servicios", component: "UserServicesPage", icon: "build"},
     
   ]
 

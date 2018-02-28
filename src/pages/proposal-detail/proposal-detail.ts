@@ -4,6 +4,7 @@ import { Constants } from "../../utils/constants";
 import { ApiService} from "../../service/api-service";
 import { ShowToaster } from "../../utils/toaster";
 import { ProfilePage} from "../profile/profile";
+import { MainPage } from "../pages";
 @IonicPage()
 @Component({
   selector: "page-proposal-detail",
@@ -80,13 +81,13 @@ export class ProposalDetailPage {
       (provider) => {
         this.apiSvc.putService(Constants.UPDATE_REQUEST + requestId, JSON.stringify({request})).subscribe(
           (rqst) => {
-            this.showToaster.reveal( "       Gracias por usar AutoCar " , "bottom", 3000);
             this.spinner = false;
+            this.showToaster.reveal( "       Gracias por usar AutoCar " , "middle", 3000);
             this.closeView();
-            this.appCtrl.getRootNav().setRoot(ProfilePage);
+            this.appCtrl.getRootNav().setRoot(MainPage);
           },
           err => {
-            this.showToaster.reveal("Se ha producido un error en el status: " + err , "bottom", 5000);
+            this.showToaster.reveal("Se ha producido un error en el status: " + err , "bottom", 3000);
             this.spinner = false;
         });
       },

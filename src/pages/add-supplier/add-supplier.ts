@@ -5,7 +5,9 @@ import { SupplierMapping} from "../../utils/supplier-mapping";
 import { IonicPage, NavController, NavParams,
         ViewController, PopoverController, App } from "ionic-angular";
 import { AutoservicePage } from "../autoservice/autoservice";
-import { ProfilePage} from "../../pages/profile/profile";
+// import { ProfilePage} from "../../pages/profile/profile"
+import { UserServicesPage} from "../user-services/user-services";
+import { Constants } from "../../utils/constants";
 import { FormGroup, ReactiveFormsModule, FormControl,
   FormBuilder, Validators, AbstractControl} from "@angular/forms";
 
@@ -24,6 +26,8 @@ export class AddSupplierPage {
   fetchedLat: number;
   suppForms: any = [];
   isNewService: boolean = true;
+  spinner: boolean = false;
+  params:  any= { };
 
   data: any;
   constructor(public navCtrl: NavController,
@@ -34,8 +38,9 @@ export class AddSupplierPage {
       public tstCtrl: ShowToaster,
       public appCtrl: App,
       fBuilder: FormBuilder,
-      ) {
-
+      ) 
+  {
+    this.params.data = {"icon": Constants.SPINNER};
     this.myForm = fBuilder.group({
       "company_name": ["", Validators.compose([Validators.required])],
       "service": ["", Validators.compose([Validators.required])],
@@ -122,39 +127,47 @@ export class AddSupplierPage {
   }
 
   doNewRegister(form) {
-    this.autoservice.createSupplier(this.data.id, form)
-    .subscribe((data: any) => {
-        if (data && !null) {
-          this.tstCtrl.reveal("Registrado con éxito", "bottom", 3000);
-          this.appCtrl.getRootNav().setRoot(ProfilePage);
-          this.close();
-        }
-        else {
-          this.tstCtrl.reveal("Error de conexión", "middle", 3000);
-        }
-      });
+    this.spinner = true;
+    this.autoservice.createSupplier(this.data.id, form).subscribe((data: any) => {
+      if (data && !null) {
+        this.spinner = false;
+        this.tstCtrl.reveal("Registrado con éxito", "bottom", 2000);
+        this.close();
+      }
+      else {
+        this.tstCtrl.reveal("Error de conexión", "middle", 2500);
+        this.spinner = false;
+      }
+    }, err =>{
+      this.spinner = false;
+      this.tstCtrl.reveal("Se ha producido un error intentalo más tarde", "middle", 2500);
+    });
   }
 
   updateRegister(form) {
-    this.autoservice.updateSupplier(form.id, form)
-    .subscribe((data: any) => {
-        if (data && !null) {
-          this.tstCtrl.reveal("Guardado con éxito", "bottom", 3000);
-          this.appCtrl.getRootNav().setRoot(ProfilePage);
-          this.close();
-        }
-        else {
-          this.tstCtrl.reveal("Error de conexión", "middle", 3000);
-        }
-      });
+    this.spinner = true;
+    this.autoservice.updateSupplier(form.id, form).subscribe((data: any) => {
+      if (data && !null) {
+        this.spinner = false;
+        this.tstCtrl.reveal("Guardado con éxito", "bottom", 2000);
+        this.close();
+      }
+      else {
+        this.tstCtrl.reveal("Error de conexión", "middle", 2500);
+        this.spinner = false;
+      }
+    },err =>{
+      this.spinner = false;
+      this.tstCtrl.reveal("Se ha producido un error intentalo más tarde", "middle", 2500);
+    });
   }
 
   ionViewDidLoad() {
     console.log("ionViewDidLoad AddSupplierPage");
   }
   close() {
-    this.appCtrl.getRootNav().setRoot(ProfilePage);
     this.viewCtrl.dismiss();
+    this.appCtrl.getRootNav().setRoot(UserServicesPage);
   }
 
   closeView() {

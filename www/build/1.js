@@ -1,15 +1,15 @@
 webpackJsonp([1],{
 
-/***/ 690:
+/***/ 688:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TutorialPageModule", function() { return TutorialPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignupPageModule", function() { return SignupPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tutorial__ = __webpack_require__(702);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__signup__ = __webpack_require__(692);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -20,38 +20,42 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var TutorialPageModule = (function () {
-    function TutorialPageModule() {
+var SignupPageModule = (function () {
+    function SignupPageModule() {
     }
-    return TutorialPageModule;
+    return SignupPageModule;
 }());
-TutorialPageModule = __decorate([
+SignupPageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_2__tutorial__["a" /* TutorialPage */],
+            __WEBPACK_IMPORTED_MODULE_3__signup__["a" /* SignupPage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__tutorial__["a" /* TutorialPage */]),
-            __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["b" /* TranslateModule */].forChild()
+            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_3__signup__["a" /* SignupPage */]),
+            __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["b" /* TranslateModule */].forChild()
         ],
         exports: [
-            __WEBPACK_IMPORTED_MODULE_2__tutorial__["a" /* TutorialPage */]
+            __WEBPACK_IMPORTED_MODULE_3__signup__["a" /* SignupPage */]
         ]
     })
-], TutorialPageModule);
+], SignupPageModule);
 
-//# sourceMappingURL=tutorial.module.js.map
+//# sourceMappingURL=signup.module.js.map
 
 /***/ }),
 
-/***/ 702:
+/***/ 692:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TutorialPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SignupPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_providers__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_login__ = __webpack_require__(72);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__login_customer_login_customer__ = __webpack_require__(346);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__login_supplier_login_supplier__ = __webpack_require__(347);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -64,70 +68,41 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var TutorialPage = (function () {
-    function TutorialPage(navCtrl, menu, translate, platform) {
+
+
+
+
+var SignupPage = (function () {
+    function SignupPage(navCtrl, user, toastCtrl, translateService) {
         var _this = this;
         this.navCtrl = navCtrl;
-        this.menu = menu;
-        this.platform = platform;
-        this.showSkip = true;
-        this.dir = 'ltr';
-        this.dir = platform.dir();
-        translate.get(["TUTORIAL_SLIDE1_TITLE",
-            "TUTORIAL_SLIDE1_DESCRIPTION",
-            "TUTORIAL_SLIDE2_TITLE",
-            "TUTORIAL_SLIDE2_DESCRIPTION",
-            "TUTORIAL_SLIDE3_TITLE",
-            "TUTORIAL_SLIDE3_DESCRIPTION",
-        ]).subscribe(function (values) {
-            console.log('Loaded values', values);
-            _this.slides = [
-                {
-                    title: 'Bienvenido a Autocar',
-                    description: '',
-                    image: 'assets/img/ica-slidebox-img-1.png',
-                },
-                {
-                    title: 'Cómo funciona',
-                    description: 'bla bla bla..',
-                    image: 'assets/img/ica-slidebox-img-2.png',
-                },
-                {
-                    title: values.TUTORIAL_SLIDE3_TITLE,
-                    description: '¿Necesitas ayuda?',
-                    image: 'assets/img/ica-slidebox-img-3.png',
-                }
-            ];
+        this.user = user;
+        this.toastCtrl = toastCtrl;
+        this.translateService = translateService;
+        function pushSignin() {
+            console.log("eNTRO AL LOGIN");
+            navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__login_login__["a" /* LoginPage */]);
+        }
+        this.userLogin = __WEBPACK_IMPORTED_MODULE_5__login_customer_login_customer__["a" /* LoginCustomerPage */];
+        this.supplierLogin = __WEBPACK_IMPORTED_MODULE_6__login_supplier_login_supplier__["a" /* LoginSupplierPage */];
+        this.translateService.get("SIGNUP_ERROR").subscribe(function (value) {
+            _this.signupErrorString = value;
         });
     }
-    TutorialPage.prototype.startApp = function () {
-        this.navCtrl.setRoot('WelcomePage', {}, {
-            animate: true,
-            direction: 'forward'
-        });
-    };
-    TutorialPage.prototype.onSlideChangeStart = function (slider) {
-        this.showSkip = !slider.isEnd();
-    };
-    TutorialPage.prototype.ionViewDidEnter = function () {
-        // the root left menu should be disabled on the tutorial page
-        this.menu.enable(false);
-    };
-    TutorialPage.prototype.ionViewWillLeave = function () {
-        // enable the root left menu when leaving the tutorial page
-        this.menu.enable(true);
-    };
-    return TutorialPage;
+    return SignupPage;
 }());
-TutorialPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* IonicPage */])(),
+SignupPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'page-tutorial',template:/*ion-inline-start:"c:\Workspace\autocar\front\villainnova\src\pages\tutorial\tutorial.html"*/'<ion-header no-shadow>\n\n  <ion-navbar>\n\n    <ion-buttons end *ngIf="showSkip">\n\n      <button ion-button (click)="startApp()" color="light">Cerrar</button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content no-bounce>\n\n  <ion-slides pager="true" dir="{{dir}}" (ionSlideWillChange)="onSlideChangeStart($event)">\n\n    <ion-slide *ngFor="let slide of slides">\n\n      <img [src]="slide.image" class="slide-image" />\n\n      <h2 class="slide-title" [innerHTML]="slide.title"></h2>\n\n      <p [innerHTML]="slide.description"></p>\n\n    </ion-slide>\n\n    <ion-slide>\n\n      <img src="assets/img/ica-slidebox-img-4.png" class="slide-image" />\n\n      <h2 class="slide-title">{{ \'TUTORIAL_SLIDE4_TITLE\' | translate }}</h2>\n\n      <button ion-button icon-end large clear (click)="startApp()">\n\n        {{ \'TUTORIAL_CONTINUE_BUTTON\' | translate }}\n\n        <ion-icon name="arrow-forward"></ion-icon>\n\n      </button>\n\n    </ion-slide>\n\n  </ion-slides>\n\n</ion-content>\n\n'/*ion-inline-end:"c:\Workspace\autocar\front\villainnova\src\pages\tutorial\tutorial.html"*/
+        selector: "page-signup",template:/*ion-inline-start:"c:\Workspace\autocar\front\villainnova\src\pages\signup\signup.html"*/'<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>{{ \'SIGNUP_TITLE\' | translate }}</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n \n\n<ion-tabs>\n\n    <ion-tab tabIcon="people" tabTitle="Cliente" [root]="userLogin"></ion-tab>\n\n    <ion-tab tabIcon="person" tabTitle="Proveedor"[root]="supplierLogin"  ></ion-tab>\n\n</ion-tabs>\n\n\n\n'/*ion-inline-end:"c:\Workspace\autocar\front\villainnova\src\pages\signup\signup.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* MenuController */], __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__["c" /* TranslateService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* Platform */]])
-], TutorialPage);
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["o" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_3__providers_providers__["d" /* User */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["s" /* ToastController */],
+        __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["c" /* TranslateService */]])
+], SignupPage);
 
-//# sourceMappingURL=tutorial.js.map
+//# sourceMappingURL=signup.js.map
 
 /***/ })
 

@@ -31,5 +31,15 @@ page-user-requests {
         top: -0.1rem;
         right: -0.0rem;
     }
+    .service-list{
+        img { 
+            height: 30px;
+            margin-right: 40px !important;
+            margin-left: 20px !important;
+        }
+        ion-badge {
+            background-color: #2653af;
+        }
+    }
     
 }

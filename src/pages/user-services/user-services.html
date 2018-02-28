@@ -1,3 +1,13 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Mis Servicios <ion-icon name="build" item-end></ion-icon> </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
 <ion-content >
   <spinner [data]="params.data" *ngIf="spinner"></spinner>
 
@@ -5,21 +15,20 @@
     <ion-refresher-content>Actualizando...</ion-refresher-content>
   </ion-refresher>
   
-  <div class="list-avatar-page">
     <ion-list >
-    <ion-list-header>
-      <ion-icon name="build"></ion-icon>
-      <strong>Mis Servicios</strong></ion-list-header>
-      <ion-item *ngFor="let provider of userServices">
+    <br\>
+      <ion-item *ngFor="let provider of userServices" class="serv-list">
         <ion-grid>
           <ion-row>
-            <ion-col col-4>
+          
+            <ion-col col-4 class="img-servList">
               <img [src]="'../../assets/servicons/'+provider.map_icon">
             </ion-col>
+          
+          
             <ion-col col-8>
               <h2>{{provider.company_name}}</h2>
-              <p>{{provider.service}}</p>
-              <div text-right>
+              <div text-right class="action-icons">
                 <button ion-button only-icon clear> <ion-icon name="eye" (click)="showDetail(provider, $event)"></ion-icon></button>
                 <button ion-button only-icon clear> <ion-icon name="create"(click)="editDetail(provider, $event)" ></ion-icon></button>
                 <button ion-button only-icon clear (click)="showRequests(provider.providers_requests, provider.company_name)" > 
@@ -28,11 +37,11 @@
                 </button>
               </div>
             </ion-col>
+          
           </ion-row>
         </ion-grid>
       </ion-item>
     </ion-list>
-  </div>
   
   <ion-fab #fab bottom right>
     <button button-ion-fab ion-fab (click)="addProvider($event)">

@@ -1,8 +1,8 @@
 
 <ion-content>
+  <spinner [data]="params.data" *ngIf="spinner" ></spinner>
   <ion-list class="login-List"> 
       <form id="supplierForm" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">
-
         <ion-item  class="login-Class"  *ngIf="isNewService" > 
           <ion-label for="service" style="color:rgb(146, 145, 145) !important" no-padding>Servicio</ion-label>
             <ion-select id="service" [formControl]="myForm.controls['service']" 

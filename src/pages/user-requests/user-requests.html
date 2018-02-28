@@ -1,65 +1,25 @@
-<ion-content>
-  <spinner [data]="params.data" *ngIf="spinner"></spinner>
-  <div class="list-avatar-page">  
-    
-  <ion-list #requestList [virtualScroll]= "userRequests" [approxItemHeight]="'170px'">
-      <ion-list-header> 
-        <ion-icon name="list-box"></ion-icon>
-        <strong>Mis Solicitudes</strong></ion-list-header>
-        <!-- <ion-item-sliding *ngFor="let uRequest of userRequests" #slidingItem> -->
-        <ion-item-sliding *virtualItem="let uRequest" #slidingItem>
-          <ion-item>
-            <ion-grid>
-              <ion-row align-items-center>
-                <ion-col col-4 align-self-center>
-                  <img [src]="getIconService(uRequest.service)" (click)=showProvider(uRequest.provider_id)>
-                </ion-col>
-                <ion-col col-8>
-                    <h2 (click)=showProvider(uRequest.provider_id)> {{uRequest.service}}</h2>
-                    <p>{{uRequest.created_at | date: 'dd-MM-yyyy'}}</p> 
-                    <p>{{uRequest.created_at | date: 'h:mm - a'}}</p> 
-                  <div text-right>
-                    <button ion-button only-icon clear>
-                        <ion-icon name="eye" (click)="showDetail(uRequest, $event)"></ion-icon>
-                    </button>
-                    
-                    <button ion-button only-icon clear *ngIf ="uRequest.status==0" (click)='shwAlert()'>
-                      <ion-icon name="pricetag" class="icon-badge"></ion-icon> 
-                      <ion-badge class="badge-icon" [color]="getDataSts(uRequest.status,'color')">
-                        <!-- {{getDataSts(uRequest.status,'char')}}  -->
-                        <ion-icon name="stopwatch"></ion-icon>
-                    </ion-badge>
-                    </button>
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Mis Solicitudes  </ion-title>
+  </ion-navbar>
+</ion-header>
 
-                    <button ion-button only-icon clear *ngIf ="uRequest.status==1 "(click)='shwProviderProposal(uRequest.proposal, uRequest.provider_id, uRequest.id)' >
-                      <ion-icon name="pricetag" class="icon-badge"></ion-icon> 
-                      <ion-badge class="badge-icon" [color]="getDataSts(uRequest.status,'color')">
-                        <!-- {{getDataSts(uRequest.status,'char')}}  -->
-                        <ion-icon name="checkmark"></ion-icon>
-                      </ion-badge>
-                    </button>
+<ion-content no-padding>
+<spinner [data]="params.data" *ngIf="spinner"></spinner>
 
-                    <button ion-button only-icon clear *ngIf ="uRequest.status==2"(click)='shwProviderProposal(uRequest.proposal)' >
-                      <ion-icon name="pricetag" class="icon-badge"></ion-icon> 
-                      <ion-badge class="badge-icon" [color]="getDataSts(uRequest.status,'color')">
-                        <!-- {{getDataSts(uRequest.status,'char')}}  -->
-                        <ion-icon name="checkmark-circle-outline"></ion-icon>
-                      </ion-badge>
-                    </button>
-                  </div>  
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-item>
-          <ion-item-options>  
-            <button ion-button expandable color="danger" (click)="delete(slidingItem, uRequest.id, uRequest.status)">
-              <ion-icon name="trash"></ion-icon>
-              Eliminar
-            </button>
-          </ion-item-options>
-        </ion-item-sliding>
-    </ion-list>  
-  </div>
+<ion-list> 
+  <ion-item-group reorder="true">
+    <button detail-push  ion-item  *ngFor ="let group of userGRequests" class= "service-list"  (click)="showRequests(group)">
+      <img item-start  [src]="getIconService(group.title)"> 
+      {{group.title}}
+      <ion-badge item-end color="base">{{group.requests.length}}</ion-badge>
+    </button>
+  </ion-item-group>
+</ion-list>
+
 </ion-content>
 
 

@@ -16,8 +16,6 @@ import { Settings } from "../providers/providers";
 import { User } from "../providers/providers";
 import { Api } from "../providers/providers";
 import { MyApp } from "./app.component";
-//import { AngularFireModule } from "angularfire2";
-//import { AngularFireDatabaseModule } from "angularfire2/database";
 import { AngularFireAuthModule } from "angularfire2/auth";
 import { HomePageModule} from "../pages/home/home.module";
 import { AutoservicePageModule} from "../pages/autoservice/autoservice.module";
@@ -47,15 +45,10 @@ import { CustomerUserDetailPageModule} from "../pages/customer-user-detail/custo
 import { from } from "rxjs/observable/from";
 import { ProviderProposalPageModule } from "../pages/provider-proposal/provider-proposal.module";
 import { ProposalDetailPageModule} from "../pages/proposal-detail/proposal-detail.module";
-// export const firebaseConfig = {
-//   apiKey: "AIzaSyBdQOPM3re7vBFNTEspKM7G0vzKH7ub6H8",
-//   authDomain: "villainova-app.firebaseapp.com",
-//   databaseURL: "https://villainova-app.firebaseio.com",
-//   projectId: "villainova-app",
-//   storageBucket: "villainova-app.appspot.com",
-//   messagingSenderId: "1297766976",
-// };
-
+import { UserRequestsDetailPageModule} from "../pages/user-requests-detail/user-requests-detail.module";
+import { StatusMapping } from "../utils/status-mapping";
+import { SupplierMapping } from "../utils/supplier-mapping";
+import { ProfileEditPageModule} from "../pages/profile-edit/profile-edit.module";
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
 export function HttpLoaderFactory(http: Http) {
@@ -115,6 +108,8 @@ export function provideSettings(storage: Storage) {
     CustomerUserDetailPageModule,
     ProviderProposalPageModule,
     ProposalDetailPageModule,
+    UserRequestsDetailPageModule,
+    ProfileEditPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -138,6 +133,8 @@ export function provideSettings(storage: Storage) {
     FileTransfer,
     ApiService,
     ShowToaster,
+    StatusMapping,
+    SupplierMapping,
     File,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development

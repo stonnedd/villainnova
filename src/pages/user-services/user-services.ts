@@ -20,6 +20,7 @@ import { ProviderRequestsPage } from "../../pages/provider-requests/provider-req
 
 })
 export class UserServicesPage {
+ 
   @ViewChild(Content)
   content: Content;
   @ViewChild(FabButton)
@@ -50,15 +51,22 @@ export class UserServicesPage {
 
   ionViewDidLoad() {
     this.spinner = true;
-    this.user = this.navParams.data;
-    if (this.user !== undefined && this.user !== null && this.user !== {}) {
-      console.log("user::", this.user);
-      this.getData();
-    }else {
-      this.spinner = false;
-      this.showToaster.reveal("cargando...", "bottom", 300);
-      this.ionViewDidLoad();
-    }
+    this.settings.settingsObservable.subscribe(
+      data => {
+        console.log("LOCAL STORAGE DATA:", data);
+        this.user = data;
+        if (this.user !== undefined && this.user !== null && this.user !== {}) {
+          console.log("user::", this.user);
+          this.getData();
+        }else {
+          this.spinner = false;
+          this.showToaster.reveal("cargando...", "bottom", 300);
+          this.ionViewDidLoad();
+        }
+      }, err => {
+        this.showToaster.reveal("volver a iniciar sesión", "bottom", 3000);
+        this.spinner = false;
+    });
   }
 
   doRefresh(refresher) {
@@ -82,7 +90,7 @@ export class UserServicesPage {
     this.apiSvc.getService(Constants.USERS_PROVIDERS + this.user.id).subscribe(
       usrData => {
         if (usrData.user.length === 0) {
-          this.showToaster.reveal("Aun no registras ningún servicio", "bottom", 3500);
+          this.showToaster.reveal("Aun no registras ningún servicio", "bottom", 3000);
           this.spinner = false;
         } else {
           this.userServices = usrData.user[0].providers;

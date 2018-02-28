@@ -1,4 +1,13 @@
 page-add-supplier {
+    
+    spinner * {
+        position: fixed;
+        align-items: center;
+        justify-content: center;
+        top: 45%;
+        width: 35%;
+        z-index: 3;
+    }
 
     button.ok {
         margin-top: 25px;

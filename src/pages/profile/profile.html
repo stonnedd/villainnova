@@ -8,12 +8,19 @@
 </ion-header>
     
     
-<ion-content no-padding ="true">
-    <spinner [data]="params.data" *ngIf="spinner"></spinner>
-    <ion-tabs #UserTabs>
+<ion-content padding>
+  <spinner [data]="params.data" *ngIf="spinner"></spinner>
+  <div text-right><ion-icon name="create" class="edit-pencil" (click)="editProfile(userData)"></ion-icon> </div>
+  <ion-list class="userData">
+    <ion-item><ion-icon name="person" item-start></ion-icon>{{userData.name}}</ion-item>
+    <ion-item (click)= makeACall(userData.phone)><ion-icon name="call" item-start></ion-icon>{{userData.phone}}</ion-item>
+    <ion-item><ion-icon name="mail" item-start></ion-icon>&nbsp;{{userData.email}}</ion-item>
+  </ion-list>
+  
+    <!-- <ion-tabs #UserTabs>
       <ion-tab [root]="requestsPage" [rootParams]="user" tabIcon="list-box" tabTitle="Solicitudes" [tabBadge]="fetchedProposals" tabBadgeStyle="locate" ></ion-tab>
-      <ion-tab [root]="servicesPage" [rootParams]="user" tabIcon="build" tabTitle="Servicios" [tabBadge]="fetchedRequests" tabBadgeStyle="locate" ></ion-tab>
-      <!-- <ion-tab [root]="servicesPage" [rootParams]="user" tabIcon="build" tabTitle="Servicios"></ion-tab> -->
-    </ion-tabs>
+      <ion-tab [root]="servicesPage" [rootParams]="user" tabIcon="build" tabTitle="Servicios" [tabBadge]="fetchedRequests" tabBadgeStyle="locate" ></ion-tab> 
+      <ion-tab [root]="servicesPage" [rootParams]="user" tabIcon="build" tabTitle="Servicios"></ion-tab>
+    </ion-tabs> -->
 
 </ion-content>

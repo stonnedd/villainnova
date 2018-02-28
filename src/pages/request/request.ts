@@ -9,7 +9,8 @@ import { ApiService} from "../../service/api-service";
 import { Settings } from "../../providers/settings/settings";
 import { ProfilePage } from "../../pages/profile/profile";
 import { TSMap } from "typescript-map";
-import {MainPage } from "../pages";
+import { MainPage } from "../pages";
+import { UserRequestsPage} from "../user-requests/user-requests"; 
 import { FormGroup, ReactiveFormsModule, FormControl,
   FormBuilder, Validators} from "@angular/forms";
 
@@ -17,7 +18,7 @@ import { FormGroup, ReactiveFormsModule, FormControl,
 @Component({
   selector: "page-request",
   templateUrl: "request.html",
-  providers: [ShowToaster, AutoserviceService, ImageTransfer, ApiService],
+  providers: [AutoserviceService, ImageTransfer],
 })
 
 export class RequestPage {
@@ -263,10 +264,10 @@ export class RequestPage {
     this.apiSvc.postService(Constants.CREATE_MULT_REQUEST, this.arrangeData(formData)).subscribe(
       respRequest => {
       console.log(respRequest);
-      this.close();
-      this.appCtrl.getRootNav().setRoot(MainPage);
-      this.spinner = false;
       this.tstCtrl.reveal("Tu solicitud ha sido enviada con éxito", "middle", 2500);
+      this.close();
+      this.spinner = false;
+      this.appCtrl.getRootNav().setRoot(UserRequestsPage);
       }, err => {
         console.log(err);
         this.tstCtrl.reveal("Se ha producido un error:" + err, "middle", 2500);

@@ -4,6 +4,7 @@ import { ApiService } from "../../service/api-service";
 import { Constants } from "../../utils/constants";
 import { ShowToaster } from "../../utils/toaster";
 import { ProfilePage} from "../profile/profile";
+import { MainPage } from "../pages";
 import { FormGroup, ReactiveFormsModule, FormControl,
   FormBuilder, Validators} from "@angular/forms";
 
@@ -60,10 +61,10 @@ export class ProviderProposalPage {
         console.log(resp);
         this.apiSvc.putService(Constants.UPDATE_REQUEST + proposal.request_id, JSON.stringify({request})).subscribe(
           () => {
-            this.shwToaster.reveal("Tu propuesta se envió con éxito", "middle", 3000);
+            this.shwToaster.reveal("        Tu propuesta se envió con éxito", "middle", 3000);
             this.viewCtrl.dismiss();
             this.spinner = false;
-            this.appCtrl.getRootNav().setRoot(ProfilePage);
+            this.appCtrl.getRootNav().setRoot(MainPage);
           },
           err => {
             this.shwToaster.reveal("Ha ocurrido un error" + err, "bottom", 2000);
