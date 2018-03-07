@@ -8,41 +8,41 @@
 </ion-header>
 
 
-<ion-content >
+<ion-content>
   <spinner [data]="params.data" *ngIf="spinner"></spinner>
 
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content>Actualizando...</ion-refresher-content>
   </ion-refresher>
   
-    <ion-list >
-    <br\>
-      <ion-item *ngFor="let provider of userServices" class="serv-list">
-        <ion-grid>
-          <ion-row>
-          
-            <ion-col col-4 class="img-servList">
-              <img [src]="'../../assets/servicons/'+provider.map_icon">
-            </ion-col>
-          
-          
-            <ion-col col-8>
-              <h2>{{provider.company_name}}</h2>
-              <div text-right class="action-icons">
-                <button ion-button only-icon clear> <ion-icon name="eye" (click)="showDetail(provider, $event)"></ion-icon></button>
-                <button ion-button only-icon clear> <ion-icon name="create"(click)="editDetail(provider, $event)" ></ion-icon></button>
-                <button ion-button only-icon clear (click)="showRequests(provider.providers_requests, provider.company_name)" > 
-                  <ion-icon name="pricetags" class="icon-badge"></ion-icon> 
-                  <ion-badge class="badge-icon" *ngIf="provider.providers_requests.length!=0" >{{provider.providers_requests.length}}</ion-badge> 
-                </button>
-              </div>
-            </ion-col>
-          
-          </ion-row>
-        </ion-grid>
-      </ion-item>
-    </ion-list>
-  
+  <ion-list>
+    
+    <ion-item *ngFor="let provider of userServices" class="serv-list">
+      <ion-grid>
+        <ion-row>
+        
+          <ion-col col-4 class="img-servList">
+            <img [src]="'assets/servicons/'+provider.map_icon">
+          </ion-col>
+        
+        
+          <ion-col col-8>
+            <h2>{{provider.company_name}}</h2>
+            <div text-right class="action-icons">
+              <button ion-button only-icon clear (click)="showDetail(provider, $event)" > <ion-icon name="eye"></ion-icon></button>
+              <button ion-button only-icon clear (click)="editDetail(provider, $event)" > <ion-icon name="create" ></ion-icon></button>
+              <button ion-button only-icon clear (click)="showRequests(provider.providers_requests, provider.company_name)" > 
+                <ion-icon name="pricetags" class="icon-badge"></ion-icon> 
+                <ion-badge class="badge-icon" *ngIf="provider.providers_requests.length!=0" >{{provider.providers_requests.length}}</ion-badge> 
+              </button>
+            </div>
+          </ion-col>
+        
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+ 
   <ion-fab #fab bottom right>
     <button button-ion-fab ion-fab (click)="addProvider($event)">
         <ion-icon name="add"></ion-icon>

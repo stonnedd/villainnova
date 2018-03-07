@@ -1,4 +1,15 @@
 page-supplier-detail {
+    
+    .provider-data{
+        ion-icon{
+            font-size: 23px;
+        }
+    }
+    
+    h2{
+        font-size: medium;
+        text-align: center !important;
+    }
 
     ion-header{
         padding: 0px 0px 0px 0px;
@@ -17,20 +28,22 @@ page-supplier-detail {
     }
 
     .supplier-data{
+        margin-top: 15px;
         padding-left: 5px;
         padding-right: 5px;
-        //background-color: rgba(201,40,40,0.2);
         color: #26292C;
     }
 
     .title-style{
         //background-color: rgba(38, 84, 175, 0.5);
-        background:linear-gradient( #2653af,#0d3280); 
+        // background:linear-gradient( #ffffff,#508edf); 
+        background: linear-gradient(to bottom, #fcfcfc, #fdfdfd, #ffffff, #dbedfc, #185bda);
         margin: 1px, 2px;
     }
     .title-style h1{
-        color: white !important;
-        font-weight: bold;
+        color: rgb(82, 79, 79) !important;
+        font-size: larger;
+        font-weight: 700;
         height: 0px;
         margin: 10px 10px 20px 10px
     }
@@ -44,7 +57,9 @@ page-supplier-detail {
         padding-top: 55px;
     }
 
-
+    .text-desc{
+        margin-top:8px !important;
+    }
     ion-card-header rating {
         font-size: smaller;
         letter-spacing: 0px;
@@ -64,9 +79,11 @@ page-supplier-detail {
         &.rating li {
           padding: 0px 0px !important;
           background: none;
-          color: rgb(255, 247, 0);
+        //   color: rgb(255, 247, 0);
+          color: rgb(102, 102, 102);
           letter-spacing: 0px;
           word-spacing: -10px;
+          size: 130px;
        
           ion-icon {
             font-size: 20px;
@@ -76,5 +93,18 @@ page-supplier-detail {
     .custom-icon {
     font-size: 25px !important;
     color : #3A83E2;
-    }  
+    } 
+    
+    .ok{
+        // margin-top: 25px;
+        background-color: transparent;
+        box-shadow: 0px 2px 2px rgba(24, 68, 159, 0.4);
+        color: #2653af;
+        font-stretch: expanded;
+        font: bolder;
+    
+        &.activated {
+          background-color: rgb(220, 220, 220);
+        }
+    }
 }

@@ -1,9 +1,9 @@
 import { Component, Injectable } from "@angular/core";
 import { PhonegapLocalNotification } from "@ionic-native/phonegap-local-notification";
 
-@Component({
+// @Component({
 
-})
+// })
 @Injectable()
 export class ShowNotification {
     constructor (private localNotification: PhonegapLocalNotification) {}

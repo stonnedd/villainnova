@@ -15,12 +15,13 @@ import { ShowToaster} from "../../utils/toaster";
 import { ApiService } from "../../service/api-service" ;
 import { Settings} from "../../providers/settings/settings"
 import { LoginPage } from "../login/login"
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 @IonicPage()
 @Component({
   selector: "page-autoservice",
   templateUrl: "autoservice.html",
-  providers: [AutoserviceService, BackgroundMode],
+  providers: [AutoserviceService, BackgroundMode, AndroidPermissions],
 
 })
 export class AutoservicePage {
@@ -44,7 +45,9 @@ export class AutoservicePage {
     public showTstr: ShowToaster,
     public events: Events,
     public settings: Settings,
-    public appCtrl: App
+    public appCtrl: App,
+    private androidPermissions: AndroidPermissions
+
   ) {
     this.params.spinner = {"icon": Constants.SPINNER};
     this.params.data = {};
@@ -85,11 +88,21 @@ export class AutoservicePage {
 
   ionViewDidLoad() {
     this.spinnerSts = true;
+    this.AsSvc.getPosition().then((userPosition) => {
+      this.fetchMainServices();
+      this.fillUsrData(userPosition);
+      console.log("pos:", userPosition.coords);
+      this.spinnerSts = false;
+      
+    }).catch((error) => {
+      this.presentToast("Por favor habilita los permisos de GPS");
+      this.spinnerSts = false;
+    });
+
     let count = 1 ;
     this.settings.settingsObservable.subscribe(
       data => {
         this.user.id = data.id;
-        this.spinnerSts = false;
       }, err => {
         this.showTstr.reveal("Por favor vuelve a iniciar sesión", "bottom", 3000);
         this.spinnerSts = false;
@@ -124,16 +137,16 @@ export class AutoservicePage {
 
 
   ngOnInit() {
-    this.spinnerSts = true;
-    this.fetchMainServices();
-    this.AsSvc.getPosition().then((userPosition) => {
-      this.fillUsrData(userPosition);
-      console.log("pos:", userPosition.coords);
-
-    }).catch((error) => {
-      this.presentToast(JSON.stringify(error));
-      this.spinnerSts = false;
-    });
+    // this.spinnerSts = true;
+    // this.fetchMainServices();
+    // this.AsSvc.getPosition().then((userPosition) => {
+    //   this.fillUsrData(userPosition);
+    //   console.log("pos:", userPosition.coords);
+      
+    // }).catch((error) => {
+    //   this.presentToast(JSON.stringify(error));
+    //   this.spinnerSts = false;
+    // });
   }
 
   fillUsrData(usrPosition: any) {
@@ -144,12 +157,12 @@ export class AutoservicePage {
         zoom: 15,
         mapTypeControl: true,
         streetViewControl: true,
-        iconUrl: "../assets/mapicons/you.png",
+        // iconUrl: "../assets/mapicons/you.png",
+        iconUrl: "assets/mapicons/you.png",
       },
     };
     this.params.mapData.lat = usrPosition.coords.latitude;
     this.params.mapData.lng = usrPosition.coords.longitude;
-    this.spinnerSts=false;
   }
 
   showSettings(event) {
@@ -176,7 +189,7 @@ export class AutoservicePage {
   presentToast(msgTxt) {
     const toast = this.toastCtrl.create({
       message: msgTxt,
-      duration: 3000,
+      duration: 2500,
       position: "middle",
     });
     toast.present();
@@ -239,10 +252,10 @@ export class AutoservicePage {
     this.autoservice.getServices().subscribe(
       services => {
         this.params.services = services;
-        this.spinnerSts = false;
       },
       err => {
         console.log(err);
+        this.showTstr.reveal("Error de conexión", "middle", 2000);
         this.spinnerSts = false;
       },
     );
@@ -256,6 +269,7 @@ export class AutoservicePage {
       },
       err => {
         console.log(err);
+        this.showTstr.reveal("Error de conexión", "middle", 2000);
         this.spinnerSts = false;
       },
     );

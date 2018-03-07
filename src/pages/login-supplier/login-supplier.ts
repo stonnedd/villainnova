@@ -127,6 +127,7 @@ export class LoginSupplierPage {
     this.suppForms = this.supplierMapping.splitForm(form);
     console.log("USER:::", this.suppForms[0]);
     console.log("SUPP:::", this.suppForms[1]);
+    this.suppForms[1].is_active = true // este debe activarse con el pago
     this.autoservice.createUser(this.suppForms[0]).subscribe(
       (user: any) => {
         if (user) {

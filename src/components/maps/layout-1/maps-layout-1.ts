@@ -101,8 +101,11 @@ export class MapsLayout1 {
                 this.userData.userPos.lat = pos.coords.latitude;
                 this.userData.userPos.lng = pos.coords.longitude;
                 this.mapZoom = 12;
+                this.svcToast(this.mapData.lat +"-"+ this.mapData.lng,"middle");
                 this.ionViewDidLoad();
-            },
+            },err =>{
+                this.svcToast("Error" + err, "middle");
+            }
         );
     }
 

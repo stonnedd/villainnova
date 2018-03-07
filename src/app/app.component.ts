@@ -2,11 +2,13 @@ import { Component, ViewChild } from "@angular/core";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
 import { TranslateService } from "@ngx-translate/core";
-import { Config, Nav, Platform } from "ionic-angular";
+import { Config, Nav, Platform, App } from "ionic-angular";
 import { FirstRunPage } from "../pages/pages";
 import { Settings } from "../providers/providers";
 import { UserRequestsPage} from "../pages/user-requests/user-requests";
-
+import { Constants} from "../utils/constants";
+import { ApiService } from "../service/api-service";
+import { MainPage} from "../pages/pages";
 @Component({
   selector: "menu",
   templateUrl: "app.html"
@@ -24,9 +26,10 @@ export class MyApp {
   ]
 
   constructor(private translate: TranslateService,
-      private platform: Platform, settings: Settings, 
+      private platform: Platform, public settings: Settings, 
       private config: Config, private statusBar: StatusBar, 
-      private splashScreen: SplashScreen) {
+      private splashScreen: SplashScreen, public apiSvc: ApiService,
+      public appCtrl: App) {
     this.initTranslate();
   }
 
@@ -34,7 +37,10 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+
       this.statusBar.styleDefault();
+      this.settings.update("logged", false);
+      
       this.splashScreen.hide();
     });
   }

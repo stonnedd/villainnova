@@ -82,6 +82,7 @@ export class AddSupplierPage {
   }
   
   fetchMainServices() {
+    this.spinner = true;
     this.autoservice.getMainServices().subscribe(
       mservices => {
         this.mainServices = mservices;
@@ -90,14 +91,19 @@ export class AddSupplierPage {
           services => {
             this.services = services;
             console.log(this.services);
+            this.spinner = false
           },
           err => {
             console.log(err);
+            this.spinner= false;
+            this.viewCtrl.dismiss();
           },
         );
       },
       err => {
         console.log(err);
+        this.spinner= false;
+        this.viewCtrl.dismiss();
       },
     );
   }
@@ -117,16 +123,19 @@ export class AddSupplierPage {
   }
 
   getMyPos() {
+    this.spinner = true;
     this.autoservice.getPosition().then(
       coords => {
         this.fetchedLat = coords.coords.latitude;
         this.fetchedLng = coords.coords.longitude;
         console.log("coords:", this.fetchedLat, this.fetchedLng);
+        this.spinner= false;
       },
     );
   }
 
   doNewRegister(form) {
+    form.is_active = true; // este debe activarse cuando paguen
     this.spinner = true;
     this.autoservice.createSupplier(this.data.id, form).subscribe((data: any) => {
       if (data && !null) {

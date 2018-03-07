@@ -8,9 +8,10 @@ import { ImageTransfer } from "../../service/image-transfer";
 import { ApiService} from "../../service/api-service";
 import { Settings } from "../../providers/settings/settings";
 import { ProfilePage } from "../../pages/profile/profile";
+import { Diagnostic } from '@ionic-native/diagnostic';
 import { TSMap } from "typescript-map";
 import { MainPage } from "../pages";
-import { UserRequestsPage} from "../user-requests/user-requests"; 
+import { UserRequestsPage} from "../user-requests/user-requests";
 import { FormGroup, ReactiveFormsModule, FormControl,
   FormBuilder, Validators} from "@angular/forms";
 
@@ -18,7 +19,7 @@ import { FormGroup, ReactiveFormsModule, FormControl,
 @Component({
   selector: "page-request",
   templateUrl: "request.html",
-  providers: [AutoserviceService, ImageTransfer],
+  providers: [AutoserviceService, ImageTransfer, Diagnostic],
 })
 
 export class RequestPage {
@@ -50,6 +51,7 @@ export class RequestPage {
     public apiSvc: ApiService,
     public vwCtrl: ViewController,
     public appCtrl: App,
+    public diagnostic: Diagnostic,
   ) {
 
     this.requestForm = fBuilder.group({
@@ -88,18 +90,19 @@ export class RequestPage {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
+      saveToPhotoAlbum: true,
     };
 
     if (Camera["installed"]()) {
       this.camera.getPicture(options).then((imageData) => {
         if (this.picCase === 1) {
-          this.requestForm.patchValue({ "pic1" :  imageData});
+          this.requestForm.patchValue({ "pic1" :  'data:image/jpg;base64,' + imageData});
         }
         if (this.picCase === 2) {
-          this.requestForm.patchValue({ "pic2" : imageData});
+          this.requestForm.patchValue({ "pic2" : 'data:image/jpg;base64,' + imageData});
         }
         if (this.picCase === 3) {
-          this.requestForm.patchValue({ "pic3" : imageData});
+          this.requestForm.patchValue({ "pic3" : 'data:image/jpg;base64,' + imageData});
         }
       }, err => {
           alert(err.JSON());
@@ -191,8 +194,6 @@ export class RequestPage {
 
 
   processWebImage(event) {
-    // let name = JSON.stringify(picture);
-    // console.log("name:::", name );
     let reader = new FileReader();
     reader.onload = (readerEvent) => {
       let imageData = (readerEvent.target as any).result;
@@ -215,10 +216,12 @@ export class RequestPage {
   }
  
   getMyPos() {
+    this.spinner=true;
     this.autoservice.getPosition().then(
       coords => {
         this.fetchedLat = coords.coords.latitude;
         this.fetchedLng = coords.coords.longitude;
+        this.spinner=false;
       },
     );
   }
@@ -249,7 +252,7 @@ export class RequestPage {
             }
 
           }, err => {
-            this.tstCtrl.reveal("ha ocurrido un error", "bottom", 2000);
+            this.tstCtrl.reveal("Ha ocurrido un error", "bottom", 2000);
             this.spinner = false;
           },
         );

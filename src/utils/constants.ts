@@ -1,5 +1,6 @@
 export namespace Constants {
-    const HOST: string = "http://localhost:4000/";
+    const HOST: string = "http://192.168.1.6:4000/";
+    // const HOST: string = "http://localhost:4000/";
     export const SUPPLIERS_URL: string = HOST + "api/providers/service";
     export const CREATE_SUPPLIER_URL: string = HOST + "api/users";
     export const UPDATE_SUPPLIER_URL: string = HOST + "api/provider/update/";
@@ -17,6 +18,7 @@ export namespace Constants {
     export const UPDATE_USER: string = HOST + "api/users/";
     export const GET_REQUEST_PROVIDER: string = HOST + "provider/";
     export const USERS_PROVIDERS: string = HOST + "api/user/providers/";
+    export const USERS_PROVIDERS_IDS: string = HOST + "api/user/providers/getids/";
     export const UPLOAD_IMG: string = HOST + "api/uploader/image";
     export const UPLOAD_ONE_IMG: string = HOST + "api/uploader/img";
     export const CREATE_ATTACHMENT: string = HOST + "api/attachments/create";

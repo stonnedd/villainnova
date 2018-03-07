@@ -1,0 +1,37 @@
+page-user-requests-detail {
+    spinner * {
+        position: fixed;
+        align-items: center;
+         justify-content: center;
+         z-index: 2;
+         top: 35%;
+         width: 40%;
+     }
+    .sts-btn {
+        background-color: transparent !important;
+        box-shadow: none;
+    }
+    .icon-badge {
+        margin-right: 1.0rem;
+        z-index: 5;
+        font-size: 25px !important;
+    }
+    .badge-icon {
+        position: absolute;
+        top: -0.1rem;
+        right: -0.0rem;
+    }
+    .req-list{
+        img{
+            height: 40px;
+            margin-right: 40px !important;
+        }
+    }
+    .req-detail {
+        padding-left: 3px !important;
+        padding-right: 3px !important;
+        ion-icon{
+            font-size: 30px !important;
+        }
+    }
+}

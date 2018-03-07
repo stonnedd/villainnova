@@ -5,14 +5,6 @@
     </button></ion-buttons>
   </ion-header>
 
-  
-  <!-- <div class="bar">
-    <h1 class="title">bar-assertive</h1>
-    <ion-buttons end ><button ion-button (click)="close()">
-      <ion-icon name="close" style="color:white"></ion-icon>
-    </button></ion-buttons>
-  </div> -->
-
 
   <div card-image class="title-style">
     <!-- <img images-filter src={{data.img}}> -->
@@ -20,10 +12,10 @@
       <ion-grid>
         <ion-row align-items-center >
             <ion-col col-3 align-self-end><div text-right>
-              <img [src]="'../assets/mapicons/'+data.map_icon"> 
+              <img [src]="'assets/servicons/'+data.map_icon"> 
             </div> 
             </ion-col>
-            <ion-col col-9> <h1 card-title >{{data.company_name}}</h1>  
+            <ion-col col-9> <h1 >{{data.company_name}}</h1>  
               <rating style= "text-align:center" [(ngModel)]="data.ranking"
                 readOnly="false"
                 max="5"
@@ -34,7 +26,7 @@
                 (ngModelChange)="onRatingChange($event)"></rating></ion-col>
           </ion-row>
       </ion-grid>
-      <h2 card-title>{{data.service}}</h2>
+      <h2>{{data.service}}</h2>
       <!-- <p>{{data.specialty}}</p> -->
     </ion-card-header>
   </div>
@@ -42,54 +34,45 @@
 <div class="supplier-data">
   <ion-grid>
     <ion-row>
-      <ion-col col-2>
-        <ion-icon item-left>
-          <i class="icon icon-map-marker-radius"></i>
-        </ion-icon>
+      <ion-col col-2 class="provider-data">
+        <ion-icon item-left name="pin"></ion-icon>
       </ion-col>
-      <ion-col>
-        <p no-margin maps-description>{{data.address}}
-        </p>
+      <ion-col class="text-desc">
+        <p no-margin maps-description>{{data.address}}</p>
       </ion-col>
     </ion-row>
-
-    <ion-chip (click)="navigate([data.lat,data.lng])" color="buttons" >
-      <ion-label>Navegar</ion-label>
-      <ion-icon color="nav" name="navigate"></ion-icon>
-    </ion-chip>
     
     <ion-row>
-      <ion-col col-2>
-        <ion-icon item-left>
-            <i class="icon icon-alarm"></i>
-        </ion-icon>
+      <ion-col col-2 class="provider-data">
+        <ion-icon item-left name="clock"></ion-icon>
       </ion-col>
-      <ion-col>
+      <ion-col class="text-desc">
         <p no-margin maps-description>{{data.schedule}}<p>
       </ion-col>
     </ion-row>
 
     <ion-row>
-      <ion-col col-2>
-        <ion-icon item-left>
-            <i class="icon icon-phone"></i>
-        </ion-icon>
+      <ion-col col-2 class="provider-data">
+        <ion-icon item-left name="call"></ion-icon>
       </ion-col>
-      <ion-col>
+      <ion-col class="text-desc">
         <p no-margin maps-description (click)=makeACall(data.aditional_phone)>{{data.aditional_phone}}<p>
       </ion-col>
     </ion-row>
 
     <ion-row>
-      <ion-col col-2>
-        <ion-icon item-left>
-          <i class="icon icon-earth"></i>
-        </ion-icon>
+      <ion-col col-2 class="provider-data">
+        <ion-icon item-left name="logo-dribbble"></ion-icon>
       </ion-col>
-      <ion-col>
+      <ion-col class="text-desc">
         <p no-margin maps-description>{{data.website}}<p>
       </ion-col>
     </ion-row>
+
+    <ion-chip (click)="navigate([data.lat,data.lng])" class="ok" >
+      <ion-label>Navegar</ion-label>
+      <ion-icon class ="ok" name="navigate"></ion-icon>
+    </ion-chip>
 
     <!-- <ion-row>
       <ion-col col-2>
@@ -103,7 +86,7 @@
     </ion-row> -->
     <br/><br/><br/><br/>
   </ion-grid>
-  <ion-fab #fab bottom right>
+  <ion-fab #fab bottom right *ngIf="!isOwner && data.is_active">
     <button button-ion-fab ion-fab mini (click)="request()">
         <ion-icon name="pricetag"></ion-icon>
     </button>

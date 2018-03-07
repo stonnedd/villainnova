@@ -89,8 +89,8 @@ export class UserServicesPage {
   getData() {
     this.apiSvc.getService(Constants.USERS_PROVIDERS + this.user.id).subscribe(
       usrData => {
-        if (usrData.user.length === 0) {
-          this.showToaster.reveal("Aun no registras ningún servicio", "bottom", 3000);
+        if (usrData.user[0].providers.length === 0) {
+          this.showToaster.reveal("Aún no registras ningún servicio...", "bottom", 3000);
           this.spinner = false;
         } else {
           this.userServices = usrData.user[0].providers;

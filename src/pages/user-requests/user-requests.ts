@@ -45,10 +45,15 @@ export class UserRequestsPage {
         if (this.user !== undefined && this.user !== null && this.user !== {}) {
           this.apiSvc.getService(Constants.GET_REQUEST + this.user.id + "/CMS/request" ).subscribe(
             userData => {
+              console.log("jjjjjj:::",userData);
+              if(userData.requests.length === 0){
+                this.shwToaster.reveal("No tienes solicitudes...", "bottom", 3000);
+                this.spinner = false;
+              }
               this.userGroupedRequests = this.groupRequests(userData.requests);
               this.userRequests = userData.requests;
-              // this.emitRequestNotify(userData.requests),
-              this.spinner = false;
+              this.spinner = false;  
+              
             }, error => {
               this.shwToaster.reveal("Cargando...", "bottom", 1000);
               this.ionViewDidLoad();
@@ -102,7 +107,7 @@ export class UserRequestsPage {
   }
 
   getIconService( service: string ) {
-    return "../../assets/servicons/" + this.splMapp.getIcon(service);
+    return "assets/servicons/" + this.splMapp.getIcon(service);
   }
 
 }

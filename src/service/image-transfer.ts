@@ -17,15 +17,18 @@ export class ImageTransfer {
         let counter: number = 0;
         console.log(formData);
         if (formData.pic1 !== "") {
-            images[counter] = formData.pic1.substr(23);
+            // images[counter] = formData.pic1.substr(23);
+            images[counter] = formData.pic1.substr(22);
             counter++;
         }
         if (formData.pic2 !== "") {
-            images[counter] = formData.pic2.substr(23);
+//            images[counter] = formData.pic2.substr(23);
+            images[counter] = formData.pic2.substr(22);
             counter++;
         }
         if (formData.pic3 !== "") {
-            images[counter] = formData.pic3.substr(23);
+            // images[counter] = formData.pic3.substr(23);
+            images[counter] = formData.pic3.substr(22);
             counter++;
         }
         if (counter === 0) {

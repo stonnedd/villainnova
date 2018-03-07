@@ -11,11 +11,10 @@ import { Console } from "@angular/core/src/console";
 
 @Injectable()
 export class AutoserviceService {
-    
     geolocation = new Geolocation();
     mapdata: any= {};
 
-    constructor(private http: Http) {}
+    constructor(private http: Http, ) {}
 
     getMainServices() {
         return this.http.get(Constants.MAIN_SERVICES_URL)
@@ -34,7 +33,7 @@ export class AutoserviceService {
     }
 
     getPosition() {
-        return this.geolocation.getCurrentPosition();
+        return this.geolocation.getCurrentPosition({ timeout: 20000, enableHighAccuracy: true });
     }
 
     watchPos() {

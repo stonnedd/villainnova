@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
-import { Slides } from 'ionic-angular';
-import { ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
+import { IonicPage, Slides } from 'ionic-angular';
 
+@IonicPage()
 @Component({
     selector: 'wizard-layout-3',
     templateUrl: 'wizard.html'
@@ -12,7 +12,13 @@ export class WizardLayout3 {
     @Input() events: any;
     @ViewChild('wizardSlider') slider: Slides;
 
-    constructor() { }
+    next:boolean = true;
+    finish:boolean = true
+
+    constructor() {
+        this.next = true;
+        this.finish = false;
+    }
 
     changeSlide(index: number): void {
         if (index > 0) {
@@ -23,27 +29,15 @@ export class WizardLayout3 {
     }
 
     slideHasChanged(index: number): void {
-        console.log(this.slider.getActiveIndex());
-    }
-
-    show(value: string): boolean {
-        let result: boolean = false;
         try {
-            if (value == 'prev') {
-                result = !this.slider.isBeginning();
-            } else if (value == 'next') {
-                result = this.slider.getActiveIndex() < (this.slider.length() - 1);
-            } else if (value == 'finish') {
-                result = this.slider.isEnd();
-            }
+            this.next = this.slider.getActiveIndex() < (this.slider.length() - 1);
+            this.finish = this.slider.isEnd();
         } catch (e) { }
-        return result;
     }
 
     onEvent(event: string) {
         if (this.events[event]) {
             this.events[event]();
         }
-        console.log(event);
     }
 }

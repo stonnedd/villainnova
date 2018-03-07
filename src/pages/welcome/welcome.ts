@@ -28,14 +28,17 @@ export class WelcomePage {
     this.spinner = true;
     this.settings.settingsObservable.subscribe(
       strgeData => {
-        console.log("LOCAL STORAGE DATA:", strgeData);
         if (strgeData.token !== "" && strgeData.token !== null && strgeData.token !== undefined) {
-          console.log("hay token");
           this.apiSvc.getService(Constants.LOGGED_USER_URL + "/" + strgeData.token).subscribe(
             data => {
-              if (data[0].id === strgeData.id ) {
-                this.appCtrl.getRootNav().setRoot(MainPage);
-                this.spinner = false;
+              if(data[0] !== undefined && data[0] !== null && data[0] !== "" ){
+                if (data[0].id === strgeData.id) {
+                  this.appCtrl.getRootNav().setRoot(MainPage);
+                  this.spinner = false;
+                }else{
+                  this.settings.update("token", "");
+                  this.settings.update("logged", false);
+                }
               }
               this.spinner = false;
             }, err => {
@@ -43,7 +46,10 @@ export class WelcomePage {
               this.shwTostr.reveal("Error de conexión, comprueba tu conexión a internet. " + err, "middle", 3000);
             } ,
           );
-        }else { this.spinner = false; }
+        }else { 
+          this.settings.update("token", "");
+          this.spinner = false; 
+        }
       }, err => {
         this.spinner = false;
     });

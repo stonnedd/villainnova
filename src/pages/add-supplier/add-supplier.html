@@ -92,7 +92,7 @@
 
         <br/>
         <div text-center padding> 
-            <button [hidden]=!isNewService ion-button block round type="submit" class="ok" [disabled]="!myForm.valid">Registrar</button>
+            <button [hidden]=!isNewService ion-button block round type="submit" class="ok" [disabled]="!myForm.valid && !spinner">Registrar</button>
             <button [hidden]=isNewService ion-button block round type="submit" class="ok" [disabled]="!myForm.valid">Guardar</button>
             
             <button  ion-button block round type="button" class="cancel" (click)="closeView()" >Cancelar</button>

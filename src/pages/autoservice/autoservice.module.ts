@@ -4,7 +4,6 @@ import { AutoservicePage } from "./autoservice";
 import { MapsLayout1} from "../../components/maps/layout-1/maps-layout-1";
 import { SpinnerModule } from "../../components/spinner/spinner.module";
 import { AgmCoreModule } from "angular2-google-maps/core";
-import { ElasticHeader} from "../../components/parallax/elastic-header";
 import { AutoserviceService} from "../../service/autoservice-service";
 import { OrderByPipe } from "../../utils/orderBy";
 
@@ -12,7 +11,6 @@ import { OrderByPipe } from "../../utils/orderBy";
   declarations: [
     AutoservicePage,
     MapsLayout1,
-    ElasticHeader,
     OrderByPipe,
   ],
   imports: [
@@ -23,7 +21,6 @@ import { OrderByPipe } from "../../utils/orderBy";
     }),
   ],
   exports: [
-   ElasticHeader,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
