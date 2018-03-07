@@ -8,7 +8,6 @@ import { ImageTransfer } from "../../service/image-transfer";
 import { ApiService} from "../../service/api-service";
 import { Settings } from "../../providers/settings/settings";
 import { ProfilePage } from "../../pages/profile/profile";
-import { Diagnostic } from '@ionic-native/diagnostic';
 import { TSMap } from "typescript-map";
 import { MainPage } from "../pages";
 import { UserRequestsPage} from "../user-requests/user-requests";
@@ -19,7 +18,7 @@ import { FormGroup, ReactiveFormsModule, FormControl,
 @Component({
   selector: "page-request",
   templateUrl: "request.html",
-  providers: [AutoserviceService, ImageTransfer, Diagnostic],
+  providers: [AutoserviceService, ImageTransfer],
 })
 
 export class RequestPage {
@@ -51,7 +50,6 @@ export class RequestPage {
     public apiSvc: ApiService,
     public vwCtrl: ViewController,
     public appCtrl: App,
-    public diagnostic: Diagnostic,
   ) {
 
     this.requestForm = fBuilder.group({

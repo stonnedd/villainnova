@@ -24,7 +24,7 @@ export class WelcomePage {
     this.params.data = {"icon": Constants.SPINNER};
    }
 
-  ionViewCanEnter() {
+  ionViewWillEnter(){
     this.spinner = true;
     this.settings.settingsObservable.subscribe(
       strgeData => {

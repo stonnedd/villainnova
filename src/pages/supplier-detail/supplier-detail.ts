@@ -8,6 +8,8 @@ import { ApiService} from "../../service/api-service";
 import { Api } from "../../providers/api/api";
 import { Constants } from "../../utils/constants";
 import { Settings} from "../../providers/settings/settings";
+import { ShowToaster} from "../../utils/toaster"
+
 @IonicPage()
 @Component({
   selector: "page-supplier-detail",
@@ -17,6 +19,9 @@ import { Settings} from "../../providers/settings/settings";
 export class SupplierDetailPage {
   data: any;
   isOwner :boolean = false;
+  spinner: boolean = false;
+  params: any= {};
+  
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController,
@@ -25,7 +30,9 @@ export class SupplierDetailPage {
     public autoSvc: AutoserviceService,
     public apiSvc: ApiService,
     public settings: Settings,
-  ) {  }
+    public shwToaster: ShowToaster,
+    
+  ) {  this.params.data = {"icon": Constants.SPINNER};}
 
   ngOnInit() {
     this.data = this.navParams.data;
@@ -72,14 +79,28 @@ export class SupplierDetailPage {
   }
 
   navigate(destination) {
+    this.spinner = true;
     this.autoSvc.getPosition().then(pos => {
       let options: LaunchNavigatorOptions = {
         start: [pos.coords.latitude, pos.coords.longitude],
       };
+      this.spinner = false;
+      
       this.lchNav.navigate(destination, options).then(
-        success => alert("Launched navigator"),
-        error => alert("Error launching navigator: " + error),
-      );
+        success => {this.shwToaster.reveal(
+          "Saliendo de autocar",
+          "middle",
+          1000
+        ); },
+        error => {
+          this.spinner = false;
+          this.shwToaster.reveal(
+            "No fue posible iniciar el navegador...",
+            "middle",
+            2000
+          );
+      });
+      this.viewCtrl.dismiss();
     });
   }
 

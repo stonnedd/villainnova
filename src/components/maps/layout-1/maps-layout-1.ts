@@ -39,7 +39,6 @@ export class MapsLayout1 {
         public navCtrl: NavController,
     ) {     }
 
-     
 
     svcToast( note: string, pos: string) {
         const toast = this.toastCtrl.create({
@@ -92,7 +91,9 @@ export class MapsLayout1 {
 
     ionViewDidLoad() {
     }
+
     updatePos() {
+        this.spinnerSts = true;
         this.autSvc.getPosition().then(
             pos => {
                 console.log(pos);
@@ -101,10 +102,10 @@ export class MapsLayout1 {
                 this.userData.userPos.lat = pos.coords.latitude;
                 this.userData.userPos.lng = pos.coords.longitude;
                 this.mapZoom = 12;
-                this.svcToast(this.mapData.lat +"-"+ this.mapData.lng,"middle");
+                this.spinnerSts = false;
                 this.ionViewDidLoad();
             },err =>{
-                this.svcToast("Error" + err, "middle");
+                this.svcToast("No fue posible obtener tu posición, intentalo nuevamente." + err, "middle");
             }
         );
     }

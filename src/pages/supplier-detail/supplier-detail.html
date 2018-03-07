@@ -4,6 +4,8 @@
       <ion-icon name="close" float-right style="color:white"></ion-icon>
     </button></ion-buttons>
   </ion-header>
+  
+  <spinner [data]="params.data" *ngIf="spinner"></spinner>
 
 
   <div card-image class="title-style">

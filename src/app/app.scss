@@ -33,3 +33,12 @@
  .div.fixed-content{
     width: 200px !important;
  }
+
+ spinner * {
+    position: fixed;
+    z-index: 3;
+    align-items: center;
+    justify-content: center;
+    top: 45%;
+    width: 40%;
+}

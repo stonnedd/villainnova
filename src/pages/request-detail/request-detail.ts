@@ -5,6 +5,7 @@ import { AutoserviceService} from "../../service/autoservice-service";
 import { ShowToaster } from "../../utils/toaster";
 import { AttachedImagesPage } from "../../pages/attached-images/attached-images";
 import { ViewController } from "ionic-angular/navigation/view-controller";
+import { Constants } from "../../utils/constants"
 @IonicPage()
 @Component({
   selector: "page-request-detail",
@@ -13,6 +14,8 @@ import { ViewController } from "ionic-angular/navigation/view-controller";
 })
 export class RequestDetailPage {
   requestData;
+  spinner: boolean = false;
+  params: any= {};
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -21,6 +24,7 @@ export class RequestDetailPage {
     public shwToaster: ShowToaster,
     public popCtrl: PopoverController,
     public viewCtrl: ViewController) {
+      this.params.data = {"icon": Constants.SPINNER};
   }
 
   ionViewDidLoad() {
@@ -34,13 +38,26 @@ export class RequestDetailPage {
   }
 
   navigate(destiny: any= []) {
-    this.autSvc.getPosition().then(
-      pos => {
-        console.log(pos.coords.latitude);
-        console.log(pos.coords.longitude);
-        this.startNavigate(pos.coords, destiny);
-      }, err => {this.shwToaster.reveal(err, "bottom", 2000);
-    });
+    if(destiny.lat !== "" && destiny.lat !== null && destiny.lat !== undefined){
+      this.spinner = true;
+      this.autSvc.getPosition().then(
+        pos => {
+          console.log(pos.coords.latitude);
+          console.log(pos.coords.longitude);
+          this.spinner = false;
+          this.viewCtrl.dismiss();
+          this.startNavigate(pos.coords, destiny);
+        }, err => {
+          this.shwToaster.reveal(err, "bottom", 2000);
+          this.spinner = false;
+      });     
+    } else{
+      this.shwToaster.reveal(
+        "Esta solicitud no cuenta con ubicación...",
+        "middle",
+        2000
+      );
+    }
   }
 
   startNavigate(coords, destiny) {

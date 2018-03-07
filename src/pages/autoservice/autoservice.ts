@@ -91,7 +91,6 @@ export class AutoservicePage {
     this.AsSvc.getPosition().then((userPosition) => {
       this.fetchMainServices();
       this.fillUsrData(userPosition);
-      console.log("pos:", userPosition.coords);
       this.spinnerSts = false;
       
     }).catch((error) => {
@@ -110,30 +109,30 @@ export class AutoservicePage {
     });
 
 
-    this.backgroundMode.enable();
-    setInterval(data => {
-      console.log("timer:", count);
-      if(this.user.id !== null && this.user.id !== undefined && this.user.id !== ""){
-        this.apiSvc.getService(Constants.GET_NOTIFICATIONS + this.user.id).subscribe(
-          notify => {
-            console.log(notify);
-            this.events.publish("notify", notify)
-            if (notify.proposals !== 0 ){
-              this.shwNotification.reveal("Propuestas", "Tienes " + notify.proposals + " propuestas pendientes");
-            }
-            if (notify.p_requests !== 0 ){
-              this.shwNotification.reveal("Solicitudes", "Tienes " + notify.p_requests + " solicitudes pendientes");
-            }
+    // 3this.backgroundMode.enable();
+  //   setInterval(data => {
+  //     console.log("timer:", count);
+  //     if(this.user.id !== null && this.user.id !== undefined && this.user.id !== ""){
+  //       this.apiSvc.getService(Constants.GET_NOTIFICATIONS + this.user.id).subscribe(
+  //         notify => {
+  //           console.log(notify);
+  //           this.events.publish("notify", notify)
+  //           if (notify.proposals !== 0 ){
+  //             this.shwNotification.reveal("Propuestas", "Tienes " + notify.proposals + " propuestas pendientes");
+  //           }
+  //           if (notify.p_requests !== 0 ){
+  //             this.shwNotification.reveal("Solicitudes", "Tienes " + notify.p_requests + " solicitudes pendientes");
+  //           }
 
-          }, err =>{
-            this.showTstr.reveal("Error de conexión: " + err, "bottom", 3000)
-          }
-        );
+  //         }, err =>{
+  //           this.showTstr.reveal("Error de conexión: " + err, "bottom", 3000)
+  //         }
+  //       );
         
-      }
-      count++;
-    }, Constants.NOTIFY_DELAY);
-  }
+  //     }
+  //     count++;
+  //   }, Constants.NOTIFY_DELAY);
+    }
 
 
   ngOnInit() {

@@ -40,13 +40,11 @@ export class MyApp {
 
       this.statusBar.styleDefault();
       this.settings.update("logged", false);
-      
       this.splashScreen.hide();
     });
   }
 
   initTranslate() {
-    // Set the default language for translation strings, and the current language.
     this.translate.setDefaultLang("en");
 
     if (this.translate.getBrowserLang() !== undefined) {

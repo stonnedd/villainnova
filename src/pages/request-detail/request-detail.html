@@ -1,9 +1,10 @@
 <ion-content>
+  <spinner [data]="params.data" *ngIf="spinner"></spinner>
   <ion-list no-padding> 
     <ion-item>
       <ion-icon name="build" item-start></ion-icon>&nbsp;{{requestData.service}}
     </ion-item> 
-    <ion-item>
+    <ion-item text-wrap>
       <ion-icon name="mail-open" item-start></ion-icon>&nbsp;{{requestData.comment}}
     </ion-item> 
     <ion-item>

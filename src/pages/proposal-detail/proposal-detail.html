@@ -2,14 +2,14 @@
   <spinner [data]="params.data" *ngIf="spinner"></spinner>
 
   <ion-list no-padding> 
-    <ion-item>
+    <ion-item text-wrap>
       <ion-icon name="cash" item-start></ion-icon>&nbsp;$ {{proposal.price}} MXN
     </ion-item> 
     <ion-item>
       
       <ion-icon name="clock" item-start></ion-icon>&nbsp;{{proposal.time}}
     </ion-item> 
-    <ion-item>
+    <ion-item text-wrap>
       <ion-icon name="paper" item-start></ion-icon>&nbsp;{{proposal.comment}}
     </ion-item>
   </ion-list>

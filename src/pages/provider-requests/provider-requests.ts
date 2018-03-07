@@ -18,6 +18,8 @@ import { ProviderProposalPage} from "../provider-proposal/provider-proposal";
 })
 export class ProviderRequestsPage {
   serviceRequest: any = {};
+  spinner: boolean = false;
+  params: any= {};
 
   constructor(
     public navCtrl: NavController,
@@ -28,8 +30,7 @@ export class ProviderRequestsPage {
     public apiSvc: ApiService,
     public autoSvc: AutoserviceService,
     private lchNav: LaunchNavigator,
-  ) {
-  }
+  ) {this.params.data = {"icon": Constants.SPINNER};}
 
   ionViewDidLoad() {
     this.serviceRequest = this.navParams.data;
@@ -41,16 +42,35 @@ export class ProviderRequestsPage {
     this.viewCtrl.dismiss();
   }
   navigate(destination) {
-    this.autoSvc.getPosition().then(pos => {
-      let options: LaunchNavigatorOptions = {
-        start: [pos.coords.latitude, pos.coords.longitude],
-      };
-      this.lchNav.navigate(destination, options).then(
-        success => alert("Launched navigator"),
-        error => alert("Error launching navigator: " + error),
+
+    if(destination[0]!==null && destination[0]!==null && destination[0]!==""){
+      this.spinner=true;
+      this.autoSvc.getPosition().then(pos => {
+        let options: LaunchNavigatorOptions = {
+          start: [pos.coords.latitude, pos.coords.longitude],
+        };
+        this.lchNav.navigate(destination, options).then(
+          success => {
+            this.spinner=false;
+          },
+          error =>{
+            this.spinner=false;
+            this.shwToaster.reveal(
+              "No fue posible iniciar el navegador...",
+              "middle",
+              2000
+            );
+          });
+      });
+    }else{
+      this.shwToaster.reveal(
+        "Esta solicitud no cuenta con ubicación...",
+        "middle",
+        2000
       );
-    });
+    }
   }
+  
   showImages(images) {
     console.log ("attachment::", images);
     let imagesUrl = this.verifyImages(images);
