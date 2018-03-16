@@ -53,18 +53,16 @@ export class UserServicesPage {
     this.spinner = true;
     this.settings.settingsObservable.subscribe(
       data => {
-        console.log("LOCAL STORAGE DATA:", data);
         this.user = data;
         if (this.user !== undefined && this.user !== null && this.user !== {}) {
           console.log("user::", this.user);
           this.getData();
         }else {
           this.spinner = false;
-          this.showToaster.reveal("cargando...", "bottom", 300);
           this.ionViewDidLoad();
         }
       }, err => {
-        this.showToaster.reveal("volver a iniciar sesión", "bottom", 3000);
+        this.showToaster.reveal("Volver a iniciar sesión", "bottom", 3000);
         this.spinner = false;
     });
   }
@@ -87,8 +85,10 @@ export class UserServicesPage {
   }
 
   getData() {
+    console.log("Entro al get dataaaaaaaaaaaaaaaaaaa!!!!");
     this.apiSvc.getService(Constants.USERS_PROVIDERS + this.user.id).subscribe(
       usrData => {
+        console.log("lo que trae: "+ usrData);
         if (usrData.user[0].providers.length === 0) {
           this.showToaster.reveal("Aún no registras ningún servicio...", "bottom", 3000);
           this.spinner = false;
@@ -98,7 +98,8 @@ export class UserServicesPage {
         }
         this.spinner = false;
     }, err => {
-        this.showToaster.reveal("cargando...", "bottom", 300);
+        // this.showToaster.reveal("cargando...", "bottom", 300);
+        console.log("el error: "+ err);
         this.spinner = false;
         this.ionViewDidLoad();
     });

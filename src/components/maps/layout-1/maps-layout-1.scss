@@ -1,12 +1,16 @@
 maps-layout-1 {
+ 
   spinner * {
     position: fixed;
+    z-index: 3;
     align-items: center;
     justify-content: center;
-    top: 40%;
-    width: 50%;
-  }
-  
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0px;
+    top: 34%;
+    width: 40%;
+}
   .sebm-google-map-container {
     height: 100%;
   }
@@ -40,5 +44,13 @@ maps-layout-1 {
 
   .requests{
     padding-bottom: 50px;
+
+  }
+
+  .srch{
+    ion-icon{
+      font-size: x-large !important;
+      font-weight: bolder !important;
+    }
   }
 }

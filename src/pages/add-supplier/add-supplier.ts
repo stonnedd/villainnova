@@ -135,7 +135,7 @@ export class AddSupplierPage {
   }
 
   doNewRegister(form) {
-    form.is_active = true; // este debe activarse cuando paguen
+    form.is_active = 2; // este debe activarse cuando paguen
     this.spinner = true;
     this.autoservice.createSupplier(this.data.id, form).subscribe((data: any) => {
       if (data && !null) {

@@ -116348,12 +116348,16 @@ spinner * {
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  top: 45%;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: -5px;
+  top: 34%;
   width: 40%;
 }
 
 maps-layout-1 spinner * {
   position: fixed;
+  z-index: 3;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -ms-flex-align: center;
@@ -116362,8 +116366,11 @@ maps-layout-1 spinner * {
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  top: 40%;
-  width: 50%;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0px;
+  top: 34%;
+  width: 40%;
 }
 
 maps-layout-1 .sebm-google-map-container {
@@ -116405,14 +116412,22 @@ maps-layout-1 .requests {
   padding-bottom: 50px;
 }
 
-/*  #Style Qrcode
-================================================*/
-qrcode-layout-1 ion-item {
-  padding-top: 20px;
+maps-layout-1 .srch ion-icon {
+  font-size: x-large !important;
+  font-weight: bolder !important;
 }
 
-qrcode-layout-1 ion-list > ion-item:nth-child(1) {
-  padding-top: 40px !important;
+spinner .cont {
+  background: rgba(78, 23, 23, 0.514);
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0 0 0 0;
+  width: 920px;
+  height: 1280px;
+  top: 0px;
+  left: 0px;
 }
 
 /*  #Style Wizard Simple + icon
@@ -116709,20 +116724,6 @@ page-customer-user-detail .list p {
   border-top: 5px;
 }
 
-page-login spinner * {
-  position: fixed;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  top: 45%;
-  width: 30%;
-}
-
 page-login button.ok {
   margin-top: 25px;
   background-color: transparent;
@@ -116938,21 +116939,6 @@ page-menu .menu-pad {
   padding: 0px !important;
 }
 
-page-profile spinner * {
-  position: fixed;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  z-index: 2;
-  top: 35%;
-  width: 35%;
-}
-
 page-profile .userData ion-icon {
   color: #5a5a5e !important;
 }
@@ -117006,21 +116992,6 @@ page-profile-edit button.cancel.activated {
   background-color: gainsboro;
 }
 
-page-proposal-detail spinner * {
-  position: fixed;
-  z-index: 1;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  top: 45%;
-  width: 35%;
-}
-
 page-proposal-detail .rating h2 {
   font-size: 14px !important;
   text-align: center;
@@ -117044,21 +117015,6 @@ page-proposal-detail .rating-ok ion-col {
   padding-top: 0px !important;
   padding-right: 0px !important;
   margin: auto;
-}
-
-page-provider-proposal spinner * {
-  position: fixed;
-  z-index: 1;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  top: 40%;
-  width: 40%;
 }
 
 page-provider-proposal h2 {
@@ -117109,7 +117065,7 @@ page-provider-requests h1 {
 page-provider-requests .requests {
   padding-top: 25px;
   padding-right: 0px;
-  margin-right: 0px;
+  margin-right: -15px !important;
 }
 
 page-provider-requests .requests button {
@@ -117169,21 +117125,6 @@ page-provider-requests .label-md {
   margin-bottom: 10px !important;
   margin-left: 0px !important;
   margin-right: 0px !important;
-}
-
-page-request spinner * {
-  position: fixed;
-  z-index: 1;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  top: 45%;
-  width: 35%;
 }
 
 page-request button.ok {
@@ -117357,6 +117298,13 @@ page-supplier-detail ion-card-header h1 {
   font-synthesis: bold;
   text-align: center;
   margin-top: 1px !important;
+}
+
+page-supplier-detail .specialty {
+  text-align: center;
+  color: grey;
+  font-style: italic !important;
+  font-size: small !important;
 }
 
 page-supplier-detail .supplier-data {

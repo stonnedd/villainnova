@@ -33,7 +33,7 @@ export class AutoserviceService {
     }
 
     getPosition() {
-        return this.geolocation.getCurrentPosition({ timeout: 30000, enableHighAccuracy: true,  });
+        return this.geolocation.getCurrentPosition({ timeout: 40000, enableHighAccuracy: true,  });
     }
 
     watchPos() {

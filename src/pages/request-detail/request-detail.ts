@@ -37,8 +37,8 @@ export class RequestDetailPage {
 
   }
 
-  navigate(destiny: any= []) {
-    if(destiny.lat !== "" && destiny.lat !== null && destiny.lat !== undefined){
+  navigate(destiny) {
+    if(destiny !== "" && destiny !== null && destiny !== undefined){
       this.spinner = true;
       this.autSvc.getPosition().then(
         pos => {
@@ -65,8 +65,8 @@ export class RequestDetailPage {
       start: [coords.latitude, coords.longitude],
     };
     this.launchNavigator.navigate(destiny, options).then(
-      success => alert ("iniciando navegador"),
-      error => alert("Error:" + error),
+      success => this.shwToaster.reveal("Saliendo de autocar", "bottom", 2000),
+      error => this.shwToaster.reveal("No se pudo iniciar el navegador", "bottom", 2000)
     );
   }
   

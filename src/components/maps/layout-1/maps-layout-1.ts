@@ -114,4 +114,12 @@ export class MapsLayout1 {
         this.navCtrl.push(RequestPage, null);
     }
 
+    selectIcon(provider) {
+        if (provider.is_active == 2){
+            return 'assets/mapicons/gold/'+ provider.map_icon
+        }else{
+            return 'assets/mapicons/blue/'+ provider.map_icon
+        } 
+    }
+
 }

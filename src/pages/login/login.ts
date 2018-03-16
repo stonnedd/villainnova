@@ -5,7 +5,7 @@ import { User } from "../../providers/providers";
 import { Storage } from "@ionic/storage";
 import { Constants} from "../../utils/constants";
 import { LoginService } from "../../service/login-service";
-import { ShowToaster } from "../../utils/toaster";
+import { ShowToaster, ShowNotification} from "../../utils/utils";
 import { AutoservicePage } from "../../pages/autoservice/autoservice";
 import { Settings } from "../../providers/settings/settings";
 import { MainPage } from "../pages";
@@ -29,6 +29,7 @@ export class LoginPage {
     fBuilder: FormBuilder,
     private loginService: LoginService,
     private showToaster: ShowToaster,
+    public showNotification: ShowNotification,
     public settings: Settings,
     public appCtrl: App ) {
       this.loginForm = fBuilder.group({
@@ -75,6 +76,7 @@ export class LoginPage {
         console.log("autenticacion:::", user);
         this.showToaster.reveal("Bienvenido " + user[0].name, "top", 3000);
         this.settings.update("id", user[0].id);
+        this.showNotification.startNotifications(user[0].id);
         this.spinner = false;
         this.appCtrl.getRootNav().setRoot(MainPage);
       },

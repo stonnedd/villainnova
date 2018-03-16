@@ -79,29 +79,32 @@ export class SupplierDetailPage {
   }
 
   navigate(destination) {
-    this.spinner = true;
-    this.autoSvc.getPosition().then(pos => {
-      let options: LaunchNavigatorOptions = {
-        start: [pos.coords.latitude, pos.coords.longitude],
-      };
-      this.spinner = false;
-      
-      this.lchNav.navigate(destination, options).then(
-        success => {this.shwToaster.reveal(
-          "Saliendo de autocar",
-          "middle",
-          1000
-        ); },
-        error => {
-          this.spinner = false;
-          this.shwToaster.reveal(
-            "No fue posible iniciar el navegador...",
-            "middle",
-            2000
-          );
+    if(destination[0]!==null && destination[0]!==null && destination[0]!==""){
+      this.spinner=true;
+      this.autoSvc.getPosition().then(pos => {
+        let options: LaunchNavigatorOptions = {
+          start: [pos.coords.latitude, pos.coords.longitude],
+        };
+        this.lchNav.navigate(destination, options).then(
+          success => {
+            this.spinner=false;
+          },
+          error =>{
+            this.spinner=false;
+            this.shwToaster.reveal(
+              "No fue posible iniciar el navegador...",
+              "middle",
+              2000
+            );
+          });
       });
-      this.viewCtrl.dismiss();
-    });
+    }else{
+      this.shwToaster.reveal(
+        "Esta solicitud no cuenta con ubicación...",
+        "middle",
+        2000
+      );
+    }
   }
 
 

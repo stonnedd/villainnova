@@ -49,6 +49,7 @@ import { UserRequestsDetailPageModule} from "../pages/user-requests-detail/user-
 import { StatusMapping } from "../utils/status-mapping";
 import { SupplierMapping } from "../utils/supplier-mapping";
 import { ProfileEditPageModule} from "../pages/profile-edit/profile-edit.module";
+import { LocalNotifications } from '@ionic-native/local-notifications';
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
 export function HttpLoaderFactory(http: Http) {
@@ -135,6 +136,8 @@ export function provideSettings(storage: Storage) {
     ShowToaster,
     StatusMapping,
     SupplierMapping,
+    LocalNotifications,
+    BackgroundMode,
     File,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development

@@ -2,7 +2,7 @@
 <ion-content  has-header>
   <div class="option-service">
     <ion-item style="height:45px" no-lines > 
-      <ion-label for="services"><ion-icon  item-left name="build"></ion-icon>Servicios</ion-label>
+      <ion-label for="services" class ="srch" ><ion-icon  item-left name="search" ></ion-icon>Servicios</ion-label>
       <ion-select id="services" requiered  [(ngModel)]="data.selectService" 
       (ionChange)="svcSelected(data.selectService)" 
       multiple="false" 
@@ -22,7 +22,7 @@
       [longitude]="supplier.lng" 
       [label]="supplier.markLabel"
       (markerClick)="onEvent('onMarker',supplier)"
-      [iconUrl]="'assets/mapicons/'+supplier.map_icon">
+      [iconUrl]="selectIcon(supplier)">
     </sebm-google-map-marker>
     <sebm-google-map-marker [iconUrl]="userData.userPos.iconUrl" [latitude]="userData.userPos.lat" [longitude]="userData.userPos.lng" style="z-index:-2"></sebm-google-map-marker>
 

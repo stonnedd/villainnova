@@ -1,6 +1,6 @@
 export namespace Constants {
-    const HOST: string = "http://192.168.1.6:4000/";
-    // const HOST: string = "http://localhost:4000/";
+    const HOST: string = "https://autocar.gigalixirapp.com/";
+    //const HOST: string = "http://localhost:4000/";
     export const SUPPLIERS_URL: string = HOST + "api/providers/service";
     export const CREATE_SUPPLIER_URL: string = HOST + "api/users";
     export const UPDATE_SUPPLIER_URL: string = HOST + "api/provider/update/";
@@ -31,7 +31,8 @@ export namespace Constants {
     export const PROVIDERS_DISTANCE_FULL: string = HOST + "api/providers/distance/full";
     export const CREATE_MULT_REQUEST: string = HOST + "api/CMS/request/multiple/create";
     export const GET_NOTIFICATIONS: string = HOST + "api/user/notification/";
-    export const NOTIFY_DELAY: number = 300000; 
+    export const NOTIFY_DELAY: number = 180000; //3 min 
+    // export const NOTIFY_DELAY: number = 300000; //5 min 
 
     export const SPINNER: string = "puff"; // puede ser "puff" o "ball-triangle"
 }

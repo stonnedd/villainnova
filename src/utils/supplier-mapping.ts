@@ -31,23 +31,24 @@ export class SupplierMapping {
 
     getIcon(slcdService: string) {
         let iconList = new Map <string, string> ();
-        iconList.set("Mecanico diesel", "mecd.png");
+        iconList.set("Mecánico diesel", "mecd.png");
         iconList.set("Autolavado", "aul.png");
         iconList.set("Clima", "cli.png");
         iconList.set("Clutch y frenos", "clu.png");
-        iconList.set("Electrico", "ele.png");
-        iconList.set("Gruas", "gru.png");
-        iconList.set("Llantas y Neumaticos", "lla.png");
-        iconList.set("Mecanico General", "mec.png");
+        iconList.set("Eléctrico", "ele.png");
+        iconList.set("Grúas", "gru.png");
+        iconList.set("Llantas y neumáticos", "lla.png");
+        iconList.set("Mecánico general", "mec.png");
         iconList.set("Taller especializado", "mece.png");
         iconList.set("Hojalatero", "hoj.png");
         iconList.set("Cerrajero", "key.png");
         iconList.set("Mofles", "mof.png");
         iconList.set("Parabrisas y vidrios", "par.png");
         iconList.set("Radiadores", "rad.png");
-        iconList.set("Refacciones", "ref.png");
-        iconList.set("Direcccion y suspension", "sus.png");
-        iconList.set("Talachero", "sus.png");
+        iconList.set("Refaccionaria", "ref.png");
+        iconList.set("Direccción y suspensión", "sus.png");
+        iconList.set("Talachero", "tal.png");
+        iconList.set("Alarmas y estereos", "ste.png");
         return iconList.get(slcdService);
     }
 

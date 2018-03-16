@@ -49,6 +49,7 @@ export class ProviderRequestsPage {
         let options: LaunchNavigatorOptions = {
           start: [pos.coords.latitude, pos.coords.longitude],
         };
+        this.spinner=false;
         this.lchNav.navigate(destination, options).then(
           success => {
             this.spinner=false;

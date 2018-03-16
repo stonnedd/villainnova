@@ -24,7 +24,6 @@ export class SignupPage {
     public translateService: TranslateService) {
 
       function pushSignin() {
-        console.log("eNTRO AL LOGIN");
         navCtrl.push(LoginPage);
       }
       this.userLogin = LoginCustomerPage;

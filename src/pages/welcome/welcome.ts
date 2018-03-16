@@ -5,6 +5,8 @@ import { MainPage } from "../pages";
 import { ApiService }from "../../service/api-service";
 import { ShowToaster} from "../../utils/toaster";
 import { Constants } from "../../utils/constants";
+import { ShowNotification} from "../../utils/show-notification";
+
 @IonicPage()
 @Component({
   selector: "page-welcome",
@@ -20,7 +22,15 @@ export class WelcomePage {
   public password: string;
   user: any = {};
 
-  constructor(public navCtrl: NavController, public settings: Settings, public appCtrl: App, public apiSvc: ApiService, public shwTostr: ShowToaster) {
+  constructor(
+    public navCtrl: NavController, 
+    public settings: Settings, 
+    public appCtrl: App, 
+    public apiSvc: ApiService, 
+    public shwTostr: ShowToaster,
+    public shwNotification: ShowNotification,
+    
+    ) {
     this.params.data = {"icon": Constants.SPINNER};
    }
 
@@ -28,16 +38,20 @@ export class WelcomePage {
     this.spinner = true;
     this.settings.settingsObservable.subscribe(
       strgeData => {
+        console.log("Hay datos guardados==>", strgeData);
         if (strgeData.token !== "" && strgeData.token !== null && strgeData.token !== undefined) {
           this.apiSvc.getService(Constants.LOGGED_USER_URL + "/" + strgeData.token).subscribe(
             data => {
               if(data[0] !== undefined && data[0] !== null && data[0] !== "" ){
                 if (data[0].id === strgeData.id) {
+                  this.shwNotification.startNotifications(data[0].id);
                   this.appCtrl.getRootNav().setRoot(MainPage);
                   this.spinner = false;
                 }else{
+                  
                   this.settings.update("token", "");
                   this.settings.update("logged", false);
+                  this.settings.clear();
                 }
               }
               this.spinner = false;
@@ -63,4 +77,6 @@ export class WelcomePage {
   signup() {
     this.navCtrl.push("SignupPage");
   }
+
+  
 }

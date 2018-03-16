@@ -71,6 +71,8 @@
       </ion-col>
     </ion-row>
 
+    <p class="specialty"> {{data.specialty}}</p>
+
     <ion-chip (click)="navigate([data.lat,data.lng])" class="ok" >
       <ion-label>Navegar</ion-label>
       <ion-icon class ="ok" name="navigate"></ion-icon>
@@ -88,7 +90,7 @@
     </ion-row> -->
     <br/><br/><br/><br/>
   </ion-grid>
-  <ion-fab #fab bottom right *ngIf="!isOwner && data.is_active">
+  <ion-fab #fab bottom right *ngIf="!isOwner && data.is_active==2">
     <button button-ion-fab ion-fab mini (click)="request()">
         <ion-icon name="pricetag"></ion-icon>
     </button>
