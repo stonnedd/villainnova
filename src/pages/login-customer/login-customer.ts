@@ -29,7 +29,7 @@ export class LoginCustomerPage {
       this.params.data = {"icon": Constants.SPINNER};
       this.myForm = fBuilder.group({
       "name": ["", Validators.compose([Validators.required, Validators.minLength(8)])],
-      "phone": ["", Validators.compose([Validators.required, Validators.minLength(10), isNumber])],
+      "phone": ["", Validators.compose([Validators.required, Validators.minLength(10), isNumber, isInteger])],
       "email": ["", Validators.compose([Validators.required, Validators.email])],
       "password": ["", Validators.compose([Validators.required, Validators.minLength(6)])],
       "cPassword": ["", Validators.compose([Validators.required])],
@@ -47,6 +47,10 @@ export class LoginCustomerPage {
     }
     function isNumber(c: FormControl) {
       return c.value > 0 ? null : {valid: false};
+    }
+
+    function isInteger(c: FormControl){
+      return c.value%1 == 0 ? null: {valid: false}
     }
 
     function isUsed() {

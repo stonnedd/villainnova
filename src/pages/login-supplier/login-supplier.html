@@ -52,7 +52,7 @@
 
         <ion-item class="login-Class">
           <ion-label floating for="aditional_phone"></ion-label>
-            <ion-input type="tel"  placeholder="Teléfono del establecimiento (10 dígitos)" 
+            <ion-input type="tel"  placeholder="Teléfono (10 dígitos)" 
               id="aditional_phone" [formControl]= "myForm.controls['aditional_phone']"></ion-input>
             <div *ngIf="!myForm.controls['aditional_phone'].valid && myForm.controls['aditional_phone'].touched"   
               class="alert alert-danger"></div>
@@ -92,13 +92,13 @@
                 class="alert alert-danger"></p>
         </ion-item> 	
 
-        <ion-item class="login-Class">
+        <!-- <ion-item class="login-Class">
             <ion-label  floating for="brands"></ion-label>
               <ion-input type="text"  placeholder="Marcas"
                 id="brands" [formControl]= "myForm.controls['brands']"></ion-input>
               <p *ngIf="!myForm.controls['brands'].valid && myForm.controls['brands'].touched"   
                   class="alert alert-danger"></p>
-          </ion-item> 	
+          </ion-item> 	 -->
 
         <ion-item class="login-Class">
           <ion-label  floating for="schedule"></ion-label>

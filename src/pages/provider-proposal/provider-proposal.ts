@@ -30,13 +30,18 @@ export class ProviderProposalPage {
     public appCtrl: App,
     ) {
       this.proposalForm = formBuilder.group({
-        "price": ["", Validators.compose([Validators.required, isNumber])],
+        "price": ["", Validators.compose([Validators.required, isNumber, isInteger])],
         "time": ["", Validators.compose([Validators.required, Validators.minLength(4)])],
         "comment": [""],
       });
       function isNumber(c: FormControl) {
         return c.value > 0 ? null : {valid: false};
       }
+      
+      function isInteger(c: FormControl){
+        return c.value%1 == 0 ? null: {valid: false}
+      }
+      
       this.params.data = {"icon": Constants.SPINNER};
 
   }

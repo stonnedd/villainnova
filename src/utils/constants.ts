@@ -1,6 +1,6 @@
 export namespace Constants {
-    const HOST: string = "https://autocar.gigalixirapp.com/";
-    //const HOST: string = "http://localhost:4000/";
+    // const HOST: string = "https://autocar.gigalixirapp.com/";
+    const HOST: string = "http://localhost:4000/";
     export const SUPPLIERS_URL: string = HOST + "api/providers/service";
     export const CREATE_SUPPLIER_URL: string = HOST + "api/users";
     export const UPDATE_SUPPLIER_URL: string = HOST + "api/provider/update/";

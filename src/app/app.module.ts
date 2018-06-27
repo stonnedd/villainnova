@@ -1,4 +1,3 @@
-import { PhonegapLocalNotification } from "@ionic-native/phonegap-local-notification";
 import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { Http, HttpModule } from "@angular/http";
 import { BrowserModule } from "@angular/platform-browser";
@@ -130,7 +129,6 @@ export function provideSettings(storage: Storage) {
     SplashScreen,
     StatusBar,
     ShowNotification,
-    PhonegapLocalNotification,
     FileTransfer,
     ApiService,
     ShowToaster,

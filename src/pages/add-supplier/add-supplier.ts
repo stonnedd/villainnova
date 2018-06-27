@@ -47,7 +47,6 @@ export class AddSupplierPage {
       "schedule": ["", Validators.compose([Validators.required])],
       "specialty": ["", Validators.compose([Validators.required])],
       "address": ["", Validators.compose([Validators.required])],
-      "brands": ["", Validators.compose([Validators.required])],
       "lat": ["", Validators.compose([Validators.required])],
       "lng": ["", Validators.compose([Validators.required])],
       "website": ["" ],
